@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <description></description>
+    <link>http://wrgoldstein.github.io/</link>
+    <atom:link href="http://wrgoldstein.github.io/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Thu, 24 Dec 2015 12:32:00 -0500</pubDate>
+    <lastBuildDate>Thu, 24 Dec 2015 12:32:00 -0500</lastBuildDate>
+    <generator>Jekyll v2.5.3</generator>
+    
+      <item>
+        <title>patterns</title>
+        <description>&lt;head&gt;
+    &lt;style&gt;
+    svg {
+        box-shadow: 0px 0px 10px #888888;
+        margin-left: 1px;
+    }
+    input {
+        width: 300px;
+        margin-left: 10%;
+        text-align: center;
+        border: 5px solid white;
+        box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.1), 0 0 16px rgba(0, 0, 0, 0.1);
+        padding: 15px;
+        background: rgba(255, 255, 255, 0.5);
+        margin-top: 10px;
+        font-family: &quot;Lucida Grande&quot;;
+        font-size: 18pt;
+        color: grey;
+    }
+    &lt;/style&gt;
+    &lt;script src=&quot;http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha1.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;svg id=&quot;svg&quot; width=&quot;600&quot; height=&quot;300&quot;&gt;
+    &lt;defs id=&quot;defs&quot;&gt;
+        &lt;pattern id=&quot;pats&quot; x=&quot;0&quot; y=&quot;0&quot; width=&quot;20&quot; height=&quot;20&quot; viewbox=&quot;0 0 9 9&quot; patternunits=&quot;userSpaceOnUse&quot;&gt;
+            &lt;circle cx=&quot;5&quot; cy=&quot;5&quot; r=&quot;1&quot; fill=&quot;red&quot; /&gt;
+        &lt;/pattern&gt;
+    &lt;/defs&gt;
+    &lt;rect id=&quot;canvas&quot; fill=&quot;url(#pats)&quot; stroke=&quot;black&quot; stroke-width=&quot;5&quot; width=&quot;600&quot; height=&quot;300&quot; /&gt;
+&lt;/svg&gt;
+&lt;p&gt;&lt;input type=&quot;text&quot; name=&quot;fname&quot; value=&quot;change me&quot; onchange=&quot;update(this.value)&quot; /&gt;
+&lt;script src=&quot;/js/patterns.js&quot;&gt;&lt;/script&gt;&lt;/p&gt;
+</description>
+        <pubDate>Wed, 12 Aug 2015 00:00:00 -0400</pubDate>
+        <link>http://wrgoldstein.github.io/2015/08/12/patterns.html</link>
+        <guid isPermaLink="true">http://wrgoldstein.github.io/2015/08/12/patterns.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>K-means</title>
+        <description>&lt;script src=&quot;http://d3js.org/d3.v3.min.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+
+&lt;head&gt;
+    &lt;style&gt;
+    .title {
+        margin-left: 25%;
+        margin-right: 25%;
+        font-family: &quot;Lucida Grande&quot;;
+        margin-top: 40px;
+        color: black;
+    }
+    svg {
+        box-shadow: 0px 0px 10px #888888;
+        margin-top: 5px;
+        margin-left: 25%;
+        margin-right: 25%;
+    }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;script src=&quot;/js/kmeans.js&quot;&gt;&lt;/script&gt;
+
+</description>
+        <pubDate>Wed, 12 Aug 2015 00:00:00 -0400</pubDate>
+        <link>http://wrgoldstein.github.io/2015/08/12/kmeans.html</link>
+        <guid isPermaLink="true">http://wrgoldstein.github.io/2015/08/12/kmeans.html</guid>
+        
+        
+      </item>
+    
+  </channel>
+</rss>

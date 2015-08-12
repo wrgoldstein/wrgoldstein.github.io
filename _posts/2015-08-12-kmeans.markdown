@@ -1,0 +1,24 @@
+---
+layout: post
+title:  "K-means"
+date:   2015-08-12
+---
+<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<head>
+    <style>
+    .title {
+        margin-left: 25%;
+        margin-right: 25%;
+        font-family: "Lucida Grande";
+        margin-top: 40px;
+        color: black;
+    }
+    svg {
+        box-shadow: 0px 0px 10px #888888;
+        margin-top: 5px;
+        margin-left: 25%;
+        margin-right: 25%;
+    }
+    </style>
+</head>
+<script src="{{ "/js/kmeans.js" | prepend: site.baseurl }}"></script>

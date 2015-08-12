@@ -1,0 +1,11 @@
+# Site settings
+title: ""
+email: williamrgoldstein@gmail.com
+description: ""
+baseurl: "" # the subpath of your site, e.g. /blog/
+url: "http://wrgoldstein.github.io" # the base hostname & protocol for your site
+twitter_username: ""
+github_username:  wrgoldstein
+
+# Build settings
+markdown: kramdown
