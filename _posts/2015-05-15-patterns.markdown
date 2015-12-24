@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "patterns"
-date:   2015-08-12
+date:   2015-07-15
 ---
 <head>
     <style>

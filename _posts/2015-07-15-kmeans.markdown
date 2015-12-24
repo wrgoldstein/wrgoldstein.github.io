@@ -1,9 +1,9 @@
 ---
 layout: post
 title:  "K-means"
-date:   2015-08-12
+date:   2015-09-15
 ---
-<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script src="{{ "/js/d3.min.js" | prepend: site.baseurl }}"></script>
 <head>
     <style>
     .title {

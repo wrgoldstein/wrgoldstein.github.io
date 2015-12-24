@@ -1,4 +1,4 @@
-var k = 3,
+var k = 4,
     width = 600,
     height = 300;
 var cross = d3.svg.symbol().type("cross");
