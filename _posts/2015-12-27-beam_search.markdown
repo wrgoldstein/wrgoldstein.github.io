@@ -19,7 +19,6 @@ svg {
         box-shadow: 0px 0px 10px #888888;
         margin-top: 5px;
         margin-left: 25%;
-        margin-right: 25%;
         width: 50%;
     }
 </style>
@@ -35,25 +34,41 @@ var width = 600,
     beam_ix = 0, // start with the first node
     neighbor_ixs = undefined,  // or neighbors
     iterations = 3 * n,
-    step = 0;
+    step = 0,
+    paused = true;
 
 var svg = d3.select("body").append("svg")
-    .attr("style", "width=50%")
     .attr("height", height)
-    .attr("id", "main");
-
-d3.xml("/assets/play_button.svg", "image/svg+xml", function(error, xml) {
-  if (error) throw error;
-  svg.node().appendChild(xml.documentElement);
-  svg.select("svg")
-    .attr("x", 200)
-    .attr("y", 100)
+    .attr("id", "main")
     .on("click", function(){
-      this.remove();
-      update_step();
-      setTimeout(update_step, 600);
-    })
-});
+      if (!paused){
+        paused = true;
+        console.log("paused was false turning it true")
+        add_play_btn();
+      }
+    });
+
+var width = svg.style("width").slice(0,-2)
+
+function add_play_btn() {
+  d3.xml("/assets/play.svg", "image/svg+xml", function(error, xml) {
+    if (error) throw error;
+    svg.node().appendChild(xml.documentElement);
+    svg.select(".play")
+      .attr("x", 8 * width / 20)
+      .attr("y", 7 * height / 20)
+      .attr("width", width / 5)
+      .attr("height", 3 * height / 10)
+      .on("click", function(){
+        d3.event.stopPropagation();
+        paused = false;
+        console.log("paused was true turning it false")
+        this.remove();
+        update_step();
+        setTimeout(update_step, 600);
+      })
+  });
+}
 
 
 var particles = new Array(n);
@@ -95,6 +110,7 @@ function initialize(j){
         .attr("stroke", "grey")
         .classed('edge_' + j, true);
   })
+  add_play_btn();
 }
 
 function update_neighbors(){
@@ -150,7 +166,7 @@ function update(){
 function update_step(){
   update_neighbors();
   update();
-  if (!(step > iterations)){ setTimeout(update_step, delay); };
+  if (!(step > iterations) && (!paused)){ setTimeout(update_step, delay); };
 }
 
 initialize();
