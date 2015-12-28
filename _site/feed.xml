@@ -5,8 +5,8 @@
     <description></description>
     <link>http://wrgoldstein.github.io/</link>
     <atom:link href="http://wrgoldstein.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 27 Dec 2015 23:28:30 -0500</pubDate>
-    <lastBuildDate>Sun, 27 Dec 2015 23:28:30 -0500</lastBuildDate>
+    <pubDate>Mon, 28 Dec 2015 12:27:05 -0500</pubDate>
+    <lastBuildDate>Mon, 28 Dec 2015 12:27:05 -0500</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
     
       <item>
@@ -34,9 +34,8 @@ svg {
 &lt;/style&gt;
 &lt;/head&gt;
 &lt;body&gt;
-&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;/js/d3.min.js&quot;&gt;&lt;/script&gt;
 &lt;script&gt;
-
 var width = 600,
     height = 400,
     n = 50, // number of points
@@ -49,8 +48,22 @@ var width = 600,
 
 var svg = d3.select(&quot;body&quot;).append(&quot;svg&quot;)
     .attr(&quot;style&quot;, &quot;width=50%&quot;)
-    .attr(&quot;height&quot;, height);
-    // .attr(&quot;width&quot;, width)
+    .attr(&quot;height&quot;, height)
+    .attr(&quot;id&quot;, &quot;main&quot;);
+
+d3.xml(&quot;/assets/play_button.svg&quot;, &quot;image/svg+xml&quot;, function(error, xml) {
+  if (error) throw error;
+  svg.node().appendChild(xml.documentElement);
+  svg.select(&quot;svg&quot;)
+    .attr(&quot;x&quot;, 200)
+    .attr(&quot;y&quot;, 100)
+    .on(&quot;click&quot;, function(){
+      this.remove();
+      update_step();
+      setTimeout(update_step, 600);
+    })
+});
+
 
 var particles = new Array(n);
 for (var i = 0; i &lt; n; ++i) {
@@ -104,7 +117,7 @@ function update_neighbors(){
 
   beam_ix = (beam_ix &gt;= n - 1) ? 0 : beam_ix + 1;
   step += 1;
-  console.log(step);
+  console.log(&quot;step&quot;);
   // grab the neighbors of the node in the beam
   first_degree_ixs = neighbors[beam_ix];
   // grab the neighbors of those neighbors, removing
@@ -150,7 +163,6 @@ function update_step(){
 }
 
 initialize();
-setTimeout(update_step, 500);
 
 
 // helpers

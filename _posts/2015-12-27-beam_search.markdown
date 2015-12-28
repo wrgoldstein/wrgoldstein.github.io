@@ -3,6 +3,7 @@ layout:  "post"
 title:  "Beam search nearest neighbors"
 date: 2015-12-28
 ---
+
 A common problem is finding the nearest neighbors of a given object in some search space.  [Beam search](https://en.wikipedia.org/wiki/Beam_search) is an "anytime" heuristic search algorithm which very efficiently accomplishes this.
 
 Imagine we have a set of N nodes, each randomly "closest" (connected by an edge) to n other nodes.  The algorithm works as follows:
@@ -24,9 +25,8 @@ svg {
 </style>
 </head>
 <body>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+<script src="/js/d3.min.js"></script>
 <script>
-
 var width = 600,
     height = 400,
     n = 50, // number of points
@@ -39,8 +39,22 @@ var width = 600,
 
 var svg = d3.select("body").append("svg")
     .attr("style", "width=50%")
-    .attr("height", height);
-    // .attr("width", width)
+    .attr("height", height)
+    .attr("id", "main");
+
+d3.xml("/assets/play_button.svg", "image/svg+xml", function(error, xml) {
+  if (error) throw error;
+  svg.node().appendChild(xml.documentElement);
+  svg.select("svg")
+    .attr("x", 200)
+    .attr("y", 100)
+    .on("click", function(){
+      this.remove();
+      update_step();
+      setTimeout(update_step, 600);
+    })
+});
+
 
 var particles = new Array(n);
 for (var i = 0; i < n; ++i) {
@@ -94,7 +108,7 @@ function update_neighbors(){
 
   beam_ix = (beam_ix >= n - 1) ? 0 : beam_ix + 1;
   step += 1;
-  console.log(step);
+  console.log("step");
   // grab the neighbors of the node in the beam
   first_degree_ixs = neighbors[beam_ix];
   // grab the neighbors of those neighbors, removing
@@ -140,7 +154,6 @@ function update_step(){
 }
 
 initialize();
-setTimeout(update_step, 500);
 
 
 // helpers
