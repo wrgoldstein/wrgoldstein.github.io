@@ -47,20 +47,6 @@ update = function(s) {
 
     add_poly_pattern(hashed)
     hashed = hashf(hashed)
-    add_poly_pattern(hashed)
-    hashed = hashf(hashed)
-    add_poly_pattern(hashed)
-    hashed = hashf(hashed)
-    add_poly_pattern(hashed)
-    hashed = hashf(hashed)
-    add_poly_pattern(hashed)
-    hashed = hashf(hashed)
-    add_poly_pattern(hashed)
-    hashed = hashf(hashed)
-    add_poly_pattern(hashed)
-    hashed = hashf(hashed)
-    add_poly_pattern(hashed)
-    hashed = hashf(hashed)
 
     draw()
 };
@@ -68,8 +54,7 @@ update = function(s) {
 draw = function(){
     var rect = document.createElementNS("http://www.w3.org/2000/svg", "rect")
     rect.setAttribute("fill", "url(#pats)")
-    rect.setAttribute("width", 600)
-    rect.setAttribute("height", 300)
+    rect.setAttribute("style", "width:100%;height:100%;")
 
 
     svg = document.getElementById("svg")
@@ -81,6 +66,6 @@ draw = function(){
 hashf = function(s) {
     sha = CryptoJS.SHA1(s).toString()
     sha = sha.replace(/[a-n]/g, "0")
-    sha = sha.replace(/[n-z]/g, "9") // priviledge corners
+    sha = sha.replace(/[n-z]/g, "9") // privilege corners
     return sha
 }
