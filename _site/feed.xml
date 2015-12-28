@@ -5,9 +5,189 @@
     <description></description>
     <link>http://wrgoldstein.github.io/</link>
     <atom:link href="http://wrgoldstein.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 27 Dec 2015 22:49:47 -0500</pubDate>
-    <lastBuildDate>Sun, 27 Dec 2015 22:49:47 -0500</lastBuildDate>
+    <pubDate>Sun, 27 Dec 2015 23:28:30 -0500</pubDate>
+    <lastBuildDate>Sun, 27 Dec 2015 23:28:30 -0500</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
+    
+      <item>
+        <title>Beam search nearest neighbors</title>
+        <description>&lt;p&gt;A common problem is finding the nearest neighbors of a given object in some search space.  &lt;a href=&quot;https://en.wikipedia.org/wiki/Beam_search&quot;&gt;Beam search&lt;/a&gt; is an “anytime” heuristic search algorithm which very efficiently accomplishes this.&lt;/p&gt;
+
+&lt;p&gt;Imagine we have a set of N nodes, each randomly “closest” (connected by an edge) to n other nodes.  The algorithm works as follows:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Pick a node; paint it red.&lt;/li&gt;
+  &lt;li&gt;Paint its neighbors grey. Also paint the neighbors for each of those neighbors.&lt;/li&gt;
+  &lt;li&gt;“Fix” the edges of the red node by connecting it to the closest of these grey nodes.&lt;/li&gt;
+  &lt;li&gt;Repeat for each node.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;head&gt;
+&lt;style type=&quot;text/css&quot;&gt;
+svg {
+        box-shadow: 0px 0px 10px #888888;
+        margin-top: 5px;
+        margin-left: 25%;
+        margin-right: 25%;
+        width: 50%;
+    }
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+
+var width = 600,
+    height = 400,
+    n = 50, // number of points
+    s = 5,  // number of neighbors per point
+    delay = 500, //
+    beam_ix = 0, // start with the first node
+    neighbor_ixs = undefined,  // or neighbors
+    iterations = 3 * n,
+    step = 0;
+
+var svg = d3.select(&quot;body&quot;).append(&quot;svg&quot;)
+    .attr(&quot;style&quot;, &quot;width=50%&quot;)
+    .attr(&quot;height&quot;, height);
+    // .attr(&quot;width&quot;, width)
+
+var particles = new Array(n);
+for (var i = 0; i &lt; n; ++i) {
+  particles[i] = {
+    x: .1 * width + .9 * width * Math.random(),
+    y: .05 * height + .9 * height * Math.random(),
+    r: 3 //height * .01 * Math.random()
+  };
+}
+
+// node and edge selections
+var nodes = svg.selectAll(&quot;.dot&quot;)
+  .data(particles);
+
+var edges = svg.selectAll(&quot;.edge&quot;)
+  .data(particles);
+
+
+// choose initial neighbors
+var choices = d3.range(particles.length);
+var neighbors = particles.map(function(el, ix){
+  return d3.shuffle(choices).slice(0, s);
+})
+
+function initialize(j){
+  nodes.enter()
+    .append(&quot;circle&quot;)
+    .attr(&quot;cx&quot;, function(d){ return d.x; })
+    .attr(&quot;cy&quot;, function(d){ return d.y; })
+    .attr(&quot;r&quot;, function(d){ return d.r; })
+
+  d3.range(s).forEach(function(_el, j){
+    edges.enter().append(&quot;line&quot;)
+        .attr(&quot;x1&quot;, function(d, ix){ return d.x })
+        .attr(&quot;y1&quot;, function(d, ix){ return d.y })
+        .attr(&quot;x2&quot;, function(d, ix){ return lookup(ix, j).x })
+        .attr(&quot;y2&quot;, function(d, ix){ return lookup(ix, j).y })
+        .attr(&quot;stroke&quot;, &quot;grey&quot;)
+        .classed(&#39;edge_&#39; + j, true);
+  })
+}
+
+function update_neighbors(){
+  var first_degree_ixs,
+      neighbors_as_particles,
+      distances,
+      distance_ixs,
+      closest;
+
+
+
+  beam_ix = (beam_ix &gt;= n - 1) ? 0 : beam_ix + 1;
+  step += 1;
+  console.log(step);
+  // grab the neighbors of the node in the beam
+  first_degree_ixs = neighbors[beam_ix];
+  // grab the neighbors of those neighbors, removing
+  // any that might be duplicates or the node itself.
+  // (merge flattens an array of arrays)
+  neighbor_ixs = uniq_fast(d3.merge(
+    first_degree_ixs.map(function(el){
+      return neighbors[el] }
+    ))
+    .concat(first_degree_ixs));
+
+  neighbors_as_particles = neighbor_ixs.map(function(el){ return particles[el] })
+  distances = neighbors_as_particles.map(function(p) {
+    return euclideanDistance(p, particles[beam_ix])
+  });
+  distance_ixs = d3.range(distances.length);
+  distance_ixs.sort(function(a,b){
+    return distances[a] &lt; distances[b] ? 1 : -1 }
+  );
+  closest = distance_ixs.slice(0, s);
+  neighbors[beam_ix] = closest.map(function(i) { return neighbor_ixs[i] })
+}
+
+function update(){
+  // color nodes
+  nodes.transition().duration(delay)
+    .attr(&quot;r&quot;, function(d, ix){ return (ix == beam_ix) ? 20 :
+        (neighbor_ixs.indexOf(ix) &gt; -1) ? 10 : 3 })
+    .attr(&quot;fill&quot;, function(d, ix){ return (ix == beam_ix) ? &quot;red&quot; : &quot;grey&quot; })
+
+  // move edges
+  d3.range(s).forEach(function(el, j){
+    d3.selectAll(&#39;.edge_&#39; + j).transition().duration(delay)
+    .attr(&quot;x2&quot;, function(d, ix){ return lookup(ix, j).x })
+    .attr(&quot;y2&quot;, function(d, ix){ return lookup(ix, j).y })
+  })
+}
+
+function update_step(){
+  update_neighbors();
+  update();
+  if (!(step &gt; iterations)){ setTimeout(update_step, delay); };
+}
+
+initialize();
+setTimeout(update_step, 500);
+
+
+// helpers
+function lookup(i, j){
+  return particles[neighbors[i][j]]
+}
+
+function euclideanDistance(p1, p2) {
+  sum_of_squares = 0;
+  sum_of_squares += Math.pow(p1.x - p2.x, 2);
+  sum_of_squares += Math.pow(p1.y - p2.y, 2);
+  return 1.0 / (1 + Math.sqrt(sum_of_squares));
+}
+
+function uniq_fast(a) {
+    var seen = {};
+    var out = [];
+    var len = a.length;
+    var j = 0;
+    for(var i = 0; i &lt; len; i++) {
+         var item = a[i];
+         if(seen[item] !== 1) {
+               seen[item] = 1;
+               out[j++] = item;
+         }
+    }
+    return out;
+}
+&lt;/script&gt;
+&lt;/body&gt;
+</description>
+        <pubDate>Mon, 28 Dec 2015 00:00:00 -0500</pubDate>
+        <link>http://wrgoldstein.github.io/2015/12/28/beam_search.html</link>
+        <guid isPermaLink="true">http://wrgoldstein.github.io/2015/12/28/beam_search.html</guid>
+        
+        
+      </item>
     
       <item>
         <title>Pipeable data in Ruby</title>
