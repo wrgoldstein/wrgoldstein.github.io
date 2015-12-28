@@ -21,4 +21,7 @@ date:   2015-09-15
     }
     </style>
 </head>
+
+This is a visualization of the K-means algorithm with four clusters.
+
 <script src="{{ "/js/kmeans.js" | prepend: site.baseurl }}"></script>

@@ -10,7 +10,6 @@ var svg = d3.select("body").append("svg")
 
 
 var circle_data = [];
-
 function generator() {
     var mu_x = Math.random() * width * .8 + .1 * width,
         mu_y = Math.random() * height * .8 + .1 * height,
@@ -23,7 +22,7 @@ function generator() {
 }
 
 d3.range(k).map(function() {
-    d3.range(40).map(generator())
+    d3.range(80).map(generator())
 })
 
 centroid_data = d3.range(k).map(function() {
@@ -116,9 +115,7 @@ function change_centroids() {
         .attr("transform", function(d) {
             return "translate(" + d[0] + "," + d[1] + ")";
         })
-
     membership_lines()
-
     return steady
 }
 
@@ -142,45 +139,33 @@ function membership_lines() {
 
     lines.enter()
         .append("line")
-        .attr("x1", function(d) {
-            return d[0]
-        })
-        .attr("y1", function(d) {
-            return d[1]
-        })
-        .attr("x2", function(d) {
-            return d[0]
-        })
-        .attr("y2", function(d) {
-            return d[1]
-        })
+        .attr("x1", function(d) { return d[0] })
+        .attr("y1", function(d) { return d[1] })
+        .attr("x2", function(d) { return d[0] })
+        .attr("y2", function(d) { return d[1] })
 
     lines.transition().duration(500)
         .attr("x2", function(d) {
-            if (d[2] <= k) {
-                return centroid_data[d[2]][0]
-            }
-            return d[0]
+            return (d[2] <= k) ? centroid_data[d[2]][0] : d[0]
         })
         .attr("y2", function(d) {
-            if (d[2] <= k) {
-                return centroid_data[d[2]][1]
-            }
-            return d[1]
+            return (d[2] <= k) ? centroid_data[d[2]][1] : d[1]
         })
-        .attr("stroke", function(d) {
-            return color(d[2])
-        })
+        .attr("stroke", function(d) { return color(d[2]) })
+
+    svg.selectAll("circle").data(circle_data)
+        .transition().duration(500)
+        .style("fill", function(d) {
+          return color(d[2]); })
+        .attr("alpha", .5);
+
 }
 
 function step() {
     update_membership();
     membership_lines();
     setTimeout(function() {
-        done = change_centroids()
-        if (done) {
-            clearInterval(loop)
-        }
+        change_centroids() ? clearInterval(loop) : 'continue'
     }, 500)
 }
 

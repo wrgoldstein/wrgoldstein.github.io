@@ -2,10 +2,11 @@
 title: ""
 email: williamrgoldstein@gmail.com
 description: ""
-baseurl: "/" # the subpath of your site, e.g. /blog/
+baseurl: "" # the subpath of your site, e.g. /blog/
 url: "http://wrgoldstein.github.io" # the base hostname & protocol for your site
 twitter_username: "will_goldstein"
 github_username:  wrgoldstein
 
 # Build settings
 markdown: kramdown
+extensions: [fenced_code_blocks ]
