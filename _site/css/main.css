@@ -309,6 +309,10 @@ pre {
       .post-content h4 {
         font-size: 18px; } }
 
+.displayed {
+  display: block;
+  margin-left: 42.2%; }
+
 /**
  * Syntax highlighting styles
  */

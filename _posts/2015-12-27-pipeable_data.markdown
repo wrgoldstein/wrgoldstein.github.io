@@ -4,7 +4,7 @@ title:  "Pipeable data in Ruby"
 date:   2015-12-27
 ---
 
-This post comes from some playing around after seeing Hadley Wickham speak about [pipeable data in R](https://speakerdeck.com/hadley/pipelines-for-data-analysis-in-r).  In it I try to explore different ways with serially applying a set of transformations to a piece of data.
+This post comes from some playing around after seeing Hadley Wickham speak about [pipeable data in R](https://speakerdeck.com/hadley/pipelines-for-data-analysis-in-r).  In it I try to explore different ways of serially applying a set of transformations to a piece of data.
 
 Say we want to tell a story like the following:
 
