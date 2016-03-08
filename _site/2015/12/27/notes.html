@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Being more organized with notes</title>
+  <meta name="description" content="I’ve been taking notes for a little while now using Sublime and a tiny Thor command line tool.  The code for it is:">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://wrgoldstein.github.io/2015/12/27/notes.html">
+  <link rel="alternate" type="application/rss+xml" title="wrgoldstein.github.io" href="http://wrgoldstein.github.io/feed.xml" />
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">wrgoldstein.github.io</a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+      <div class="trigger">
+        <a class="page-link" href="/"> Home </a>
+        
+          
+        
+          
+          <a class="page-link" href="/about/">About</a>
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Being more organized with notes</h1>
+    <p class="post-meta">Dec 27, 2015</p>
+  </header>
+
+  <article class="post-content">
+    <p>I’ve been taking notes for a little while now using Sublime and a tiny Thor command line tool.  The code for it is:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="c1">#!/usr/bin/ruby</span>
+
+<span class="nb">require</span> <span class="s1">'thor'</span>
+<span class="nb">require</span> <span class="s1">'date'</span>
+
+<span class="no">PATH</span> <span class="o">=</span> <span class="s1">'~/notes'</span>
+<span class="no">FOLDERS</span> <span class="o">=</span> <span class="sx">%w(scratch thoughts work)</span>
+
+<span class="k">class</span> <span class="nc">Note</span> <span class="o">&lt;</span> <span class="no">Thor</span>
+  <span class="no">FOLDERS</span><span class="p">.</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">type</span><span class="o">|</span>
+    <span class="n">desc</span> <span class="s2">"</span><span class="si">#{</span><span class="n">type</span><span class="si">}</span><span class="s2"> [NAME]"</span><span class="p">,</span> <span class="s2">"Create a new </span><span class="si">#{</span><span class="n">type</span><span class="si">}</span><span class="s2"> note"</span>
+    <span class="n">define_method</span><span class="p">(</span><span class="n">type</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">file</span><span class="o">|</span>
+      <span class="n">td</span> <span class="o">=</span> <span class="no">Date</span><span class="p">.</span><span class="nf">today</span><span class="p">.</span><span class="nf">to_s</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="s1">'-'</span><span class="p">).</span><span class="nf">join</span>
+      <span class="n">file</span> <span class="o">=</span> <span class="s2">"</span><span class="si">#{</span><span class="n">td</span><span class="si">}</span><span class="s2">-</span><span class="si">#{</span><span class="n">file</span><span class="si">}</span><span class="s2">"</span>
+      <span class="sx">%x(touch </span><span class="si">#{</span><span class="no">PATH</span><span class="si">}</span><span class="sx">/</span><span class="si">#{</span><span class="n">__method__</span><span class="si">}</span><span class="sx">/</span><span class="si">#{</span><span class="n">file</span><span class="si">}</span><span class="sx">.md)</span>
+      <span class="sx">%x(subl </span><span class="si">#{</span><span class="no">PATH</span><span class="si">}</span><span class="sx">/</span><span class="si">#{</span><span class="n">__method__</span><span class="si">}</span><span class="sx">/</span><span class="si">#{</span><span class="n">file</span><span class="si">}</span><span class="sx">.md)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="n">desc</span> <span class="s1">'open [TYPE]'</span><span class="p">,</span> <span class="s1">'Open a specific notes directory'</span>
+  <span class="k">def</span> <span class="nf">open</span><span class="p">(</span><span class="n">type</span><span class="p">)</span>
+    <span class="sx">%x(subl </span><span class="si">#{</span><span class="no">PATH</span><span class="si">}</span><span class="sx">/</span><span class="si">#{</span><span class="n">type</span><span class="si">}</span><span class="sx">)</span>
+  <span class="k">end</span>
+
+  <span class="n">desc</span> <span class="s1">'edit'</span><span class="p">,</span> <span class="s1">'Edit the notes CLT'</span>
+  <span class="k">def</span> <span class="nf">edit</span>
+    <span class="sx">%x(subl </span><span class="si">#{</span><span class="no">File</span><span class="p">.</span><span class="nf">expand_path</span><span class="p">(</span><span class="kp">__FILE__</span><span class="p">)</span><span class="si">}</span><span class="sx">)</span>
+  <span class="k">end</span>
+
+  <span class="n">desc</span> <span class="s1">'search [TYPE] [q]'</span><span class="p">,</span> <span class="s1">'Search a directory'</span>
+  <span class="k">def</span> <span class="nf">search</span><span class="p">(</span><span class="n">type</span><span class="p">,</span> <span class="n">q</span><span class="p">)</span>
+    <span class="nb">puts</span> <span class="sx">%x(ack </span><span class="si">#{</span><span class="n">q</span><span class="si">}</span><span class="sx"> </span><span class="si">#{</span><span class="no">PATH</span><span class="si">}</span><span class="sx">/</span><span class="si">#{</span><span class="n">type</span><span class="si">}</span><span class="sx">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="no">Note</span><span class="p">.</span><span class="nf">start</span>
+</code></pre>
+</div>
+
+<p>To use it, save the file somewhere.  Let’s say you save it in <code class="highlighter-rouge">~/Code/note.thor</code>:</p>
+
+<ol>
+  <li>Get <code class="highlighter-rouge">thor</code>:  <code class="highlighter-rouge">gem install thor</code></li>
+  <li>Change <code class="highlighter-rouge">FOLDERS</code> if need be and create the needed directories.  For me, that looks like
+<code class="highlighter-rouge">
+/Users/williamgoldstein/notes
+├── blog
+├── scratch
+├── thoughts
+└── work
+</code></li>
+</ol>
+
+<p>You can make these with e.g. <code class="highlighter-rouge">mkdir -p ~/Notes/work</code></p>
+
+<ol>
+  <li>Create a handy alias.  In my bash profile I have <code class="highlighter-rouge">alias notes='~/Code/notes.thor</code>.</li>
+  <li>Run it:  <code class="highlighter-rouge">notes</code>
+<code class="highlighter-rouge">
+$  notes
+Commands:
+  notes.thor edit             # Edit the notes CLT
+  notes.thor help [COMMAND]   # Describe available commands or one specific command
+  notes.thor open [TYPE]      # Open a specific notes directory
+  notes.thor scratch [NAME]   # create a new scratch note
+  notes.thor thoughts [NAME]  # create a new thoughts note
+  notes.thor work [NAME]      # create a new work note
+</code></li>
+</ol>
+
+<ul>
+  <li><code class="highlighter-rouge">notes edit</code> is a quick way to iterate on the tool itself</li>
+  <li><code class="highlighter-rouge">notes work hello</code> will open a new timestamped file like <code class="highlighter-rouge">20160308-hello.md</code> in Sublime.</li>
+</ul>
+
+  </article>
+
+</div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div>
+        <ul class="social-media-list">
+          
+          <li>
+            <a href="https://github.com/wrgoldstein">
+              <span class="username">github</span>
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="https://twitter.com/will_goldstein">
+              <span class="username">twitter</span>
+            </a>
+          </li>
+          
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
