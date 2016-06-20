@@ -5,9 +5,32 @@
     <description></description>
     <link>http://wrgoldstein.github.io/</link>
     <atom:link href="http://wrgoldstein.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 08 Mar 2016 18:04:29 -0500</pubDate>
-    <lastBuildDate>Tue, 08 Mar 2016 18:04:29 -0500</lastBuildDate>
-    <generator>Jekyll v3.1.2</generator>
+    <pubDate>Mon, 20 Jun 2016 18:26:09 -0400</pubDate>
+    <lastBuildDate>Mon, 20 Jun 2016 18:26:09 -0400</lastBuildDate>
+    <generator>Jekyll v3.1.6</generator>
+    
+      <item>
+        <title>Pandas/D3 example</title>
+        <description>&lt;p&gt;Someone asked me today about integrating D3 and iPython (Jupyter?) notebooks and Pandas.  I threw together this quick example notebook to show one way to do this.&lt;/p&gt;
+
+&lt;iframe height=&quot;300&quot; src=&quot;http://nbviewer.jupyter.org/gist/wrgoldstein/fb06deb2a71fecf838186fc3f66acdee&quot;&gt;&lt;/iframe&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://nbviewer.jupyter.org/gist/wrgoldstein/fb06deb2a71fecf838186fc3f66acdee&quot;&gt;Link to the gist&lt;/a&gt;&lt;/p&gt;
+
+&lt;script type=&quot;text/javascript&quot;&gt;
+
+let width = document.getElementsByTagName(&#39;article&#39;)[0].offsetWidth
+document.getElementsByTagName(&#39;iframe&#39;)[0].setAttribute(&#39;width&#39;, width)
+
+&lt;/script&gt;
+
+</description>
+        <pubDate>Mon, 20 Jun 2016 00:00:00 -0400</pubDate>
+        <link>http://wrgoldstein.github.io/2016/06/20/pandas_d3_example.html</link>
+        <guid isPermaLink="true">http://wrgoldstein.github.io/2016/06/20/pandas_d3_example.html</guid>
+        
+        
+      </item>
     
       <item>
         <title>Beam search nearest neighbors</title>
@@ -221,7 +244,7 @@ function uniq_fast(a) {
         <title>Being more organized with notes</title>
         <description>&lt;p&gt;I’ve been taking notes for a little while now using Sublime and a tiny Thor command line tool.  The code for it is:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;#!/usr/bin/ruby&lt;/span&gt;
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;#!/usr/bin/ruby&lt;/span&gt;
 
 &lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;thor&#39;&lt;/span&gt;
 &lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;date&#39;&lt;/span&gt;
@@ -539,7 +562,7 @@ method names or non descriptive.&lt;/p&gt;
   &lt;/p&gt;
   &lt;svg id=&quot;svg&quot; style=&quot;width:100%;height:100%;&quot;&gt;
     &lt;defs id=&quot;defs&quot;&gt;
-    &lt;pattern id=&quot;pats&quot; x=&quot;0&quot; y=&quot;0&quot; width=&quot;20&quot; height=&quot;20&quot; viewbox=&quot;0 0 9 9&quot; patternunits=&quot;userSpaceOnUse&quot;&gt;
+    &lt;pattern id=&quot;pats&quot; x=&quot;0&quot; y=&quot;0&quot; width=&quot;20&quot; height=&quot;20&quot; viewBox=&quot;0 0 9 9&quot; patternUnits=&quot;userSpaceOnUse&quot;&gt;
       &lt;circle cx=&quot;5&quot; cy=&quot;5&quot; r=&quot;1&quot; fill=&quot;red&quot; /&gt;
     &lt;/pattern&gt;
     &lt;/defs&gt;
