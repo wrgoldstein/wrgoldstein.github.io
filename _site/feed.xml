@@ -5,9 +5,194 @@
     <description></description>
     <link>http://wrgoldstein.github.io/</link>
     <atom:link href="http://wrgoldstein.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 20 Jun 2016 18:26:09 -0400</pubDate>
-    <lastBuildDate>Mon, 20 Jun 2016 18:26:09 -0400</lastBuildDate>
+    <pubDate>Wed, 27 Jul 2016 09:14:16 -0400</pubDate>
+    <lastBuildDate>Wed, 27 Jul 2016 09:14:16 -0400</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
+    
+      <item>
+        <title>Hog Dice</title>
+        <description>&lt;p&gt;I’m giving a presentation at &lt;a href=&quot;http://observer.com/2015/08/artsys-wet-hot-american-summer/&quot;&gt;Artsy’s offsite&lt;/a&gt; on Analytics at Artsy, and I wanted an accessible and relevant ice breaker.  I decided to go with the &lt;a href=&quot;http://www.amstat.org/publications/jse/v11n2/feldman.html&quot;&gt;HOG Dice Game&lt;/a&gt; to try to get at how data analytics can be useful for solving real world problems.  The game is simple:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;ol&gt;
+    &lt;li&gt;Players take turns rolling dice. Each player may choose any number of dice from one up to the total number of dice available. (We recommend that at least ten dice be available for each player or team.)&lt;/li&gt;
+    &lt;li&gt;The number of dice a player chooses to roll can vary from turn to turn.&lt;/li&gt;
+    &lt;li&gt;The player’s score for a turn is zero if at least one of the dice comes up with the value one. Otherwise, the player’s score for the turn is the sum of the faces showing on the dice. (Rolling a one sets only the score for that turn to zero, not the total cumulative score for the player.)&lt;/li&gt;
+    &lt;li&gt;A cumulative running total of the scores is kept for each player.&lt;/li&gt;
+    &lt;li&gt;The first player to reach or exceed a predetermined score (100 works well) wins the game. If more than one player reaches the predetermined score on the same turn then the player with the highest point total wins the game.&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;To help explain the optimal results, I’ve made a small visualization of the theoretical vs experimental best choice for how many dice to roll.  The below chart shows the analytical solution (orange) alongside the average return from a dice throw simulation.  The experimental converges to the theoretical, but not as quickly as you might think.&lt;/p&gt;
+
+&lt;meta charset=&quot;utf-8&quot; /&gt;
+
+&lt;style&gt;
+
+.bar {
+  fill: #EA168C;
+  fill-opacity: .5;
+}
+
+.bar:hover {
+  fill: #1B8A6B;
+}
+
+.bar2 {
+  fill: #F69231;
+  fill-opacity: .8;
+}
+
+.axis {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  display: none;
+}
+
+svg {
+    display: block;
+    margin: 0 auto;
+}
+
+&lt;/style&gt;
+
+&lt;script src=&quot;http://d3js.org/d3.v3.min.js&quot;&gt;&lt;/script&gt;
+
+&lt;script&gt;
+
+var margin = {top: 20, right: 20, bottom: 30, left: 40},
+    width = 960 - margin.left - margin.right,
+    height = 300 - margin.top - margin.bottom;
+
+var x = d3.scale.ordinal()
+    .rangeRoundBands([0, width], .1);
+
+var y = d3.scale.linear()
+    .range([height, 0]);
+
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient(&quot;bottom&quot;);
+
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient(&quot;left&quot;)
+    .ticks(10);
+
+var svg = d3.select(&quot;body&quot;).append(&quot;svg&quot;)
+    .attr(&quot;width&quot;, width + margin.left + margin.right)
+    .attr(&quot;height&quot;, height + margin.top + margin.bottom)
+    .attr(&quot;align&quot;,&quot;center&quot;)
+  .append(&quot;g&quot;)
+    .attr(&quot;transform&quot;, &quot;translate(&quot; + margin.left + &quot;,&quot; + margin.top + &quot;)&quot;);
+
+var data = [];
+var n = 40;
+
+x.domain(d3.range(n));
+y.domain([0, 16]);
+
+svg.append(&quot;g&quot;)
+    .attr(&quot;class&quot;, &quot;x axis&quot;)
+    .attr(&quot;transform&quot;, &quot;translate(0,&quot; + height + &quot;)&quot;)
+    .call(xAxis);
+
+svg.append(&quot;g&quot;)
+    .attr(&quot;class&quot;, &quot;y axis&quot;)
+    .call(yAxis)
+  .append(&quot;text&quot;)
+    .attr(&quot;transform&quot;, &quot;rotate(-90)&quot;)
+    .attr(&quot;y&quot;, 6)
+    .attr(&quot;dy&quot;, &quot;.71em&quot;)
+    .style(&quot;text-anchor&quot;, &quot;end&quot;)
+    .text(&quot;Average Value&quot;);
+
+var t = d3.transition()
+      .duration(750);
+
+svg.selectAll(&quot;.bar2&quot;).data(realAnswer(n))
+    .enter().append(&quot;rect&quot;)
+    .attr(&quot;class&quot;, &quot;bar2&quot;)
+    .attr(&quot;x&quot;, function(d, i) { return x(i); })
+    .attr(&quot;width&quot;, x.rangeBand())
+    .transition(t)
+    .attr(&quot;y&quot;, function(d) { return y(d); })
+    .attr(&quot;height&quot;, function(d) { return height - y(d); })
+
+function update(data) {
+  var g = svg.selectAll(&quot;.bar&quot;).data(data)
+  g.enter().append(&quot;rect&quot;)
+      .attr(&quot;class&quot;, &quot;bar&quot;)
+      .attr(&quot;x&quot;, function(d, i) { return x(i); })
+      .attr(&quot;width&quot;, x.rangeBand())
+      .transition(t)
+      .attr(&quot;y&quot;, function(d) { return y(d); })
+      .attr(&quot;height&quot;, function(d) { return height - y(d); })
+  g.exit().transition(t).remove()
+  g.transition().duration(750)
+   .attr(&quot;y&quot;, function(d) { return y(d); })
+   .attr(&quot;height&quot;, function(d) { return height - y(d); })
+
+}
+
+// not used
+function triangleN(n, acc = 0) {
+  if (n == 0) return acc
+  return triangleN(n-1, acc + n)
+}
+
+function expectedValue(n) {
+
+}
+
+function realAnswer(n) {
+  return d3.range(n).map( function(n) {
+    p = Math.pow(5/6, n)
+    return p * n * 4.0
+  })
+}
+
+function rollDice(n) {
+  var rolled = d3.range(n).map(function(){ return Math.ceil(Math.random() * 6) })
+  if (rolled.find(function(d){ return d == 1}) &gt; 0 ) return 0
+  return d3.sum(rolled)
+}
+
+function weightedAverage(arr1, arr2, w) {
+  return arr1.map(function(d,i) { return d*w + arr2[i]*(1-w) })
+}
+var iterations = 0
+var rolled = d3.range(n).map(function(){ return 0 })
+update(rolled)
+var t2 = setInterval(function(){
+  console.log(&quot;!&quot;)
+  iterations += 1
+  last_rolled = rolled.slice(0)
+  rolled = d3.range(n).map( function(n) { return rollDice(n) })
+  rolled = weightedAverage(rolled, last_rolled, 1 / iterations)
+  console.log(rolled[1], rolled[2])
+  update(rolled)
+}, 200)
+
+
+&lt;/script&gt;
+
+</description>
+        <pubDate>Sun, 24 Jul 2016 00:00:00 -0400</pubDate>
+        <link>http://wrgoldstein.github.io/2016/07/24/hog-dice.html</link>
+        <guid isPermaLink="true">http://wrgoldstein.github.io/2016/07/24/hog-dice.html</guid>
+        
+        
+      </item>
     
       <item>
         <title>Pandas/D3 example</title>
