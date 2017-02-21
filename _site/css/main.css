@@ -99,6 +99,7 @@ code {
   padding: 1px 5px; }
 
 pre {
+  background-color: #eef;
   padding: 8px 12px;
   overflow-x: scroll; }
   pre > code {
@@ -317,7 +318,7 @@ pre {
  * Syntax highlighting styles
  */
 .highlight {
-  background: #fff; }
+  background: #eef; }
   .highlight .c {
     color: #998;
     font-style: italic; }

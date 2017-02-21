@@ -231,7 +231,6 @@ var t2 = setInterval(function(){
   last_rolled = rolled.slice(0)
   rolled = d3.range(n).map( function(n) { return rollDice(n) })
   rolled = weightedAverage(rolled, last_rolled, 1 / iterations)
-  console.log(rolled[1], rolled[2])
   update(rolled)
 }, 200)
 
