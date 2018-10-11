@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>'Most Science Is Wrong'</title>
-  <meta name="description" content="There’s a commonly referenced paper (I’ll find a link) which says that the majority of scientific results are actually false.  I think the math there is inst...">
+  <meta name="description" content="">
 
   <link rel="stylesheet" href="/css/main.css">
   <link rel="canonical" href="http://localhost:4000/2017/03/03/most-science-is-wrong.html">
@@ -63,35 +63,69 @@
   </header>
 
   <article class="post-content">
-    <p>There’s a commonly referenced paper (I’ll find a link) which says that the majority of scientific results are actually false.  I think the math there is instructive to think about:</p>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.min.css" integrity="sha384-D+9gmBxUQogRLqvARvNLmA9hS2x//eK1FhVb9PiU86gmcrBrJAQT8okdJ4LMp2uv" crossorigin="anonymous" />
+
+<script src="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.min.js" integrity="sha384-483A6DwYfKeDa0Q52fJmxFXkcPCFfnXMoXblOkJ4JcA8zATN6Tm78UNL72AKk+0O" crossorigin="anonymous"></script>
+
+<p>There’s a <a href="https://journals.plos.org/plosmedicine/article?id=10.1371/journal.pmed.0020124">commonly referenced paper</a> which says that the majority of scientific results are actually false.  I think the math there is instructive to think about:</p>
 
 <p>If a p-value indicates the probability of seeing a given experimental outcome given a false hypothesis, we can accept only results with a p-value of .05 or less and expect to make mistakes no more than 95% of the time.</p>
 
-<p>However, when we zoom out and look at many tests like this as a whole, we have to ask ourselves about the overall probability of a given hypothesis being true.  If we say scientists (or product managers!) are only generating/testing correct hypotheses 20% of the time, our p-value means something different. We know from Bayes’ Theorem:</p>
+<p>However, when we zoom out and look at many tests like this as a whole, we have to ask ourselves about the overall probability of a given hypothesis being true.  If we say scientists (or product managers!) are only generating/testing correct hypotheses 10% of the time, our p-value means something different. We know from Bayes’ Theorem:
+<br /></p>
+<div id="bayes theorem"></div>
+<script>
+var formula = "P(false|reject) = \\frac{P(reject|false) \\times P(false)}{P(reject|false) \\times P(false) + P(reject|true) \\times P(true)}"
+katex.render(formula, document.getElementById("bayes theorem"), {
+    throwOnError: false
+});
+</script>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>p( f | + ) = p( + | f ) * p( f ) / 
-             p( f ) * p( + | f ) + p( t )*p( + | t )
-</code></pre>
-</div>
+<p><br />
+Where <span id="false given reject"></span> is the probability of a false hypothesis given a positive test result (p-value &lt; .05).</p>
 
-<p>Where <code class="highlighter-rouge">p( f | + )</code> is the probability of a false conclusion given a positive test result (p-value &lt; .05).</p>
+<script>
+var formula ="p( false | reject )"
+katex.render(formula, document.getElementById("false given reject"), {
+    throwOnError: false
+});
+</script>
 
-<p>We know:</p>
+<p>Since:</p>
+<ul>
+  <li><span id="derivation1"></span> is the probability of getting a positive result given a false hypothesis (the type I error rate)</li>
+  <li><span id="derivation2"></span> is the overall probability of a false hypothesis</li>
+  <li><span id="derivation3"></span> is the overall probability of a true hypothesis (inverse probability of a false hypothesis)</li>
+  <li><span id="derivation4"></span> is the probability of getting a negative result where there is a real relationship (one minus the <em>power</em>).</li>
+</ul>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>p( + | f ) := the probability of getting a positive result given a false hypothesis (the type I error rate)
-p( f ) := the total probability of a false result
-p( t ) := 1 - p( f )
-p( + | t ) := the probability of getting a positive where there is a real relationship (the _power_).
-</code></pre>
-</div>
+<script>
+var derivations = {
+    derivation1: `p( false | reject )`,
+    derivation2: "p(false)",
+    derivation3: "p(true)",
+    derivation4: "p(reject | true)"
+}
 
-<p>And since we often set our type I error rate to .05 and our power to .80, if we claim 20% of tested relationships are true on average, then we get</p>
+for (k in derivations){
+    katex.render(derivations[k], document.getElementById(k), {
+        throwOnError: false
+    });
+}
+</script>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>.05 * 0.8 / ((.05 * .08) + (.80 * .20))
-</code></pre>
-</div>
+<p>And since we often set our type I error rate to .05 and our power to .80, if we claim 10% of theories that get tested are true, we get:</p>
 
-<p>Which tells us the probability of a result being false even though the p-value is small is actually 20%, way higher than the type I error rate we actually test at.</p>
+<div id="result"></div>
+<p><br />
+<script>
+var formula = "\\frac{.05 \\times .90}{(.90 * .05)+(.20 * .10)} \\approx .69"
+katex.render(formula, document.getElementById("result"), {
+    throwOnError: false
+});
+</script></p>
+
+<p>Which tells us that under the theory that the outside chance of a hypothesis being right is 10%, the probability of a result being false even though the p-value is small is actually 69%: way higher than the type I error rate we actually test at.</p>
 
   </article>
 
