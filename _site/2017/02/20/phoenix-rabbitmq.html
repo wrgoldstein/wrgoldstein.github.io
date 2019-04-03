@@ -69,19 +69,21 @@
 
 <p>I installed RabbitMQ through <code class="highlighter-rouge">brew</code>, and Phoenix / Elixir from the Phoenix homepage.  Starting the RabbitMQ server was as simple as</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/usr/local/sbin/rabbitmq
-</code></pre></div></div>
+<div class="highlighter-rouge"><pre class="highlight"><code>/usr/local/sbin/rabbitmq
+</code></pre>
+</div>
 
 <p>and getting a Phoenix app going was easy too (I called my app <code class="highlighter-rouge">frequency</code>; it’s an Artsy tradition to name applications after physics terms):</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mix phoenix.new frequency --no-brunch --no-ecto --no-html
-</code></pre></div></div>
+<div class="highlighter-rouge"><pre class="highlight"><code>mix phoenix.new frequency --no-brunch --no-ecto --no-html
+</code></pre>
+</div>
 
 <p>We just want a pure phoenix API, so we’ll leave out <code class="highlighter-rouge">brunch</code> (the build tool), <code class="highlighter-rouge">ecto</code> (the ActiveRecord equivalent), and all of the <code class="highlighter-rouge">html</code> support and templating we would need if we wanted our app to have a front-end.</p>
 
 <p>The <code class="highlighter-rouge">mix.exs</code> file defines the application’s dependencies as follows (also add these to your <code class="highlighter-rouge">applications</code> method):</p>
 
-<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">defp</span> <span class="n">deps</span> <span class="k">do</span>
+<div class="language-elixir highlighter-rouge"><pre class="highlight"><code>  <span class="k">defp</span> <span class="n">deps</span> <span class="k">do</span>
     <span class="p">[{</span><span class="ss">:phoenix</span><span class="p">,</span> <span class="sd">"</span><span class="s2">~&gt; 1.2.1"</span><span class="p">},</span>
      <span class="p">{</span><span class="ss">:phoenix_pubsub</span><span class="p">,</span> <span class="sd">"</span><span class="s2">~&gt; 1.0"</span><span class="p">},</span>
      <span class="p">{</span><span class="ss">:gettext</span><span class="p">,</span> <span class="sd">"</span><span class="s2">~&gt; 0.11"</span><span class="p">},</span>
@@ -92,22 +94,24 @@
      <span class="p">{</span><span class="ss">:hackney</span><span class="p">,</span> <span class="sd">"</span><span class="s2">~&gt; 1.6"</span><span class="p">}</span>
     <span class="p">]</span>
   <span class="k">end</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h2 id="receiving-calls-and-publishing-messages">Receiving calls and publishing messages</h2>
 
 <p>Under <code class="highlighter-rouge">web/router.ex</code> we add a single <code class="highlighter-rouge">POST</code> route:</p>
 
-<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="n">scope</span> <span class="sd">"</span><span class="s2">/api"</span><span class="p">,</span> <span class="no">Frequency</span> <span class="k">do</span>
+<div class="language-elixir highlighter-rouge"><pre class="highlight"><code>  <span class="n">scope</span> <span class="sd">"</span><span class="s2">/api"</span><span class="p">,</span> <span class="no">Frequency</span> <span class="k">do</span>
     <span class="n">pipe_through</span> <span class="ss">:api</span>
 
     <span class="n">post</span> <span class="sd">"</span><span class="s2">/t"</span><span class="p">,</span> <span class="no">TracksController</span><span class="p">,</span> <span class="ss">:index</span>
   <span class="k">end</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>In that route we reference the <code class="highlighter-rouge">TracksController</code> which doesn’t exist yet, so under <code class="highlighter-rouge">web/controllers</code> let’s create <code class="highlighter-rouge">tracks_controller.ex</code> with the following body:</p>
 
-<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Frequency</span><span class="o">.</span><span class="no">TracksController</span> <span class="k">do</span>
+<div class="language-elixir highlighter-rouge"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Frequency</span><span class="o">.</span><span class="no">TracksController</span> <span class="k">do</span>
   <span class="kn">use</span> <span class="no">Frequency</span><span class="o">.</span><span class="no">Web</span><span class="p">,</span> <span class="ss">:controller</span>
 
   <span class="k">def</span> <span class="n">index</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span> <span class="k">do</span>
@@ -117,11 +121,12 @@
      <span class="o">|&gt;</span> <span class="n">text</span><span class="p">(</span><span class="sd">"</span><span class="s2">200"</span><span class="p">)</span>
   <span class="k">end</span>
 <span class="k">end</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>And you’ll see that in turn defers to a <code class="highlighter-rouge">Frequency.Worker</code> that we’ll have to make.  In <code class="highlighter-rouge">lib</code> we’ll make <code class="highlighter-rouge">worker.ex</code> which looks like</p>
 
-<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Frequency</span><span class="o">.</span><span class="no">Worker</span> <span class="k">do</span>
+<div class="language-elixir highlighter-rouge"><pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Frequency</span><span class="o">.</span><span class="no">Worker</span> <span class="k">do</span>
   <span class="kn">use</span> <span class="no">GenServer</span>
 
   <span class="c1">## Client API</span>
@@ -153,16 +158,18 @@
     <span class="no">AMQP</span><span class="o">.</span><span class="no">Connection</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">connection</span><span class="p">)</span>
   <span class="k">end</span>
 <span class="k">end</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>This worker publishes all messages to a RabbitMQ channel:  It defines a single GenServer with the name <code class="highlighter-rouge">publisher</code> which we’ll set up to start under the same <a href="https://hexdocs.pm/elixir/Supervisor.html">supervisor</a> as our Frequency application (we’ll do this in a minute).  The GenServer exposes a single method, <code class="highlighter-rouge">:publish</code>, which drops the message into a channel defined by the <code class="highlighter-rouge">:init</code> method.  Finally, in <code class="highlighter-rouge">lib/frequency.ex</code>, update the children of our process to include our new worker.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>children = [
+<div class="highlighter-rouge"><pre class="highlight"><code>children = [
       # Start the endpoint when the application starts
       supervisor(Frequency.Endpoint, []),
       worker(Frequency.Worker, []),
     ]
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>Halfway there.</p>
 
@@ -170,7 +177,7 @@
 
 <p>Under <code class="highlighter-rouge">lib</code>, we’ll create a <code class="highlighter-rouge">receiver.ex</code> which reads messages off the RabbitMQ channel, adds them to a list, and then every 1,000 messages will encode those messages as a JSON file and upload them to S3 using ExAWS (you’ll need to add the variables <code class="highlighter-rouge">AWS_ACCESS_KEY_ID</code> and <code class="highlighter-rouge">AWS_SECRET_ACCESS_KEY</code> to your environment).</p>
 
-<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">alias</span> <span class="no">ExAws</span><span class="o">.</span><span class="no">S3</span>
+<div class="language-elixir highlighter-rouge"><pre class="highlight"><code><span class="n">alias</span> <span class="no">ExAws</span><span class="o">.</span><span class="no">S3</span>
 
 <span class="k">defmodule</span> <span class="no">Receiver</span> <span class="k">do</span> 
   <span class="k">def</span> <span class="n">wait_for_messages</span> <span class="k">do</span>
@@ -226,16 +233,18 @@
     <span class="k">end</span>
   <span class="k">end</span>
 <span class="k">end</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>Finally, we can string it all together with <code class="highlighter-rouge">mix phoenix.server</code> in one terminal window, and <code class="highlighter-rouge">iex -S mix</code> in another, and in the <code class="highlighter-rouge">iex</code> pane run</p>
 
-<div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Receiver</span><span class="o">.</span><span class="n">wait_for_messages</span>
-</code></pre></div></div>
+<div class="language-elixir highlighter-rouge"><pre class="highlight"><code><span class="no">Receiver</span><span class="o">.</span><span class="n">wait_for_messages</span>
+</code></pre>
+</div>
 
 <p>And all that’s left is hammering our API with <code class="highlighter-rouge">POST</code> requests, which I elected to do in Ruby:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">require</span> <span class="s1">'net/http'</span>
+<div class="language-ruby highlighter-rouge"><pre class="highlight"><code><span class="nb">require</span> <span class="s1">'net/http'</span>
 <span class="n">uri</span> <span class="o">=</span> <span class="no">URI</span><span class="p">(</span><span class="s1">'127.0.0.1:4000/api/t'</span><span class="p">)</span>
 <span class="mi">30</span><span class="p">.</span><span class="nf">times</span> <span class="k">do</span>
   <span class="mi">1000</span><span class="p">.</span><span class="nf">times</span> <span class="k">do</span> 
@@ -243,7 +252,8 @@
   <span class="k">end</span>
   <span class="nb">sleep</span><span class="p">(</span><span class="o">.</span><span class="mi">5</span><span class="p">)</span> <span class="c1"># ruby can only spawn so many threads</span>
 <span class="k">end</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>Sit back and watch your API soak up thousands of concurrent requests without a sweat.</p>
 

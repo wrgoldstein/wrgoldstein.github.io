@@ -65,7 +65,7 @@
   <article class="post-content">
     <p>I’ve been taking notes for a little while now using Sublime and a tiny Thor command line tool.  The code for it is:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#!/usr/bin/ruby</span>
+<div class="language-ruby highlighter-rouge"><pre class="highlight"><code><span class="c1">#!/usr/bin/ruby</span>
 
 <span class="nb">require</span> <span class="s1">'thor'</span>
 <span class="nb">require</span> <span class="s1">'date'</span>
@@ -101,19 +101,21 @@
 <span class="k">end</span>
 
 <span class="no">Note</span><span class="p">.</span><span class="nf">start</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>To use it, save the file somewhere.  Let’s say you save it in <code class="highlighter-rouge">~/Code/note.thor</code>:</p>
 
 <ol>
   <li>Get <code class="highlighter-rouge">thor</code>:  <code class="highlighter-rouge">gem install thor</code></li>
   <li>Change <code class="highlighter-rouge">FOLDERS</code> if need be and create the needed directories.  For me, that looks like
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/Users/williamgoldstein/notes
+    <div class="highlighter-rouge"><pre class="highlight"><code>/Users/williamgoldstein/notes
 ├── blog
 ├── scratch
 ├── thoughts
 └── work
-</code></pre></div>    </div>
+</code></pre>
+    </div>
   </li>
 </ol>
 
@@ -122,7 +124,7 @@
 <ol>
   <li>Create a handy alias.  In my bash profile I have <code class="highlighter-rouge">alias notes='~/Code/notes.thor</code>.</li>
   <li>Run it:  <code class="highlighter-rouge">notes</code>
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$  notes
+    <div class="highlighter-rouge"><pre class="highlight"><code>$  notes
 Commands:
   notes.thor edit             # Edit the notes CLT
   notes.thor help [COMMAND]   # Describe available commands or one specific command
@@ -130,7 +132,8 @@ Commands:
   notes.thor scratch [NAME]   # create a new scratch note
   notes.thor thoughts [NAME]  # create a new thoughts note
   notes.thor work [NAME]      # create a new work note
-</code></pre></div>    </div>
+</code></pre>
+    </div>
   </li>
 </ol>
 
