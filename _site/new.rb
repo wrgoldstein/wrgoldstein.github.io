@@ -26,4 +26,4 @@ File.open(filename, 'w') do |f|
   f << body.strip
 end
 
-`subl #{filename}`
+`code #{filename}`

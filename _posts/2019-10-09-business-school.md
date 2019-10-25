@@ -10,8 +10,8 @@ A micro rundown of everything I learned in business school.
 
 1. Managing groups and teams
     - Feeling powerful fundamentally changes the brain, creating a feelings of aggression, competition, and self-interest. Feeling unpowerful creates the opposite: a sense of apathy and community orientation.
-    - Tasks are better accomplished by hierarchical groups when the planning group communicates _intent_ early and often.
-    - Being influential in a group is distinct from and _anti_ correlated with being knowledgeable / correct on a topic that group is engaging with.
+    - Tasks are better accomplished by hierarchical groups when the planning group communicates intent early and often.
+    - Being influential in a group is distinct from and possibly anticorrelated with being knowledgeable / correct on a topic that group is engaging with.
 2. Basics of Accounting
     - Useful to practice reading 10Ks. Don't want to be an accountant.
 3. Probability and Statistics
@@ -25,7 +25,7 @@ A micro rundown of everything I learned in business school.
     - I read Michael Porter's Competitive Stategy in college, and this didn't build much past that, but did provide some practice thinking through a few situations. In general I'm pretty skeptical on high strategy as a concept; one exec at Fonterra said "Execution eats strategy for breakfast" and I think I agree with that sentiment.
 6. Modeling Managerial Decisions
     - I was so hopeful for this class, but it covered basic pop psychology you might find in Thinking Fast and Slow or anything by Cass Sunstein, and some pretty basic excel modeling and probability. I did get to learn about linear programming and Solver, which were new to me, so I'm glad to have those in the tool bag.
-    - I created an interactive LP problem solver using Observable: https://observablehq.com/@wrgoldstein/domaine-paul-autard/2
+    - I created an [interactive LP problem solver](https://observablehq.com/@wrgoldstein/domaine-paul-autard/2) using Observable (just a side project).
 7. Customer
     - Basically marketing class. There were a few interesting frameworks, like needs benefits analysis, but mostly 
 8. Investor
