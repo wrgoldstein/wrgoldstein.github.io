@@ -22,12 +22,14 @@ A micro rundown of everything I learned in business school.
     - Most problems can be solved with an intuition of what will happen in equilibrium and some geometry.
     - Got to tutor this subject in second year, which was fun (my students had almost no trouble with the material so it was easy).
 5. Competitor
-    - I read Michael Porter's Competitive Stategy in college, and this didn't build much past that, but did provide some practice thinking through a few situations. In general I'm pretty skeptical on high strategy as a concept; one exec at Fonterra said "Execution eats strategy for breakfast" and I think I agree with that sentiment.
+    - I read Michael Porter's Competitive Stategy in college, and this didn't build much past that, but did provide some practice thinking through a few situations. In general I'm pretty skeptical on high strategy as a concept; As they say: "Execution eats strategy for breakfast".
+    - Competition classification system was useful and interesting: Cournot competition, Hotelling line, Bertrand. Maybe a bloggy post on these would be good.
 6. Modeling Managerial Decisions
     - I was so hopeful for this class, but it covered basic pop psychology you might find in Thinking Fast and Slow or anything by Cass Sunstein, and some pretty basic excel modeling and probability. I did get to learn about linear programming and Solver, which were new to me, so I'm glad to have those in the tool bag.
     - I created an [interactive LP problem solver](https://observablehq.com/@wrgoldstein/domaine-paul-autard/2) using Observable (just a side project).
+    - Excel's Solver is _excellent_, and actually better than most open source optimizers in python.
 7. Customer
-    - Basically marketing class. There were a few interesting frameworks, like needs benefits analysis, but mostly 
+    - Basically marketing class. There were a few interesting frameworks, like needs-benefits analysis.
 8. Investor
     - I didn't have much exposure to finance so this class was interesting for me. Bond math, options pricing, discussions of market efficiency. Set the stage for second year finance classes.
 9. Power & Politics
@@ -40,7 +42,7 @@ A micro rundown of everything I learned in business school.
 12. International Experience: New Zealand
     - I went to New Zealand. It was boss. I mentioned Fonterra before, which was fascinating. I wrote a whole separate post on this.
 13. Global Virtual teams
-    - There can be challenges working across time zones and teams. Which I think I knew.
+    - There can be challenges working across time zones and teams. Which I think I knew. I got the lowest possible grade in this class without failing.
 14. Workforce
     - Frustratingly information sparse exploration of human capital problems in the workforce. 
 15. Global Macroeconomy
@@ -63,10 +65,10 @@ A micro rundown of everything I learned in business school.
 
 ### Second year
 1. Interpersonal Dynamics
-    - What Stanford calls "Touchy Feely"-- a very in depth practice based exploration of giving and receiving powerful feedback.
+    - What Stanford calls "Touchy Feely"-- a very in depth practice based exploration of giving and receiving powerful feedback. Should blog on this, have read a lot on the subject now (most recently "Crucial Conversations").
 2. Speculation and Hedging in Financial Markets
-    - How to price derivatives and create hedged positions
+    - How to price derivatives and create hedged positions. Should blog on this so I don't forget.
 3. Applied Quantitative Finance
-    - Best class I've taken. Ground up exploration of quantitative finance based on a survey of the most important papers. Heavy coding and math.
+    - Best class I've taken. Ground up exploration of quantitative finance based on a survey of the most important papers. Heavy coding and math. Should blog on this too.
 4. Central Banking
-    - Slow but interesting discussion of the role central banking plays in the economy taught by a former Federal Reserve Board member.
+    - Slow but interesting discussion of the role central banking plays in the economy taught by a former Federal Reserve Board member. So slow I ended up dropping it.
