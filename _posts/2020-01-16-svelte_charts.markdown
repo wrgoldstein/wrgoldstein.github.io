@@ -13,4 +13,4 @@ It's still very early days, but it felt worth mentioning, especially as I haven'
 The code is [here](https://github.com/wrgoldstein/svelte-charts/), and below is a small demo of it in action. (I'm changing the kind of data between time series, categorical, and numerical as well as changing the type of plot between line, stacked bar, etc.):
 
 
-![/assets/svelte-charts-demo.gif]
+![](/assets/svelte-charts-demo.gif)
