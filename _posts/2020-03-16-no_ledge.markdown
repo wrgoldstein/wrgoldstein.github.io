@@ -1,0 +1,24 @@
+---
+layout: post
+title:  no-ledge
+date:   2020-03-16
+---
+
+I have a new project called [noledge](github.com/wrgoldstein/noledge) which is a way of tackling the [knowledge sharing](https://medium.com/airbnb-engineering/scaling-knowledge-at-airbnb-875d73eff091) problem. Similar projects include:
+
+- [knowledge-repo](https://github.com/airbnb/knowledge-repo)
+- [kyso.io](kyso.io)
+- [fastpages](github.com/fastai/fastpages)
+
+My reasons for making one myself are:
+- knowledge-repo is no longer actively supported and is a strange developer experience
+- kyso is also kind of a weird developer experience. My project is most similar to it though.
+- fastpages is open and hard to add authentication to, so it's not a good solution for internal knowledge sharing.
+
+![](/assets/noledge1.gif)
+
+It's features are:
+- Automatically convert .ipynb files to attractive html pages with the ability to hide code
+- Automatically read posts from a github repository
+- Search posts by title or author
+- Scan posts by date or through a directory structure

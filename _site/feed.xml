@@ -5,9 +5,100 @@
     <description></description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 25 Oct 2019 10:04:34 -0400</pubDate>
-    <lastBuildDate>Fri, 25 Oct 2019 10:04:34 -0400</lastBuildDate>
-    <generator>Jekyll v3.3.1</generator>
+    <pubDate>Mon, 16 Mar 2020 18:15:16 -0400</pubDate>
+    <lastBuildDate>Mon, 16 Mar 2020 18:15:16 -0400</lastBuildDate>
+    <generator>Jekyll v4.0.0</generator>
+    
+      <item>
+        <title>no-ledge</title>
+        <description>&lt;p&gt;I have a new project called &lt;a href=&quot;github.com/wrgoldstein/noledge&quot;&gt;noledge&lt;/a&gt; which is a way of tackling the &lt;a href=&quot;https://medium.com/airbnb-engineering/scaling-knowledge-at-airbnb-875d73eff091&quot;&gt;knowledge sharing&lt;/a&gt; problem. Similar projects include:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/airbnb/knowledge-repo&quot;&gt;knowledge-repo&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;kyso.io&quot;&gt;kyso.io&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;github.com/fastai/fastpages&quot;&gt;fastpages&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;My reasons for making one myself are:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;knowledge-repo is no longer actively supported and is a strange developer experience&lt;/li&gt;
+  &lt;li&gt;kyso is also kind of a weird developer experience. My project is most similar to it though.&lt;/li&gt;
+  &lt;li&gt;fastpages is open and hard to add authentication to, so it’s not a good solution for internal knowledge sharing.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/noledge1.gif&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;It’s features are:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Automatically convert .ipynb files to attractive html pages with the ability to hide code&lt;/li&gt;
+  &lt;li&gt;Automatically read posts from a github repository&lt;/li&gt;
+  &lt;li&gt;Search posts by title or author&lt;/li&gt;
+  &lt;li&gt;Scan posts by date or through a directory structure&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Mon, 16 Mar 2020 00:00:00 -0400</pubDate>
+        <link>http://localhost:4000/2020/03/16/no_ledge.html</link>
+        <guid isPermaLink="true">http://localhost:4000/2020/03/16/no_ledge.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>svelte-charts</title>
+        <description>&lt;p&gt;In some of my recent projects I’ve been using the very good &lt;a href=&quot;https://www.chartjs.org/&quot;&gt;chart.js&lt;/a&gt; library, but I’ve always wanted to have a little more control over my charts. I planned to implement them in d3.js eventually, but I recently read Paul Sweeney on &lt;a href=&quot;https://medium.com/@PepsRyuu/why-i-no-longer-use-d3-js-b8288f306c9a&quot;&gt;why he doesn’t use d3 anymore&lt;/a&gt; and the &lt;a href=&quot;https://medium.com/@mbostock/why-you-should-use-d3-ae63c276e958&quot;&gt;counterpunch&lt;/a&gt; from Mike Bostock and decided to do exactly as Mike suggests- use d3, but only for the fiddly bits I don’t want to calculate myself (like nice tick marks) and not for DOM selection and mutation.&lt;/p&gt;
+
+&lt;p&gt;A goal is to create a charting element like Tableau or Looker that allows for quite a bit of easy configuring, for example easily toggling from a bar chart to a line chart.&lt;/p&gt;
+
+&lt;p&gt;It’s still very early days, but it felt worth mentioning, especially as I haven’t really blogged about Svelte at all. Svelte is a delight to work with, I’m having a lot of fun with it.&lt;/p&gt;
+
+&lt;p&gt;The code is &lt;a href=&quot;https://github.com/wrgoldstein/svelte-charts/&quot;&gt;here&lt;/a&gt;, and below is a small demo of it in action. (I’m changing the kind of data between time series, categorical, and numerical as well as changing the type of plot between line, stacked bar, etc.):&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/svelte-charts-demo.gif&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+</description>
+        <pubDate>Thu, 16 Jan 2020 00:00:00 -0500</pubDate>
+        <link>http://localhost:4000/2020/01/16/svelte_charts.html</link>
+        <guid isPermaLink="true">http://localhost:4000/2020/01/16/svelte_charts.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>Projects</title>
+        <description>&lt;p&gt;This is a stub, but I want a record of the projects I want to pursue in the coming months:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Knowledge repo: Airbnb released one but it’s not good or widely used. Basically, how do you solve the issue of redoing work and not having easy discovery of analysis that lives in emails and google docs.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Data disovery: Related to knowledge discovery, but how do you know which datasets are actively used/supported? Where do you start if you’re new to an organization and you have a question? This should be baked into the data analysis toolchain and not live separately. A &lt;a href=&quot;https://www.locallyoptimistic.com/post/data_dictionaries/&quot;&gt;data dictionary&lt;/a&gt; is a bad solution to this. A good solution would leverage past usage and a social graph.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Data enrichment: This could mean a lot of things, but I’m primarily interested in how you record key moments that affect data analysis and easily join them into your company’s analysis process. Exampls include: outages, major feature launches, big marketing campaigns that change the mix of users: anything that could exogenously explain away anomalies in the data but in most places depends on tribal knowledge and memory to be included.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Looker style data discovery: Looker is excellent (primarily for definition reuse and nontechnical data discovery and exploration) but costs far too much. I’ve developed an alternative, that I might open source or try to sell (ongoing).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Reuse of Python / SQL work. If I had a dollar for every time I rewrote a snippet of SQL or Python to answer a question because it was faster than hunting it down in a jupyter notebook I’d have a lot of dollars.&lt;/p&gt;
+    &lt;ul&gt;
+      &lt;li&gt;I took a stab at writing my own python notebook, with the idea that you could individually save and reuse code blocks. If this existed it would greatly speed up my own analysis. Turns out though that the IPython/Jupyter ecosystem is vast and complex, and while my basic notebook implementation works it doesn’t have a lot of the goodies that people take for granted from IPython.&lt;/li&gt;
+      &lt;li&gt;I also wrote my own SQL editor with the intention of parsing the SQL abstract syntax tree and generating a network of interrelated tables and relations, but got stuck on finding a high quality AST parser in the javascript/elixir ecosystem. I decided to write my own using Jose Valim’s &lt;a href=&quot;https://github.com/plataformatec/nimble_parsec&quot;&gt;nimble_parsec&lt;/a&gt; but this ended up being really difficult (the 2003 SQL &lt;a href=&quot;https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form&quot;&gt;bnf&lt;/a&gt; is &lt;a href=&quot;https://ronsavage.github.io/SQL/sql-2003-1.bnf.html&quot;&gt;thousands of lines long&lt;/a&gt;) so that was a bad choice/dead end.
+        &lt;ul&gt;
+          &lt;li&gt;I really want to pick this up again. I think you could intelligently autocomplete entire join relations, where clauses, etc. and save thousands of keystrokes for a busy analyst.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+</description>
+        <pubDate>Fri, 03 Jan 2020 00:00:00 -0500</pubDate>
+        <link>http://localhost:4000/2020/01/03/projects.html</link>
+        <guid isPermaLink="true">http://localhost:4000/2020/01/03/projects.html</guid>
+        
+        
+      </item>
     
       <item>
         <title>Donella Meadows and Leverage</title>
@@ -90,18 +181,20 @@
   &lt;/li&gt;
   &lt;li&gt;Competitor
     &lt;ul&gt;
-      &lt;li&gt;I read Michael Porter’s Competitive Stategy in college, and this didn’t build much past that, but did provide some practice thinking through a few situations. In general I’m pretty skeptical on high strategy as a concept; one exec at Fonterra said “Execution eats strategy for breakfast” and I think I agree with that sentiment.&lt;/li&gt;
+      &lt;li&gt;I read Michael Porter’s Competitive Stategy in college, and this didn’t build much past that, but did provide some practice thinking through a few situations. In general I’m pretty skeptical on high strategy as a concept; As they say: “Execution eats strategy for breakfast”.&lt;/li&gt;
+      &lt;li&gt;Competition classification system was useful and interesting: Cournot competition, Hotelling line, Bertrand. Maybe a bloggy post on these would be good.&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;Modeling Managerial Decisions
     &lt;ul&gt;
       &lt;li&gt;I was so hopeful for this class, but it covered basic pop psychology you might find in Thinking Fast and Slow or anything by Cass Sunstein, and some pretty basic excel modeling and probability. I did get to learn about linear programming and Solver, which were new to me, so I’m glad to have those in the tool bag.&lt;/li&gt;
       &lt;li&gt;I created an &lt;a href=&quot;https://observablehq.com/@wrgoldstein/domaine-paul-autard/2&quot;&gt;interactive LP problem solver&lt;/a&gt; using Observable (just a side project).&lt;/li&gt;
+      &lt;li&gt;Excel’s Solver is &lt;em&gt;excellent&lt;/em&gt;, and actually better than most open source optimizers in python.&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;Customer
     &lt;ul&gt;
-      &lt;li&gt;Basically marketing class. There were a few interesting frameworks, like needs benefits analysis, but mostly&lt;/li&gt;
+      &lt;li&gt;Basically marketing class. There were a few interesting frameworks, like needs-benefits analysis.&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;Investor
@@ -132,7 +225,7 @@
   &lt;/li&gt;
   &lt;li&gt;Global Virtual teams
     &lt;ul&gt;
-      &lt;li&gt;There can be challenges working across time zones and teams. Which I think I knew.&lt;/li&gt;
+      &lt;li&gt;There can be challenges working across time zones and teams. Which I think I knew. I got the lowest possible grade in this class without failing.&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;Workforce
@@ -184,22 +277,22 @@
 &lt;ol&gt;
   &lt;li&gt;Interpersonal Dynamics
     &lt;ul&gt;
-      &lt;li&gt;What Stanford calls “Touchy Feely”– a very in depth practice based exploration of giving and receiving powerful feedback.&lt;/li&gt;
+      &lt;li&gt;What Stanford calls “Touchy Feely”– a very in depth practice based exploration of giving and receiving powerful feedback. Should blog on this, have read a lot on the subject now (most recently “Crucial Conversations”).&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;Speculation and Hedging in Financial Markets
     &lt;ul&gt;
-      &lt;li&gt;How to price derivatives and create hedged positions&lt;/li&gt;
+      &lt;li&gt;How to price derivatives and create hedged positions. Should blog on this so I don’t forget.&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;Applied Quantitative Finance
     &lt;ul&gt;
-      &lt;li&gt;Best class I’ve taken. Ground up exploration of quantitative finance based on a survey of the most important papers. Heavy coding and math.&lt;/li&gt;
+      &lt;li&gt;Best class I’ve taken. Ground up exploration of quantitative finance based on a survey of the most important papers. Heavy coding and math. Should blog on this too.&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;Central Banking
     &lt;ul&gt;
-      &lt;li&gt;Slow but interesting discussion of the role central banking plays in the economy taught by a former Federal Reserve Board member.&lt;/li&gt;
+      &lt;li&gt;Slow but interesting discussion of the role central banking plays in the economy taught by a former Federal Reserve Board member. So slow I ended up dropping it.&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
 &lt;/ol&gt;
@@ -468,64 +561,59 @@ Clearly, just like in &lt;a href=&quot;http://wrgoldstein.github.io/2016/07/24/h
 
 &lt;p&gt;I installed RabbitMQ through &lt;code class=&quot;highlighter-rouge&quot;&gt;brew&lt;/code&gt;, and Phoenix / Elixir from the Phoenix homepage.  Starting the RabbitMQ server was as simple as&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/usr/local/sbin/rabbitmq
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/usr/local/sbin/rabbitmq
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;and getting a Phoenix app going was easy too (I called my app &lt;code class=&quot;highlighter-rouge&quot;&gt;frequency&lt;/code&gt;; it’s an Artsy tradition to name applications after physics terms):&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mix phoenix.new frequency --no-brunch --no-ecto --no-html
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mix phoenix.new frequency --no-brunch --no-ecto --no-html
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;We just want a pure phoenix API, so we’ll leave out &lt;code class=&quot;highlighter-rouge&quot;&gt;brunch&lt;/code&gt; (the build tool), &lt;code class=&quot;highlighter-rouge&quot;&gt;ecto&lt;/code&gt; (the ActiveRecord equivalent), and all of the &lt;code class=&quot;highlighter-rouge&quot;&gt;html&lt;/code&gt; support and templating we would need if we wanted our app to have a front-end.&lt;/p&gt;
 
 &lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;mix.exs&lt;/code&gt; file defines the application’s dependencies as follows (also add these to your &lt;code class=&quot;highlighter-rouge&quot;&gt;applications&lt;/code&gt; method):&lt;/p&gt;
 
-&lt;div class=&quot;language-elixir highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;k&quot;&gt;defp&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;deps&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;[{&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:phoenix&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sd&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;~&amp;gt; 1.2.1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-     &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:phoenix_pubsub&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sd&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;~&amp;gt; 1.0&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-     &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:gettext&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sd&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;~&amp;gt; 0.11&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-     &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:cowboy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sd&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;~&amp;gt; 1.0&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-     &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:amqp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sd&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;~&amp;gt; 0.2.0-pre.1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# https://github.com/pma/amqp/issues/28&lt;/span&gt;
-     &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:briefly&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sd&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;~&amp;gt; 0.3&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-     &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:ex_aws&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sd&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;~&amp;gt; 1.0&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-     &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:hackney&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sd&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;~&amp;gt; 1.6&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;div class=&quot;language-elixir highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;k&quot;&gt;defp&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;deps&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;[{&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:phoenix&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;~&amp;gt; 1.2.1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+     &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:phoenix_pubsub&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;~&amp;gt; 1.0&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+     &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:gettext&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;~&amp;gt; 0.11&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+     &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:cowboy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;~&amp;gt; 1.0&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+     &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:amqp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;~&amp;gt; 0.2.0-pre.1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# https://github.com/pma/amqp/issues/28&lt;/span&gt;
+     &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:briefly&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;~&amp;gt; 0.3&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+     &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:ex_aws&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;~&amp;gt; 1.0&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+     &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:hackney&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;~&amp;gt; 1.6&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
     &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
   &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h2 id=&quot;receiving-calls-and-publishing-messages&quot;&gt;Receiving calls and publishing messages&lt;/h2&gt;
 
 &lt;p&gt;Under &lt;code class=&quot;highlighter-rouge&quot;&gt;web/router.ex&lt;/code&gt; we add a single &lt;code class=&quot;highlighter-rouge&quot;&gt;POST&lt;/code&gt; route:&lt;/p&gt;
 
-&lt;div class=&quot;language-elixir highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;n&quot;&gt;scope&lt;/span&gt; &lt;span class=&quot;sd&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/api&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Frequency&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+&lt;div class=&quot;language-elixir highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;n&quot;&gt;scope&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;/api&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Frequency&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;pipe_through&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:api&lt;/span&gt;
 
-    &lt;span class=&quot;n&quot;&gt;post&lt;/span&gt; &lt;span class=&quot;sd&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/t&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;TracksController&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:index&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;post&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;/t&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;TracksController&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:index&lt;/span&gt;
   &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;In that route we reference the &lt;code class=&quot;highlighter-rouge&quot;&gt;TracksController&lt;/code&gt; which doesn’t exist yet, so under &lt;code class=&quot;highlighter-rouge&quot;&gt;web/controllers&lt;/code&gt; let’s create &lt;code class=&quot;highlighter-rouge&quot;&gt;tracks_controller.ex&lt;/code&gt; with the following body:&lt;/p&gt;
 
-&lt;div class=&quot;language-elixir highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;defmodule&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Frequency&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;TracksController&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+&lt;div class=&quot;language-elixir highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;defmodule&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Frequency&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;TracksController&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
   &lt;span class=&quot;kn&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Frequency&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Web&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:controller&lt;/span&gt;
 
   &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;conn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;params&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
     &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:ok&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Poison&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;encode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;params&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
     &lt;span class=&quot;no&quot;&gt;Frequency&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Worker&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;publish&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;conn&lt;/span&gt;
-     &lt;span class=&quot;o&quot;&gt;|&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sd&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;200&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+     &lt;span class=&quot;o&quot;&gt;|&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;200&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
   &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;And you’ll see that in turn defers to a &lt;code class=&quot;highlighter-rouge&quot;&gt;Frequency.Worker&lt;/code&gt; that we’ll have to make.  In &lt;code class=&quot;highlighter-rouge&quot;&gt;lib&lt;/code&gt; we’ll make &lt;code class=&quot;highlighter-rouge&quot;&gt;worker.ex&lt;/code&gt; which looks like&lt;/p&gt;
 
-&lt;div class=&quot;language-elixir highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;defmodule&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Frequency&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Worker&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+&lt;div class=&quot;language-elixir highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;defmodule&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Frequency&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Worker&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
   &lt;span class=&quot;kn&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;GenServer&lt;/span&gt;
 
   &lt;span class=&quot;c1&quot;&gt;## Client API&lt;/span&gt;
@@ -535,7 +623,7 @@ Clearly, just like in &lt;a href=&quot;http://wrgoldstein.github.io/2016/07/24/h
   &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
 
   &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;publish&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
-    &lt;span class=&quot;no&quot;&gt;IO&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;sd&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;handling cast.. &quot;&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;IO&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;handling cast.. &quot;&lt;/span&gt;
     &lt;span class=&quot;no&quot;&gt;GenServer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cast&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:publisher&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:publish&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
   &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
 
@@ -544,12 +632,12 @@ Clearly, just like in &lt;a href=&quot;http://wrgoldstein.github.io/2016/07/24/h
   &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;init&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:ok&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
     &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:ok&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;connection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;AMQP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Connection&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;open&lt;/span&gt;
     &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:ok&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;channel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;AMQP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Channel&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;open&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;connection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;no&quot;&gt;AMQP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;declare&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;channel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sd&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;tracks&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;AMQP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;declare&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;channel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;tracks&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
     &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:ok&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;%{&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;channel:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;channel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;connection:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;connection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
   &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
 
   &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;handle_cast&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:publish&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
-    &lt;span class=&quot;no&quot;&gt;AMQP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Basic&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;publish&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;state&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;channel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sd&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sd&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;tracks&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;AMQP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Basic&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;publish&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;state&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;channel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;tracks&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
     &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:noreply&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
   &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
 
@@ -557,18 +645,16 @@ Clearly, just like in &lt;a href=&quot;http://wrgoldstein.github.io/2016/07/24/h
     &lt;span class=&quot;no&quot;&gt;AMQP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Connection&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;close&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;state&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;connection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
   &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;This worker publishes all messages to a RabbitMQ channel:  It defines a single GenServer with the name &lt;code class=&quot;highlighter-rouge&quot;&gt;publisher&lt;/code&gt; which we’ll set up to start under the same &lt;a href=&quot;https://hexdocs.pm/elixir/Supervisor.html&quot;&gt;supervisor&lt;/a&gt; as our Frequency application (we’ll do this in a minute).  The GenServer exposes a single method, &lt;code class=&quot;highlighter-rouge&quot;&gt;:publish&lt;/code&gt;, which drops the message into a channel defined by the &lt;code class=&quot;highlighter-rouge&quot;&gt;:init&lt;/code&gt; method.  Finally, in &lt;code class=&quot;highlighter-rouge&quot;&gt;lib/frequency.ex&lt;/code&gt;, update the children of our process to include our new worker.&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;children = [
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;children = [
       # Start the endpoint when the application starts
       supervisor(Frequency.Endpoint, []),
       worker(Frequency.Worker, []),
     ]
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;Halfway there.&lt;/p&gt;
 
@@ -576,11 +662,11 @@ Clearly, just like in &lt;a href=&quot;http://wrgoldstein.github.io/2016/07/24/h
 
 &lt;p&gt;Under &lt;code class=&quot;highlighter-rouge&quot;&gt;lib&lt;/code&gt;, we’ll create a &lt;code class=&quot;highlighter-rouge&quot;&gt;receiver.ex&lt;/code&gt; which reads messages off the RabbitMQ channel, adds them to a list, and then every 1,000 messages will encode those messages as a JSON file and upload them to S3 using ExAWS (you’ll need to add the variables &lt;code class=&quot;highlighter-rouge&quot;&gt;AWS_ACCESS_KEY_ID&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;AWS_SECRET_ACCESS_KEY&lt;/code&gt; to your environment).&lt;/p&gt;
 
-&lt;div class=&quot;language-elixir highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;alias&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ExAws&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;S3&lt;/span&gt;
+&lt;div class=&quot;language-elixir highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;alias&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ExAws&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;S3&lt;/span&gt;
 
 &lt;span class=&quot;k&quot;&gt;defmodule&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Receiver&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; 
   &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;wait_for_messages&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;channel_name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;sd&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;tracks&quot;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;channel_name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;tracks&quot;&lt;/span&gt;
     &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:ok&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;connection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;AMQP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Connection&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;open&lt;/span&gt;
     &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:ok&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;channel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;AMQP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Channel&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;open&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;connection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
     &lt;span class=&quot;no&quot;&gt;AMQP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;declare&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;channel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;channel_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
@@ -599,18 +685,18 @@ Clearly, just like in &lt;a href=&quot;http://wrgoldstein.github.io/2016/07/24/h
   &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
 
   &lt;span class=&quot;k&quot;&gt;defp&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;full?&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
-    &lt;span class=&quot;no&quot;&gt;Agent&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:batcher&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;list&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1000&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;Agent&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:batcher&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;list&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
   &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
 
   &lt;span class=&quot;k&quot;&gt;defp&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;make_key&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;rand&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:crypto&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;strong_rand_bytes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&amp;gt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Base&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;url_encode64&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;rand&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:crypto&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;strong_rand_bytes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&amp;gt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Base&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;url_encode64&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;now&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;DateTime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;utc_now&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&amp;gt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;DateTime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;to_string&lt;/span&gt;
-    &lt;span class=&quot;sd&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;batch_&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;now&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rand&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;.json&quot;&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;batch_&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;now&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rand&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;.json&quot;&lt;/span&gt;
   &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
 
   &lt;span class=&quot;k&quot;&gt;defp&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;write_and_upload&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;json&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
     &lt;span class=&quot;no&quot;&gt;File&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;write!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;json&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;no&quot;&gt;S3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;put_object&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sd&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;lt;your-bucket&amp;gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sd&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;frequency/&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;make_key&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;File&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&amp;gt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ExAws&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;S3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;put_object&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&amp;lt;your-bucket&amp;gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;frequency/&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;make_key&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;File&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&amp;gt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ExAws&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;
   &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
 
   &lt;span class=&quot;k&quot;&gt;defp&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flush_if_full&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
@@ -627,23 +713,21 @@ Clearly, just like in &lt;a href=&quot;http://wrgoldstein.github.io/2016/07/24/h
     &lt;span class=&quot;k&quot;&gt;receive&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
       &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:basic_deliver&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_meta&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;
         &lt;span class=&quot;n&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;no&quot;&gt;IO&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;sd&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;received a message!&quot;&lt;/span&gt;
+        &lt;span class=&quot;no&quot;&gt;IO&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;received a message!&quot;&lt;/span&gt;
         &lt;span class=&quot;n&quot;&gt;_wait_for_messages&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
   &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;Finally, we can string it all together with &lt;code class=&quot;highlighter-rouge&quot;&gt;mix phoenix.server&lt;/code&gt; in one terminal window, and &lt;code class=&quot;highlighter-rouge&quot;&gt;iex -S mix&lt;/code&gt; in another, and in the &lt;code class=&quot;highlighter-rouge&quot;&gt;iex&lt;/code&gt; pane run&lt;/p&gt;
 
-&lt;div class=&quot;language-elixir highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;no&quot;&gt;Receiver&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;wait_for_messages&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&quot;language-elixir highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;no&quot;&gt;Receiver&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;wait_for_messages&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;And all that’s left is hammering our API with &lt;code class=&quot;highlighter-rouge&quot;&gt;POST&lt;/code&gt; requests, which I elected to do in Ruby:&lt;/p&gt;
 
-&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'net/http'&lt;/span&gt;
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'net/http'&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;uri&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;URI&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'127.0.0.1:4000/api/t'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;mi&quot;&gt;30&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;times&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
   &lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;times&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; 
@@ -651,8 +735,7 @@ Clearly, just like in &lt;a href=&quot;http://wrgoldstein.github.io/2016/07/24/h
   &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
   &lt;span class=&quot;nb&quot;&gt;sleep&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# ruby can only spawn so many threads&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;Sit back and watch your API soak up thousands of concurrent requests without a sweat.&lt;/p&gt;
 
@@ -708,421 +791,6 @@ Clearly, just like in &lt;a href=&quot;http://wrgoldstein.github.io/2016/07/24/h
         <pubDate>Mon, 08 Aug 2016 00:00:00 -0400</pubDate>
         <link>http://localhost:4000/2016/08/08/definitions.html</link>
         <guid isPermaLink="true">http://localhost:4000/2016/08/08/definitions.html</guid>
-        
-        
-      </item>
-    
-      <item>
-        <title>Hog Dice</title>
-        <description>&lt;p&gt;I’m giving a presentation at &lt;a href=&quot;http://observer.com/2015/08/artsys-wet-hot-american-summer/&quot;&gt;Artsy’s offsite&lt;/a&gt; on Analytics at Artsy, and I wanted an accessible and relevant ice breaker.  I decided to go with the &lt;a href=&quot;http://www.amstat.org/publications/jse/v11n2/feldman.html&quot;&gt;HOG Dice Game&lt;/a&gt; to try to get at how data analytics can be useful for solving real world problems.  The game is simple:&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;ol&gt;
-    &lt;li&gt;Players take turns rolling dice. Each player may choose any number of dice from one up to the total number of dice available. (We recommend that at least ten dice be available for each player or team.)&lt;/li&gt;
-    &lt;li&gt;The number of dice a player chooses to roll can vary from turn to turn.&lt;/li&gt;
-    &lt;li&gt;The player’s score for a turn is zero if at least one of the dice comes up with the value one. Otherwise, the player’s score for the turn is the sum of the faces showing on the dice. (Rolling a one sets only the score for that turn to zero, not the total cumulative score for the player.)&lt;/li&gt;
-    &lt;li&gt;A cumulative running total of the scores is kept for each player.&lt;/li&gt;
-    &lt;li&gt;The first player to reach or exceed a predetermined score (100 works well) wins the game. If more than one player reaches the predetermined score on the same turn then the player with the highest point total wins the game.&lt;/li&gt;
-  &lt;/ol&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;To help explain the optimal results, I’ve made a small visualization of the theoretical vs experimental best choice for how many dice to roll.  The below chart shows the analytical solution (orange) alongside the average return from a dice throw simulation.  The experimental converges to the theoretical, but not as quickly as you might think.&lt;/p&gt;
-
-&lt;meta charset=&quot;utf-8&quot; /&gt;
-
-&lt;style&gt;
-
-.bar {
-  fill: #EA168C;
-  fill-opacity: .5;
-}
-
-.bar:hover {
-  fill: #1B8A6B;
-}
-
-.bar2 {
-  fill: #F69231;
-  fill-opacity: .8;
-}
-
-.axis {
-  font: 10px sans-serif;
-}
-
-.axis path,
-.axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
-}
-
-.x.axis path {
-  display: none;
-}
-
-svg {
-    display: block;
-    margin: 0 auto;
-}
-
-&lt;/style&gt;
-
-&lt;script src=&quot;http://d3js.org/d3.v3.min.js&quot;&gt;&lt;/script&gt;
-
-&lt;script&gt;
-
-var margin = {top: 20, right: 20, bottom: 30, left: 40},
-    width = 960 - margin.left - margin.right,
-    height = 300 - margin.top - margin.bottom;
-
-var x = d3.scale.ordinal()
-    .rangeRoundBands([0, width], .1);
-
-var y = d3.scale.linear()
-    .range([height, 0]);
-
-var xAxis = d3.svg.axis()
-    .scale(x)
-    .orient(&quot;bottom&quot;);
-
-var yAxis = d3.svg.axis()
-    .scale(y)
-    .orient(&quot;left&quot;)
-    .ticks(10);
-
-var svg = d3.select(&quot;body&quot;).append(&quot;svg&quot;)
-    .attr(&quot;width&quot;, width + margin.left + margin.right)
-    .attr(&quot;height&quot;, height + margin.top + margin.bottom)
-    .attr(&quot;align&quot;,&quot;center&quot;)
-  .append(&quot;g&quot;)
-    .attr(&quot;transform&quot;, &quot;translate(&quot; + margin.left + &quot;,&quot; + margin.top + &quot;)&quot;);
-
-var data = [];
-var n = 40;
-
-x.domain(d3.range(n));
-y.domain([0, 16]);
-
-svg.append(&quot;g&quot;)
-    .attr(&quot;class&quot;, &quot;x axis&quot;)
-    .attr(&quot;transform&quot;, &quot;translate(0,&quot; + height + &quot;)&quot;)
-    .call(xAxis);
-
-svg.append(&quot;g&quot;)
-    .attr(&quot;class&quot;, &quot;y axis&quot;)
-    .call(yAxis)
-  .append(&quot;text&quot;)
-    .attr(&quot;transform&quot;, &quot;rotate(-90)&quot;)
-    .attr(&quot;y&quot;, 6)
-    .attr(&quot;dy&quot;, &quot;.71em&quot;)
-    .style(&quot;text-anchor&quot;, &quot;end&quot;)
-    .text(&quot;Average Value&quot;);
-
-var t = d3.transition()
-      .duration(750);
-
-svg.selectAll(&quot;.bar2&quot;).data(realAnswer(n))
-    .enter().append(&quot;rect&quot;)
-    .attr(&quot;class&quot;, &quot;bar2&quot;)
-    .attr(&quot;x&quot;, function(d, i) { return x(i); })
-    .attr(&quot;width&quot;, x.rangeBand())
-    .transition(t)
-    .attr(&quot;y&quot;, function(d) { return y(d); })
-    .attr(&quot;height&quot;, function(d) { return height - y(d); })
-
-function update(data) {
-  var g = svg.selectAll(&quot;.bar&quot;).data(data)
-  g.enter().append(&quot;rect&quot;)
-      .attr(&quot;class&quot;, &quot;bar&quot;)
-      .attr(&quot;x&quot;, function(d, i) { return x(i); })
-      .attr(&quot;width&quot;, x.rangeBand())
-      .transition(t)
-      .attr(&quot;y&quot;, function(d) { return y(d); })
-      .attr(&quot;height&quot;, function(d) { return height - y(d); })
-  g.exit().transition(t).remove()
-  g.transition().duration(750)
-   .attr(&quot;y&quot;, function(d) { return y(d); })
-   .attr(&quot;height&quot;, function(d) { return height - y(d); })
-
-}
-
-// not used
-function triangleN(n, acc = 0) {
-  if (n == 0) return acc
-  return triangleN(n-1, acc + n)
-}
-
-function expectedValue(n) {
-
-}
-
-function realAnswer(n) {
-  return d3.range(n).map( function(n) {
-    p = Math.pow(5/6, n)
-    return p * n * 4.0
-  })
-}
-
-function rollDice(n) {
-  var rolled = d3.range(n).map(function(){ return Math.ceil(Math.random() * 6) })
-  if (rolled.find(function(d){ return d == 1}) &gt; 0 ) return 0
-  return d3.sum(rolled)
-}
-
-function weightedAverage(arr1, arr2, w) {
-  return arr1.map(function(d,i) { return d*w + arr2[i]*(1-w) })
-}
-var iterations = 0
-var rolled = d3.range(n).map(function(){ return 0 })
-update(rolled)
-var t2 = setInterval(function(){
-  console.log(&quot;!&quot;)
-  iterations += 1
-  last_rolled = rolled.slice(0)
-  rolled = d3.range(n).map( function(n) { return rollDice(n) })
-  rolled = weightedAverage(rolled, last_rolled, 1 / iterations)
-  update(rolled)
-}, 200)
-
-
-&lt;/script&gt;
-
-</description>
-        <pubDate>Sun, 24 Jul 2016 00:00:00 -0400</pubDate>
-        <link>http://localhost:4000/2016/07/24/hog-dice.html</link>
-        <guid isPermaLink="true">http://localhost:4000/2016/07/24/hog-dice.html</guid>
-        
-        
-      </item>
-    
-      <item>
-        <title>Pandas/D3 example</title>
-        <description>&lt;p&gt;Someone asked me today about integrating D3 and iPython (Jupyter?) notebooks and Pandas.  I threw together this quick example notebook to show one way to do this.&lt;/p&gt;
-
-&lt;iframe height=&quot;300&quot; src=&quot;http://nbviewer.jupyter.org/gist/wrgoldstein/fb06deb2a71fecf838186fc3f66acdee&quot;&gt;&lt;/iframe&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://nbviewer.jupyter.org/gist/wrgoldstein/fb06deb2a71fecf838186fc3f66acdee&quot;&gt;Link to the gist&lt;/a&gt;&lt;/p&gt;
-
-&lt;script type=&quot;text/javascript&quot;&gt;
-
-let width = document.getElementsByTagName('article')[0].offsetWidth
-document.getElementsByTagName('iframe')[0].setAttribute('width', width)
-
-&lt;/script&gt;
-
-</description>
-        <pubDate>Mon, 20 Jun 2016 00:00:00 -0400</pubDate>
-        <link>http://localhost:4000/2016/06/20/pandas_d3_example.html</link>
-        <guid isPermaLink="true">http://localhost:4000/2016/06/20/pandas_d3_example.html</guid>
-        
-        
-      </item>
-    
-      <item>
-        <title>Beam search nearest neighbors</title>
-        <description>&lt;p&gt;A common problem is finding the nearest neighbors of a given object in some search space.  &lt;a href=&quot;https://en.wikipedia.org/wiki/Beam_search&quot;&gt;Beam search&lt;/a&gt; is an “anytime” heuristic search algorithm which very efficiently accomplishes this.&lt;/p&gt;
-
-&lt;p&gt;Imagine we have a set of N nodes, each randomly “closest” (connected by an edge) to n other nodes.  The algorithm works as follows:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Pick a node; paint it red.&lt;/li&gt;
-  &lt;li&gt;Paint its neighbors grey. Also paint the neighbors for each of those neighbors.&lt;/li&gt;
-  &lt;li&gt;“Fix” the edges of the red node by connecting it to the closest of these grey nodes.&lt;/li&gt;
-  &lt;li&gt;Repeat for each node.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;head&gt;
-&lt;style type=&quot;text/css&quot;&gt;
-svg {
-        box-shadow: 0px 0px 10px #888888;
-        margin-top: 5px;
-        margin-left: 25%;
-        width: 50%;
-    }
-&lt;/style&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;script src=&quot;/js/d3.min.js&quot;&gt;&lt;/script&gt;
-&lt;script&gt;
-var width = 600,
-    height = 400,
-    n = 50, // number of points
-    s = 5,  // number of neighbors per point
-    delay = 500, //
-    beam_ix = 0, // start with the first node
-    neighbor_ixs = undefined,  // or neighbors
-    iterations = 3 * n,
-    step = 0,
-    paused = true;
-
-var svg = d3.select(&quot;body&quot;).append(&quot;svg&quot;)
-    .attr(&quot;height&quot;, height)
-    .attr(&quot;id&quot;, &quot;main&quot;)
-    .on(&quot;click&quot;, function(){
-      if (!paused){
-        paused = true;
-        console.log(&quot;paused was false turning it true&quot;)
-        add_play_btn();
-      }
-    });
-
-var width = svg.style(&quot;width&quot;).slice(0,-2)
-
-function add_play_btn() {
-  d3.xml(&quot;/assets/play.svg&quot;, &quot;image/svg+xml&quot;, function(error, xml) {
-    if (error) throw error;
-    svg.node().appendChild(xml.documentElement);
-    svg.select(&quot;.play&quot;)
-      .attr(&quot;x&quot;, 8 * width / 20)
-      .attr(&quot;y&quot;, 7 * height / 20)
-      .attr(&quot;width&quot;, width / 5)
-      .attr(&quot;height&quot;, 3 * height / 10)
-      .on(&quot;click&quot;, function(){
-        d3.event.stopPropagation();
-        paused = false;
-        console.log(&quot;paused was true turning it false&quot;)
-        this.remove();
-        update_step();
-        setTimeout(update_step, 600);
-      })
-  });
-}
-
-
-var particles = new Array(n);
-for (var i = 0; i &lt; n; ++i) {
-  particles[i] = {
-    x: .1 * width + .9 * width * Math.random(),
-    y: .05 * height + .9 * height * Math.random(),
-    r: 3 //height * .01 * Math.random()
-  };
-}
-
-// node and edge selections
-var nodes = svg.selectAll(&quot;.dot&quot;)
-  .data(particles);
-
-var edges = svg.selectAll(&quot;.edge&quot;)
-  .data(particles);
-
-
-// choose initial neighbors
-var choices = d3.range(particles.length);
-var neighbors = particles.map(function(el, ix){
-  return d3.shuffle(choices).slice(0, s);
-})
-
-function initialize(j){
-  nodes.enter()
-    .append(&quot;circle&quot;)
-    .attr(&quot;cx&quot;, function(d){ return d.x; })
-    .attr(&quot;cy&quot;, function(d){ return d.y; })
-    .attr(&quot;r&quot;, function(d){ return d.r; })
-
-  d3.range(s).forEach(function(_el, j){
-    edges.enter().append(&quot;line&quot;)
-        .attr(&quot;x1&quot;, function(d, ix){ return d.x })
-        .attr(&quot;y1&quot;, function(d, ix){ return d.y })
-        .attr(&quot;x2&quot;, function(d, ix){ return lookup(ix, j).x })
-        .attr(&quot;y2&quot;, function(d, ix){ return lookup(ix, j).y })
-        .attr(&quot;stroke&quot;, &quot;grey&quot;)
-        .classed('edge_' + j, true);
-  })
-  add_play_btn();
-}
-
-function update_neighbors(){
-  var first_degree_ixs,
-      neighbors_as_particles,
-      distances,
-      distance_ixs,
-      closest;
-
-
-
-  beam_ix = (beam_ix &gt;= n - 1) ? 0 : beam_ix + 1;
-  step += 1;
-  console.log(&quot;step&quot;);
-  // grab the neighbors of the node in the beam
-  first_degree_ixs = neighbors[beam_ix];
-  // grab the neighbors of those neighbors, removing
-  // any that might be duplicates or the node itself.
-  // (merge flattens an array of arrays)
-  neighbor_ixs = uniq_fast(d3.merge(
-    first_degree_ixs.map(function(el){
-      return neighbors[el] }
-    ))
-    .concat(first_degree_ixs));
-
-  neighbors_as_particles = neighbor_ixs.map(function(el){ return particles[el] })
-  distances = neighbors_as_particles.map(function(p) {
-    return euclideanDistance(p, particles[beam_ix])
-  });
-  distance_ixs = d3.range(distances.length);
-  distance_ixs.sort(function(a,b){
-    return distances[a] &lt; distances[b] ? 1 : -1 }
-  );
-  closest = distance_ixs.slice(0, s);
-  neighbors[beam_ix] = closest.map(function(i) { return neighbor_ixs[i] })
-}
-
-function update(){
-  // color nodes
-  nodes.transition().duration(delay)
-    .attr(&quot;r&quot;, function(d, ix){ return (ix == beam_ix) ? 20 :
-        (neighbor_ixs.indexOf(ix) &gt; -1) ? 10 : 3 })
-    .attr(&quot;fill&quot;, function(d, ix){ return (ix == beam_ix) ? &quot;red&quot; : &quot;grey&quot; })
-
-  // move edges
-  d3.range(s).forEach(function(el, j){
-    d3.selectAll('.edge_' + j).transition().duration(delay)
-    .attr(&quot;x2&quot;, function(d, ix){ return lookup(ix, j).x })
-    .attr(&quot;y2&quot;, function(d, ix){ return lookup(ix, j).y })
-  })
-}
-
-function update_step(){
-  update_neighbors();
-  update();
-  if (!(step &gt; iterations) &amp;&amp; (!paused)){ setTimeout(update_step, delay); };
-}
-
-initialize();
-
-
-// helpers
-function lookup(i, j){
-  return particles[neighbors[i][j]]
-}
-
-function euclideanDistance(p1, p2) {
-  sum_of_squares = 0;
-  sum_of_squares += Math.pow(p1.x - p2.x, 2);
-  sum_of_squares += Math.pow(p1.y - p2.y, 2);
-  return 1.0 / (1 + Math.sqrt(sum_of_squares));
-}
-
-function uniq_fast(a) {
-    var seen = {};
-    var out = [];
-    var len = a.length;
-    var j = 0;
-    for(var i = 0; i &lt; len; i++) {
-         var item = a[i];
-         if(seen[item] !== 1) {
-               seen[item] = 1;
-               out[j++] = item;
-         }
-    }
-    return out;
-}
-&lt;/script&gt;
-&lt;/body&gt;
-</description>
-        <pubDate>Mon, 28 Dec 2015 00:00:00 -0500</pubDate>
-        <link>http://localhost:4000/2015/12/28/beam_search.html</link>
-        <guid isPermaLink="true">http://localhost:4000/2015/12/28/beam_search.html</guid>
         
         
       </item>

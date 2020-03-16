@@ -12,6 +12,12 @@ OptionParser.new do |opts|
   end
 end.parse!
 
+unless options[:title]
+  puts "You must enter a title"
+  puts "Usage: ruby new.rb --title TITLE"
+  exit(1)
+end
+
 filename = "_posts/#{Date.today}-#{options[:title].underscore.gsub(' ', '_')}.markdown"
 
 body = <<-BODY
