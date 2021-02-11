@@ -8,7 +8,7 @@ A friend sent me [this interesting article](https://jasoncollins.blog/2020/02/18
 
 >Suppose you have $100 and are offered a gamble involving a series of coin flips. For each flip, heads will increase your wealth by 50%. Tails will decrease it by 40%. Flip 100 times.
 
-Should you take it? The author points out that the average person will lose money in repeated playings of this bet. The average result is a 5% decline in wealth each period.
+Should you take it? The author points out that the average person will lose money in repeated playings of this bet, despite the fact that it has positive expected value. The average result is a 5% decline in wealth each period.
 
 So that got me thinking: For what values is it appropriate to take this bet repeatedly? So, as one does, I calculated it:
 
