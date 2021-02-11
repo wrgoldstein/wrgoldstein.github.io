@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  ergodicity-economics
+title:  tiny dagre-d3 example
 date:   2021-02-11
 ---
 
