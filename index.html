@@ -1,23 +1,46 @@
----
-layout: default
----
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" href="./favicon.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		
+		<link href="./_app/immutable/assets/0.Cx8JzFcB.css" rel="stylesheet">
+		<link rel="modulepreload" href="./_app/immutable/entry/start.uf3TPFRF.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/entry.UctzLoyc.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/runtime.DizAfNWN.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/app.1-Q_-lna.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/render.BWA3DOAa.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/disclose-version.BXg94hMd.js">
+		<link rel="modulepreload" href="./_app/immutable/nodes/0.W5YnDlyn.js">
+		<link rel="modulepreload" href="./_app/immutable/nodes/2.DTMOQEHe.js">
+	</head>
+	<body data-sveltekit-preload-data="hover">
+		<div style="display: contents"><!--[--><!--[--><!----><!----><!----><h1 class="text-6xl">Welcome to SvelteKit</h1> <p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p><!----><!----><!----><!--]--> <!--[!--><!--]--><!--]-->
+			
+			<script>
+				{
+					__sveltekit_dyg40h = {
+						base: new URL(".", location).pathname.slice(0, -1)
+					};
 
-<div class="home">
+					const element = document.currentScript.parentElement;
 
-  <h1 class="page-heading">Posts</h1>
+					const data = [null,null];
 
-  <ul class="post-list">
-    {% for post in site.posts %}
-      <li>
-        <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
-
-        <h2>
-          <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
-        </h2>
-      </li>
-    {% endfor %}
-  </ul>
-
-  <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>
-
-</div>
+					Promise.all([
+						import("./_app/immutable/entry/start.uf3TPFRF.js"),
+						import("./_app/immutable/entry/app.1-Q_-lna.js")
+					]).then(([kit, app]) => {
+						kit.start(app, element, {
+							node_ids: [0, 2],
+							data,
+							form: null,
+							error: null
+						});
+					});
+				}
+			</script>
+		</div>
+	</body>
+</html>
