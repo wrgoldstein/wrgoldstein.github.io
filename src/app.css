@@ -7,11 +7,17 @@ h1 {
     font-size: 3em;
 }
 
-p + p {
+p {
    margin-top: 1em; 
 }
 
 a {
     text-decoration: underline;
     color: MediumSlateBlue;
+}
+
+pre {
+    padding: 1em;
+    border-radius: .5em;
+    overflow-x: scroll;
 }

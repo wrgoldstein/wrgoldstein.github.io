@@ -8,16 +8,20 @@
   }
 
   function link(post){
-    return `${post.date}-${skewer(post.title)}`
+    return `blog/${post.date}-${skewer(post.title)}`
   }
 </script>
 
 <h1 class="text-6xl">Hi</h1>
+<h2>My name is Will and I like to write about code and data, sometimes.</h2>
 
-<div class="flex">
-  {#each posts as post}
-    <div>
-      <a href = {link(post)}>{post.title}</a>
-    </div>
-  {/each}
+<div class="mt-6">
+  Posts:
+  <div class="flex ml-4 mt-1">
+    {#each posts as post}
+      <div>
+        <a href = {link(post)}>{post.title}</a>
+      </div>
+    {/each}
+  </div>  
 </div>
