@@ -1,0 +1,27 @@
+---
+layout: post
+title:  "K-means"
+date:   2015-09-15
+---
+<script src="{{ "/js/d3.min.js" | prepend: site.baseurl }}"></script>
+<head>
+    <style>
+    .title {
+        margin-left: 25%;
+        margin-right: 25%;
+        font-family: "Lucida Grande";
+        margin-top: 40px;
+        color: black;
+    }
+    svg {
+        box-shadow: 0px 0px 10px #888888;
+        margin-top: 5px;
+        margin-left: 25%;
+        margin-right: 25%;
+    }
+    </style>
+</head>
+
+This is a visualization of the K-means algorithm with four clusters.
+
+<script src="{{ "/js/kmeans.js" | prepend: site.baseurl }}"></script>
