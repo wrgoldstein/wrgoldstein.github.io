@@ -4,27 +4,6 @@ title:  "Beam search nearest neighbors"
 date: 2015-12-28
 ---
 
-A common problem is finding the nearest neighbors of a given object in some search space.  [Beam search](https://en.wikipedia.org/wiki/Beam_search) is an "anytime" heuristic search algorithm which very efficiently accomplishes this.
-
-Imagine we have a set of N nodes, each randomly "closest" (connected by an edge) to n other nodes.  The algorithm works as follows:
-
-1. Pick a node; paint it red.
-2. Paint its neighbors grey. Also paint the neighbors for each of those neighbors.
-3. "Fix" the edges of the red node by connecting it to the closest of these grey nodes.
-4. Repeat for each node.
-
-<head>
-<style type="text/css">
-svg {
-        box-shadow: 0px 0px 10px #888888;
-        margin-top: 5px;
-        margin-left: 25%;
-        width: 50%;
-    }
-</style>
-</head>
-<body>
-<script src="/js/d3.min.js"></script>
 <script>
 var width = 600,
     height = 400,
@@ -48,7 +27,7 @@ var svg = d3.select("body").append("svg")
       }
     });
 
-var width = svg.style("width").slice(0,-2)
+width = svg.style("width").slice(0,-2)
 
 function add_play_btn() {
   d3.xml("/assets/play.svg", "image/svg+xml", function(error, xml) {
@@ -199,3 +178,12 @@ function uniq_fast(a) {
     return out;
 }
 </script>
+
+A common problem is finding the nearest neighbors of a given object in some search space.  [Beam search](https://en.wikipedia.org/wiki/Beam_search) is an "anytime" heuristic search algorithm which very efficiently accomplishes this.
+
+Imagine we have a set of N nodes, each randomly "closest" (connected by an edge) to n other nodes.  The algorithm works as follows:
+
+1. Pick a node; paint it red.
+2. Paint its neighbors grey. Also paint the neighbors for each of those neighbors.
+3. "Fix" the edges of the red node by connecting it to the closest of these grey nodes.
+4. Repeat for each node.

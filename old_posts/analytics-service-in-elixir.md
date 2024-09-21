@@ -1,7 +1,7 @@
-<script context="module">
-    export const title = "An Analytics Service in Elixir"
-    export const date = new Date(2017, 2, 15)
-</script>
+---
+title: An Analytics Service in Elixir
+date: 2017-02-15
+---
 
 # {title}
 

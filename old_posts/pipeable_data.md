@@ -13,7 +13,7 @@ Say we want to tell a story like the following:
 
 We build up the pieces to tell the story:
 
-{% highlight ruby %}
+```ruby
 
 def the_bunny(name)
   "The bunny #{name}"
@@ -27,48 +27,48 @@ def and_ate_some_grass(object)
   "#{object} and ate some grass"
 end
 
-{% endhighlight %}
+```
 
 And then what?  We have some choices.
 
 Use nested function calls:
 
-{% highlight ruby %}
+```ruby
 
 story = and_ate_some_grass(went_to_the_forest(the_bunny('Foofoo')))
 
-{% endhighlight %}
+```
 
 But this is hard to read.  What if we broke it out?
 
 Use separate variables for each state:
 
-{% highlight ruby %}
+```ruby
 
 the_named_bunny = the_bunny('Foofoo')
 with_subject = went_to_the_forest(the_named_bunny)
 story = and_ate_some_grass(with_subject)
 
-{% endhighlight %}
+```
 
 Not much better. The variable names are either redundant with the
 method names or non descriptive.
 
 Let's try using one variable to hold the story as it builds:
 
-{% highlight ruby %}
+```ruby
 
 story = the_bunny('Foofoo')
 story = went_to_the_forest(story)
 story = and_ate_some_grass(story)
 
-{% endhighlight %}
+```
 
 This is better, but contrived looking with 'story' repeated everywhere. What if we want to tell the same story several times with a different name?  We'd have to copy and paste all three lines.
 
 So we make a method:
 
-{% highlight ruby %}
+```ruby
 
 def tell_the_story(name)
   story = the_bunny(name)
@@ -80,11 +80,11 @@ end
 tell_the_story('Foofoo')
 tell_the_story('Booboo')
 
-{% endhighlight %}
+```
 
 Which is great, but what if you want the option to just use a piece of your story?
 
-{% highlight ruby %}
+```ruby
 
 def partial_story(name)
   story = the_bunny(name)
@@ -101,13 +101,13 @@ end
 partial_story('Foofoo')
 full_story('Booboo')
 
-{% endhighlight %}
+```
 
 Ugh.  What if there are many possible sub stories?
 
 Maybe use lambdas with a pipeline:
 
-{% highlight ruby %}
+```ruby
 
 storyline = [
   :the_bunny,
@@ -118,11 +118,11 @@ storyline = [
 storyline[0..1].inject('Foofoo') { |v, m| m.(v) }
 storyline.inject('Booboo') { |v, m| m.(v) }
 
-{% endhighlight %}
+```
 
 Ruby syntax starts getting in the way.  We can at least hide it away:
 
-{% highlight ruby %}
+```ruby
 
 def tell_the_story(storyline, name)
   storyline.inject(name) { |v, m| m.(v) }
@@ -131,11 +131,11 @@ end
 tell_the_story(storyline[0..1], 'Foofoo')
 tell_the_story(storyline, 'Booboo')
 
-{% endhighlight %}
+```
 
 But this is still sort of all over the place.  We can tidy it up by wrapping it in a class:
 
-{% highlight ruby %}
+```ruby
 
 class Bunny
   def initialize(name)
@@ -166,11 +166,11 @@ Bunny.new('Booboo')
   .went_to_the_forest
   .the_end
 
-{% endhighlight %}
+```
 
 Which is actually pretty great in terms of readability.  But what if there's another ending, which this class doesn't know about?
 
-{% highlight ruby %}
+```ruby
 
 def new_ending(story)
   "#{story} and then gets eaten by a fox!"
@@ -180,13 +180,13 @@ new_ending(Bunny.new('Booboo')
   .went_to_the_forest
   .the_end)
 
-{% endhighlight %}
+```
 
 The nice readability of our story in code is gone, especially if there's more than one of these building blocks.
 
 But suppose we skip all this superstructure and use our original methods plus a small glue method in the data class?
 
-{% highlight ruby %}
+```ruby
 
 class String
   def |(fun, *args)
@@ -194,18 +194,18 @@ class String
   end
 end
 
-{% endhighlight %}
+```
 
 Voila:
 
-{% highlight ruby %}
+```ruby
 
 'Foofoo' |
   :the_bunny |
   :went_to_the_forest |
   :and_ate_some_grass
 
-{% endhighlight %}
+```
 
 
 This doesn't allow extra arguments, so if a method like `:the` took a parameter like `:bunny`, you couldn't do `'Foofoo' | :the, :bunny`.  You could accomplish this with `'Foofoo' .| :the, :bunny` (calling the operator directly), but this doesn't work with the multiline format above.  It's an open question for me whether Ruby could be made to support this like elixir or clojure.
