@@ -1,11 +1,14 @@
-<script>
+<script context="module">
+    export const title = "New blog"
+    export const date = new Date(2024, 8, 16)
+
     import Boinger from "./Boinger.svelte"
     import Back from "$lib/components/Back.svelte"
 </script>
 
 <Back/>
 
-# New blog
+# {title}
 
 I've got a new blog! Well, the same blog, but with some upgrades I'd been thinking about for the last couple of years that I hadn't gotten around to yet.
 

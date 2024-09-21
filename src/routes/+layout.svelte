@@ -3,6 +3,6 @@
 </script>
 
 <!-- <Back/> -->
-<div class="border-box m-8 max-w-[800px]">
+<div class="m-auto border-box max-w-[800px]">
   <slot />
 </div>
