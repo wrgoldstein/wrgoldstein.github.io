@@ -1,144 +1,101 @@
 ---
 layout: post
-title:  "Hog Dice"
-date:   2016-07-24
+title: "Hog Dice"
+date: 2016-07-24
 ---
 
 <script>
+  import {onMount} from 'svelte'
+  import * as d3 from "d3"
 
-var margin = {top: 20, right: 20, bottom: 30, left: 40},
-    width = 960 - margin.left - margin.right,
-    height = 300 - margin.top - margin.bottom;
+  let n = 40
+  // let y = d3.scaleLinear([400, 0], [0, 16])
 
-var x = d3.scale.ordinal()
-    .rangeRoundBands([0, width], .1);
+  let height = $state()
+  let width = $state()
 
-var y = d3.scale.linear()
-    .range([height, 0]);
+  let r = d3.range(n)
+  
+  let x = d3.scaleOrdinal(r)
+    .domain(r)
+    .range([0, 700])
 
-var xAxis = d3.svg.axis()
-    .scale(x)
-    .orient("bottom");
 
-var yAxis = d3.svg.axis()
-    .scale(y)
-    .orient("left")
-    .ticks(10);
+  let y = d3.scaleLinear()
+    .domain([400, 0])
+    .range([0, 700])
 
-var svg = d3.select("body").append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-    .attr("align","center")
-  .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+  function realAnswer(n) {
+    return Math.pow(5/6, n) * n * 4.0
+  }
 
-var data = [];
-var n = 40;
+  function roll(){
+    Math.ceil(Math.random() * 6)
+  }
 
-x.domain(d3.range(n));
-y.domain([0, 16]);
 
-svg.append("g")
-    .attr("class", "x axis")
-    .attr("transform", "translate(0," + height + ")")
-    .call(xAxis);
+  // var margin = {top: 20, right: 20, bottom: 30, left: 40},
+  //     width = 960 - margin.left - margin.right,
+  //     height = 300 - margin.top - margin.bottom;
 
-svg.append("g")
-    .attr("class", "y axis")
-    .call(yAxis)
-  .append("text")
-    .attr("transform", "rotate(-90)")
-    .attr("y", 6)
-    .attr("dy", ".71em")
-    .style("text-anchor", "end")
-    .text("Average Value");
+  // var x = d3.scaleOrdinal(d3.range(40))
 
-var t = d3.transition()
-      .duration(750);
+// update(rolled)
+// var t2 = setInterval(function(){
+//   console.log("!")
+//   iterations += 1
+//   last_rolled = rolled.slice(0)
+//   rolled = d3.range(n).map( function(n) { return rollDice(n) })
+//   rolled = weightedAverage(rolled, last_rolled, 1 / iterations)
+//   update(rolled)
+// }, 200)
 
-svg.selectAll(".bar2").data(realAnswer(n))
-    .enter().append("rect")
-    .attr("class", "bar2")
-    .attr("x", function(d, i) { return x(i); })
-    .attr("width", x.rangeBand())
-    .transition(t)
-    .attr("y", function(d) { return y(d); })
-    .attr("height", function(d) { return height - y(d); })
+onMount(() => {
 
-function update(data) {
-  var g = svg.selectAll(".bar").data(data)
-  g.enter().append("rect")
-      .attr("class", "bar")
-      .attr("x", function(d, i) { return x(i); })
-      .attr("width", x.rangeBand())
-      .transition(t)
-      .attr("y", function(d) { return y(d); })
-      .attr("height", function(d) { return height - y(d); })
-  g.exit().transition(t).remove()
-  g.transition().duration(750)
-   .attr("y", function(d) { return y(d); })
-   .attr("height", function(d) { return height - y(d); })
 
-}
+  d3.select("svg")
+    .append("g")
+    .attr("transform", `translate(0,${height})`)
+    .call(d3.axisBottom(x))
 
-// not used
-function triangleN(n, acc = 0) {
-  if (n == 0) return acc
-  return triangleN(n-1, acc + n)
-}
-
-function expectedValue(n) {
-
-}
-
-function realAnswer(n) {
-  return d3.range(n).map( function(n) {
-    p = Math.pow(5/6, n)
-    return p * n * 4.0
+  d3.select("svg").append("g")
+  .call(d3.axisLeft(y))
   })
-}
-
-function rollDice(n) {
-  var rolled = d3.range(n).map(function(){ return Math.ceil(Math.random() * 6) })
-  if (rolled.find(function(d){ return d == 1}) > 0 ) return 0
-  return d3.sum(rolled)
-}
-
-function weightedAverage(arr1, arr2, w) {
-  return arr1.map(function(d,i) { return d*w + arr2[i]*(1-w) })
-}
-var iterations = 0
-var rolled = d3.range(n).map(function(){ return 0 })
-update(rolled)
-var t2 = setInterval(function(){
-  console.log("!")
-  iterations += 1
-  last_rolled = rolled.slice(0)
-  rolled = d3.range(n).map( function(n) { return rollDice(n) })
-  rolled = weightedAverage(rolled, last_rolled, 1 / iterations)
-  update(rolled)
-}, 200)
 
 
 </script>
 
-I'm giving a presentation at [Artsy's offsite](http://observer.com/2015/08/artsys-wet-hot-american-summer/) on Analytics at Artsy, and I wanted an accessible and relevant ice breaker.  I decided to go with the [HOG Dice Game](http://www.amstat.org/publications/jse/v11n2/feldman.html) to try to get at how data analytics can be useful for solving real world problems.  The game is simple:
+I'm giving a presentation at [Artsy's offsite](http://observer.com/2015/08/artsys-wet-hot-american-summer/) on Analytics at Artsy, and I wanted an accessible and relevant ice breaker. I decided to go with the [HOG Dice Game](http://www.amstat.org/publications/jse/v11n2/feldman.html) to try to get at how data analytics can be useful for solving real world problems. The game is simple:
 
 > 1. Players take turns rolling dice. Each player may choose any number of dice from one up to the total number of dice available. (We recommend that at least ten dice be available for each player or team.)
-2. The number of dice a player chooses to roll can vary from turn to turn.
-3. The player's score for a turn is zero if at least one of the dice comes up with the value one. Otherwise, the player's score for the turn is the sum of the faces showing on the dice. (Rolling a one sets only the score for that turn to zero, not the total cumulative score for the player.)
-4. A cumulative running total of the scores is kept for each player.
-5. The first player to reach or exceed a predetermined score (100 works well) wins the game. If more than one player reaches the predetermined score on the same turn then the player with the highest point total wins the game.
+> 2. The number of dice a player chooses to roll can vary from turn to turn.
+> 3. The player's score for a turn is zero if at least one of the dice comes up with the value one. Otherwise, the player's score for the turn is the sum of the faces showing on the dice. (Rolling a one sets only the score for that turn to zero, not the total cumulative score for the player.)
+> 4. A cumulative running total of the scores is kept for each player.
+> 5. The first player to reach or exceed a predetermined score (100 works well) wins the game. If more than one player reaches the predetermined score on the same turn then the player with the highest point total wins the game.
 
+To help explain the optimal results, I've made a small visualization of the theoretical vs experimental best choice for how many dice to roll. The below chart shows the analytical solution (orange) alongside the average return from a dice throw simulation. The experimental converges to the theoretical, but not as quickly as you might think.
 
-To help explain the optimal results, I've made a small visualization of the theoretical vs experimental best choice for how many dice to roll.  The below chart shows the analytical solution (orange) alongside the average return from a dice throw simulation.  The experimental converges to the theoretical, but not as quickly as you might think.
+Here's the expected value for each number of dice a player can choose:
 
-<meta charset="utf-8">
+<!-- <div class="flex gap-1 items-end my-8">
+  {#each d3.range(n) as i}
+    <div style="height: {realAnswer(i)}rem; width: 1rem;" class="relative bg-gray-500 bg-opacity-20"/>
+  {/each}
+</div> -->
+<div class="w-full">
 
-<svelte:head>
-
-  <script src="https://d3js.org/d3.v3.min.js"></script>
-</svelte:head>
+<svg bind:clientHeight={height}>
+  {#each r as i}
+      <rect
+        x={x(i)} 
+        y={y(realAnswer(i))} 
+        height={y(0) - y(realAnswer(i))} 
+        width={10}
+        fill="purple" 
+        />
+  {/each}
+</svg>
+</div>
 
 <style>
 
