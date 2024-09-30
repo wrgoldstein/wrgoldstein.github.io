@@ -5,32 +5,13 @@ date: 2024-09-27
 ---
 
 <script>
-  import { onMount } from "svelte";
   import Circle from "./svelte_animations/Circle.svelte";
   import Line from "./svelte_animations/Line.svelte";
+  import { AnimationTimer } from '$lib/components/AnimationTimer.svelte.js'
+  let timer = AnimationTimer(5500)
 
-  const loop_time = 5_500;
-
-  let zero
-  let time = $state();
-
-  function firstFrame(timestamp) {
-    zero = timestamp;
-    animate(timestamp);
-  }
-
-  function animate(timestamp) {
-    time = timestamp - zero;
-    if (time < loop_time) {
-      requestAnimationFrame((t) => animate(t));
-    } else {
-      time = 0;
-      setTimeout(() => requestAnimationFrame(firstFrame), 100);
-    }
-  }
-
-  onMount(() => {
-    requestAnimationFrame(firstFrame);
+  $effect.root(() => {
+    timer.start()
   });
 </script>
 
@@ -45,7 +26,7 @@ date: 2024-09-27
     y2={50}
     stroke="#2C5943"
     strokeWidth={4}
-    {time}
+    time={timer.time}
     delay="0"
     duration={250}
   />
@@ -55,7 +36,7 @@ date: 2024-09-27
     cx={150}
     cy={50}
     r={25}
-    {time}
+    time={timer.time}
     delay="250"
     duration="500"
     hold="500"
@@ -65,7 +46,7 @@ date: 2024-09-27
     cx={150}
     cy={50}
     r={35}
-    {time}
+    time={timer.time}
     delay="750"
     duration="500"
     strokeDasharray="4 4"
@@ -74,7 +55,7 @@ date: 2024-09-27
     cx={150}
     cy={50}
     r={45}
-    {time}
+    time={timer.time}
     delay="1250"
     duration="500"
     strokeDasharray="0 4"
@@ -83,7 +64,7 @@ date: 2024-09-27
     cx={150}
     cy={50}
     r={25}
-    {time}
+    time={timer.time}
     delay="1750"
     duration="500"
     hold="400"
@@ -96,7 +77,7 @@ date: 2024-09-27
     y2={50}
     stroke="#2C5943"
     strokeWidth={4}
-    {time}
+    time={timer.time}
     delay=2250
     duration={250}
   />
@@ -108,7 +89,7 @@ date: 2024-09-27
     cx={300}
     cy={50}
     r={25}
-    {time}
+    time={timer.time}
     stroke="none"
     fill="white"
     delay="2500"
@@ -120,18 +101,18 @@ date: 2024-09-27
     cx={300}
     cy={50}
     r={25}
-    {time}
+    time={timer.time}
     delay="0"
     duration="4000"
     hold="500"
     draw="none"
   />
-  <Circle cx={300} cy={50} r={35} {time} delay="3000" duration="500" />
+  <Circle cx={300} cy={50} r={35} time={timer.time} delay="3000" duration="500" />
   <Circle
     cx={300}
     cy={50}
     r={45}
-    {time}
+    time={timer.time}
     delay="3500"
     duration="500"
     strokeDasharray="0 4"
@@ -144,7 +125,7 @@ date: 2024-09-27
     y2={50}
     stroke="#2C5943"
     strokeWidth={4}
-    {time}
+    time={timer.time}
     delay=4000
     duration={250}
   />
@@ -154,7 +135,7 @@ date: 2024-09-27
     cx={450}
     cy={50}
     r={25}
-    {time}
+    time={timer.time}
     delay="0"
     duration="4000"
     hold="500"
@@ -164,7 +145,7 @@ date: 2024-09-27
     cx={450}
     cy={50}
     r={28}
-    {time}
+    time={timer.time}
     delay="4250"
     duration="500"
     hold="500"
@@ -174,7 +155,7 @@ date: 2024-09-27
     cx={450}
     cy={50}
     r={45}
-    {time}
+    time={timer.time}
     delay="4750"
     duration="500"
     strokeDasharray="0 4"
@@ -187,7 +168,7 @@ date: 2024-09-27
     y2={50}
     stroke="#2C5943"
     strokeWidth={4}
-    {time}
+    time={timer.time}
     delay=5250
     duration={250}
   />
@@ -206,7 +187,7 @@ The animations were really cool, but the exported gifs weren't always as smooth 
     cx={x}
     cy={50}
     r={0.5*i}
-    {time}
+    time={timer.time}
     stroke="#2C5943"
     strokeWidth={1}
     delay={5*x + 5*i}
@@ -222,7 +203,7 @@ The animations were really cool, but the exported gifs weren't always as smooth 
     cx={x}
     cy={50}
     r={0.5*i}
-    {time}
+    time={timer.time}
     stroke="#2C5943"
     strokeWidth={1}
     delay={2000 + 5*x + 5*i}
@@ -280,15 +261,15 @@ Once you have the timing, Svelte makes the rest really easy.
 <svg viewbox="0 0 600 100" class="w-full mx-auto">
   <Line 
     x0={0} x2={600} y0={50} y2={50} stroke="Tomato" 
-    strokeWidth={20} strokeDashArray="0 25 0 25 0 25" delay=0 duration=3000 {time}
+    strokeWidth={20} strokeDashArray="0 25 0 25 0 25" delay=0 duration=3000 time={timer.time}
   />
   <Line 
     x0={0} x2={600} y0={20} y2={30} stroke="MediumSeaGreen" 
-    strokeWidth={20} strokeDashArray="0 0 50 0 25 50 25" delay=0 duration=4000 {time}
+    strokeWidth={20} strokeDashArray="0 0 50 0 25 50 25" delay=0 duration=4000 time={timer.time}
   />
   <Line 
     x0={0} x2={600} y0={40} y2={10} stroke="DodgerBlue" 
-    strokeWidth={10} strokeDashArray="0 25 50 0 25 50 25" delay=3000 duration=500 {time}
+    strokeWidth={10} strokeDashArray="0 25 50 0 25 50 25" delay=3000 duration=500 time={timer.time}
   />
 </svg>
 
@@ -347,15 +328,15 @@ The colorful lines above are just
 <svg viewbox="0 0 600 100" class="w-full mx-auto">
   <Line 
     x1={0} xto={600} y1={40} yto={10} stroke="DodgerBlue" 
-    strokeWidth={10} strokeDashArray="0 25 50 0 25 50 25" delay=3000 duration=500 {time}
+    strokeWidth={10} strokeDashArray="0 25 50 0 25 50 25" delay=3000 duration=500 time={timer.time}
   />
   <Line 
     x1={0} xto={600} y1={50} yto={50} stroke="Tomato" 
-    strokeWidth={20} strokeDashArray="0 25 0 25 0 25" delay=0 duration=3000 {time}
+    strokeWidth={20} strokeDashArray="0 25 0 25 0 25" delay=0 duration=3000 time={timer.time}
   />
   <Line 
     x1={0} xto={600} y1={20} yto={30} stroke="MediumSeaGreen" 
-    strokeWidth={20} strokeDashArray="0 0 50 0 25 50 25" delay=0 duration=4000 {time}
+    strokeWidth={20} strokeDashArray="0 0 50 0 25 50 25" delay=0 duration=4000 time={timer.time}
   />
 </svg>
 ```
