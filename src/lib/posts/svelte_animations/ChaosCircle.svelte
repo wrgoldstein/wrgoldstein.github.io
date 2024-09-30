@@ -20,9 +20,13 @@
 
   const N = 1000;
 
-  let points = d3.range(0, 2 * Math.PI, (2 * Math.PI) / N).map((i) => {
+  let points = new Array(N).fill().map((_, i) => 2 * N * Math.PI / (i+.0001)).map((i) => {
     return `L${cx + r * Math.cos(i)} ${cy + r * Math.sin(i)}`;
   });
+
+  // d3.range(0, 2 * Math.PI, (2 * Math.PI) / N).map((i) => {
+  //   return `L${cx + r * Math.cos(i)} ${cy + r * Math.sin(i)}`;
+  // });
 
   const reversed = draw === "reversed"
   points = reversed ? points.reverse() : points;

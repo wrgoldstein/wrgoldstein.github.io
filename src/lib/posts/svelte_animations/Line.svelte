@@ -1,4 +1,6 @@
 <script>
+  import { clamp } from "./utils.js"
+
   const {
     x0,
     y0,
@@ -12,28 +14,21 @@
     strokeWidth,
   } = $props();
 
-  function clamp(num, min, max) {
-    return num <= min 
-      ? min 
-      : num >= max 
-        ? max 
-        : num
-  }
-
   let frac = $derived(clamp((time - delay) / duration, 0, 1))
-  let x1 = $derived.by(() => { return x0 + (x2 - x0) * frac })
-  let y1 = $derived.by(() => { return y0 + (y2 - y0) * frac })
-
-  $effect(() => console.log(frac))
+  let x1 = $derived(x0 + (x2 - x0) * frac)
+  let y1 = $derived(y0 + (y2 - y0) * frac)
 </script>
 
 {#if frac > 0}
-  <path
-    d="M {x0} {y0} L {x1} {y1}"
+  <line
+    x1={x0}
+    y1={y0}
+    x2={x1}
+    y2={y1}
     {stroke}
     stroke-dasharray={strokeDashArray}
     stroke-linecap="square"
     stroke-width={strokeWidth}
   >
-  </path>
+</line>
 {/if}
