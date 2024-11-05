@@ -9,5 +9,5 @@
 </script>
 
 {#if current_url?.startsWith("/blog")}
-  <a href="/">back</a>
+  <a href="/blog">back</a>
 {/if}

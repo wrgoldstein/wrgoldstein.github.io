@@ -42,7 +42,7 @@
 <article
 	class="tracking-wide prose mx-auto mt-16 prose-a:text-twirl prose-pre:border prose-pre:border-neutral-700 prose-img:rounded-xl prose-figcaption:lg:-ml-[5ch] prose-figcaption:lg:max-w-[75ch] prose-img:lg:-ml-[5ch] prose-img:lg:max-w-[90ch] px-8 lg:max-w-[85ch] mb-16"
 >
-<a href="/">back</a>
+<a href="/blog">back</a>
 	<!-- You might want to add an alt frontmatter attribute. If not, leaving alt blank here works, too. -->
 	<img
 		class="cover-image"
