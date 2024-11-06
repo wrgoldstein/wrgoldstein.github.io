@@ -1,30 +1,67 @@
 <script>
-  import { lerp, circleCollision } from "./utils.js";
+  import { lerp, circleCollision, generateRandomPoints } from "./utils.js";
   let box = $state();
+  let m = $state({ x: 0, y: 0 });
+  let head = $state(new Circle(400, 200, 14))
   let circles = $state([]);
 
   let collisionDetected = $state(false);
-  let fill = $derived(collisionDetected ? 'red' : 'PaleVioletRed')
-  function handler(e) {
-    const b = box.getBoundingClientRect();
+  let collisionGrace = 1;
+  let score = $state(0);
+  let topScores = $state([1,4,6,2,3])
+  let sortedScores = $derived([...topScores].sort((a,b) => b - a))
+  let fill = $derived(collisionDetected ? "red" : "PaleVioletRed");
 
-    let l = lerp(0.15, head, { x: e.x - b.x, y: e.y });
+  function handler(event) {
+    m.x = event.clientX;
+		m.y = event.clientY;
+  }
+
+  function step(){
+    const b = box.getBoundingClientRect();
+    let l = lerp(0.05, head, { x: m.x - b.x, y: m.y });
     head.x = l.x;
     head.y = l.y;
     collisionDetected = false;
-    body.map((b, i) => {
+    circles.forEach((b, i) => {
       b.tick();
 
-      if (i > 2 && circleCollision(head, b)) {
+      if (i > 7 && circleCollision(head, b)) {
         collisionDetected = true;
       }
     });
+
+    const eaten = food.findIndex((f) =>
+      circleCollision(head, f, collisionGrace - 1)
+    );
+    if (eaten != -1) {
+      score++;
+      food.splice(eaten, 1);
+      const newCircle = new Circle(0, 0, 1);
+      newCircle.setFollowing(circles[circles.length - 1], 10);
+      newCircle.tick();
+      circles.push(newCircle);
+      circles.forEach((c, i) => {
+        if (i > circles.length / 2) {
+          c.radius += 1;
+          c.setFollowAt(c.radius * 0.9);
+        }
+        // if (Math.random() > .95){
+        //   circles.splice(i, 1)
+        //   console.log(c.target)
+        //   circles[i-1].setFollowing(c.target, c.target.radius + 2)
+        // }
+      });
+
+      head.radius += 0.05;
+    }
+    requestAnimationFrame(step);
   }
 
   import Circle from "./Circle.svelte.js";
 
   function circlesToHull(circles) {
-    if (!circles[0].left) return;
+    if (!circles[0]?.left) return;
     const [a, b] = circles.reduce(
       ([a, b], c) => {
         return [a.concat(c.left), b.concat(c.right)];
@@ -39,59 +76,96 @@
       .replace(/^L/, "M");
   }
 
-  let head = new Circle(400, 200, 14);
-  let body = [
-    new Circle(0, 0, 10),
-    new Circle(0, 0, 11),
-    new Circle(0, 0, 13),
-    new Circle(0, 0, 15),
-    new Circle(0, 0, 13),
-    new Circle(0, 0, 15),
-    new Circle(0, 0, 14),
-    new Circle(0, 0, 13),
-    new Circle(0, 0, 12),
-    new Circle(0, 0, 9),
-    new Circle(0, 0, 7),
-    new Circle(0, 0, 3),
-    new Circle(0, 0, 1),
-  ];
-  for (let i = 0; i < body.length; i++) {
-    if (i == 0) {
-      body[i].setFollowing(head, 0);
-    } else {
-      body[i].setFollowing(body[i - 1], Math.min(body[i - 1].radius, 5));
+  function resetCircles(){
+    
+    let body = [
+      new Circle(head.x, head.y, 10),
+      new Circle(head.x, head.y, 11),
+      new Circle(head.x, head.y, 13),
+      new Circle(head.x, head.y, 15),
+      new Circle(head.x, head.y, 13),
+      new Circle(head.x, head.y, 15),
+      new Circle(head.x, head.y, 14),
+      new Circle(head.x, head.y, 13),
+      new Circle(head.x, head.y, 12),
+      new Circle(head.x, head.y, 9),
+      new Circle(head.x, head.y, 7),
+      new Circle(head.x, head.y, 3),
+      new Circle(head.x, head.y, 1),
+    ];
+    head = new Circle(head.x, head.y, 14);
+    for (let i = 0; i < body.length; i++) {
+      if (i == 0) {
+        body[i].setFollowing(head, 0);
+      } else {
+        body[i].setFollowing(body[i - 1], Math.min(body[i - 1].radius, 12));
+      }
     }
+    circles = body
   }
-  // makes the list reactive.. not really used
-  circles = body;
 
   let hull = $derived.by(() => {
     return circlesToHull(circles);
   });
+
+  let food = $state(generateRandomPoints(10, 0, 1200, 0, 600));
+
+  setInterval(() => {
+    if (collisionDetected && score > 0){
+      food = []
+      topScores.push(score)
+      score = 0
+      resetCircles()
+    }
+    if (food.length < 20) {
+      const [f] = generateRandomPoints(1, 0, 1200, 0, 600);
+      food.push(f);
+    }
+  }, 200);
+
+  $effect.root(() => {
+    resetCircles()
+    requestAnimationFrame(step)
+  })
 </script>
 
 <svelte:body onmousemove={handler} />
 <div class="w-full">
-  {collisionDetected}
+  <div class="fixed right-[30rem] top-10">
+    <span class="text-7xl">{score}</span>
+    <div>
+      {#each sortedScores as s, i}
+        <div style="opacity: {(10 - i) / 10}">{s}</div>
+      {/each}
+    </div>  
+  </div>
+  
   <svg
     class="fixed top-0 left-0 h-full w-full"
     viewport="0 0 600 400"
     bind:this={box}
   >
-    <circle
-      cx={head.x}
-      cy={head.y}
-      r={head.radius}
-      fill={fill}
-    ></circle>
+    <circle cx={head.x} cy={head.y} r={head.radius} {fill}></circle>
 
     {#each circles as circle}
-      <!-- <circle cx={circle.x} cy={circle.y} r={circle.radius} fill="none" stroke="black"></circle> -->
       {#if circle.left}
-        <!-- <circle cx={circle.left.x} cy={circle.left.y} r={5} fill="purple"></circle>
-        <circle cx={circle.right.x} cy={circle.right.y} r={5} fill="purple"></circle> -->
-        <path d={hull} fill={fill}></path>
+        <circle cx={circle.left.x} cy={circle.left.y} r={5} fill="purple"
+        ></circle>
+        <circle cx={circle.right.x} cy={circle.right.y} r={5} fill="purple"
+        ></circle>
+        <path d={hull} {fill} fill-opacity="0.1"></path>
       {/if}
+      <circle
+        cx={circle.x}
+        cy={circle.y}
+        r={circle.radius}
+        fill="none"
+        stroke="black"
+      ></circle>
+    {/each}
+
+    {#each food as f}
+      <rect x={f.x} y={f.y} width="10" height="10"></rect>
     {/each}
   </svg>
 </div>
