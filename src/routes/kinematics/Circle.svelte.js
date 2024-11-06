@@ -17,6 +17,10 @@ export default class Circle {
         this.followAt = null
     }
 
+    setFollowAt(distance){
+        this.followAt = distance
+    }
+
     setFollowing(circle, distance){
         this.target = circle
         this.followAt = distance
