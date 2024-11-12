@@ -2,7 +2,9 @@ import { error } from '@sveltejs/kit';
 
 export const load = async ({ params }) => {
 	try {
-		const post = await import(`$lib/posts/${params.post}.md`);
+		const post = await import(`$lib/posts/${params.post}.md`, {
+			query: '?raw'
+		})
 
 		return {
 			PostContent: post.default,
