@@ -1,15 +1,14 @@
 ---
 layout: post
-title:  "Pipeable data in Ruby"
-date:   2015-12-27
+title: 'Pipeable data in Ruby'
+date: 2015-12-27
 ---
 
-This post comes from some playing around after seeing Hadley Wickham speak about [pipeable data in R](https://speakerdeck.com/hadley/pipelines-for-data-analysis-in-r).  In it I try to explore different ways of serially applying a set of transformations to a piece of data.
+This post comes from some playing around after seeing Hadley Wickham speak about [pipeable data in R](https://speakerdeck.com/hadley/pipelines-for-data-analysis-in-r). In it I try to explore different ways of serially applying a set of transformations to a piece of data.
 
 Say we want to tell a story like the following:
 
 > "the bunny Foofoo went to the forest and ate some grass"
-
 
 We build up the pieces to tell the story:
 
@@ -29,7 +28,7 @@ end
 
 ```
 
-And then what?  We have some choices.
+And then what? We have some choices.
 
 Use nested function calls:
 
@@ -39,7 +38,7 @@ story = and_ate_some_grass(went_to_the_forest(the_bunny('Foofoo')))
 
 ```
 
-But this is hard to read.  What if we broke it out?
+But this is hard to read. What if we broke it out?
 
 Use separate variables for each state:
 
@@ -64,7 +63,7 @@ story = and_ate_some_grass(story)
 
 ```
 
-This is better, but contrived looking with 'story' repeated everywhere. What if we want to tell the same story several times with a different name?  We'd have to copy and paste all three lines.
+This is better, but contrived looking with 'story' repeated everywhere. What if we want to tell the same story several times with a different name? We'd have to copy and paste all three lines.
 
 So we make a method:
 
@@ -103,7 +102,7 @@ full_story('Booboo')
 
 ```
 
-Ugh.  What if there are many possible sub stories?
+Ugh. What if there are many possible sub stories?
 
 Maybe use lambdas with a pipeline:
 
@@ -120,7 +119,7 @@ storyline.inject('Booboo') { |v, m| m.(v) }
 
 ```
 
-Ruby syntax starts getting in the way.  We can at least hide it away:
+Ruby syntax starts getting in the way. We can at least hide it away:
 
 ```ruby
 
@@ -133,7 +132,7 @@ tell_the_story(storyline, 'Booboo')
 
 ```
 
-But this is still sort of all over the place.  We can tidy it up by wrapping it in a class:
+But this is still sort of all over the place. We can tidy it up by wrapping it in a class:
 
 ```ruby
 
@@ -168,7 +167,7 @@ Bunny.new('Booboo')
 
 ```
 
-Which is actually pretty great in terms of readability.  But what if there's another ending, which this class doesn't know about?
+Which is actually pretty great in terms of readability. But what if there's another ending, which this class doesn't know about?
 
 ```ruby
 
@@ -207,5 +206,4 @@ Voila:
 
 ```
 
-
-This doesn't allow extra arguments, so if a method like `:the` took a parameter like `:bunny`, you couldn't do `'Foofoo' | :the, :bunny`.  You could accomplish this with `'Foofoo' .| :the, :bunny` (calling the operator directly), but this doesn't work with the multiline format above.  It's an open question for me whether Ruby could be made to support this like elixir or clojure.
+This doesn't allow extra arguments, so if a method like `:the` took a parameter like `:bunny`, you couldn't do `'Foofoo' | :the, :bunny`. You could accomplish this with `'Foofoo' .| :the, :bunny` (calling the operator directly), but this doesn't work with the multiline format above. It's an open question for me whether Ruby could be made to support this like elixir or clojure.

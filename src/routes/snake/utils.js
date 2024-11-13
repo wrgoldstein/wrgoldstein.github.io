@@ -5,13 +5,13 @@
  * @returns {boolean} True if the circles collide, false otherwise
  */
 export function circleCollision(circle1, circle2, grace = 0) {
-  // Calculate the distance between the centers of the two circles
-  const dx = circle1.x - circle2.x;
-  const dy = circle1.y - circle2.y;
-  const distance = Math.sqrt(dx * dx + dy * dy);
+	// Calculate the distance between the centers of the two circles
+	const dx = circle1.x - circle2.x;
+	const dy = circle1.y - circle2.y;
+	const distance = Math.sqrt(dx * dx + dy * dy);
 
-  // Check if the distance is less than the sum of the radii
-  return distance < grace + circle1.radius + (circle2.radius || 5);
+	// Check if the distance is less than the sum of the radii
+	return distance < grace + circle1.radius + (circle2.radius || 5);
 }
 
 /**
@@ -22,10 +22,10 @@ export function circleCollision(circle1, circle2, grace = 0) {
  * @returns {object} Interpolated point { x, y }
  */
 export function lerp(t, p1, p2) {
-  return {
-    x: (1 - t) * p1.x + t * p2.x,
-    y: (1 - t) * p1.y + t * p2.y,
-  };
+	return {
+		x: (1 - t) * p1.x + t * p2.x,
+		y: (1 - t) * p1.y + t * p2.y
+	};
 }
 
 /**
@@ -38,13 +38,13 @@ export function lerp(t, p1, p2) {
  * @returns {Array<{x: number, y: number}>} An array of random points.
  */
 export function generateRandomPoints(numPoints, minX = 0, maxX = 100, minY = 0, maxY = 100) {
-  const points = [];
+	const points = [];
 
-  for (let i = 0; i < numPoints; i++) {
-    const x = Math.floor(Math.random() * (maxX - minX + 1)) + minX;
-    const y = Math.floor(Math.random() * (maxY - minY + 1)) + minY;
-    points.push({ x, y });
-  }
+	for (let i = 0; i < numPoints; i++) {
+		const x = Math.floor(Math.random() * (maxX - minX + 1)) + minX;
+		const y = Math.floor(Math.random() * (maxY - minY + 1)) + minY;
+		points.push({ x, y });
+	}
 
-  return points;
+	return points;
 }

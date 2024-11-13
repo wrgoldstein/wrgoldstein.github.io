@@ -1,6 +1,6 @@
 ---
-layout:  "post"
-title:  "Beam search nearest neighbors"
+layout: 'post'
+title: 'Beam search nearest neighbors'
 date: 2015-12-28
 ---
 
@@ -179,9 +179,9 @@ function uniq_fast(a) {
 }
 </script>
 
-A common problem is finding the nearest neighbors of a given object in some search space.  [Beam search](https://en.wikipedia.org/wiki/Beam_search) is an "anytime" heuristic search algorithm which very efficiently accomplishes this.
+A common problem is finding the nearest neighbors of a given object in some search space. [Beam search](https://en.wikipedia.org/wiki/Beam_search) is an "anytime" heuristic search algorithm which very efficiently accomplishes this.
 
-Imagine we have a set of N nodes, each randomly "closest" (connected by an edge) to n other nodes.  The algorithm works as follows:
+Imagine we have a set of N nodes, each randomly "closest" (connected by an edge) to n other nodes. The algorithm works as follows:
 
 1. Pick a node; paint it red.
 2. Paint its neighbors grey. Also paint the neighbors for each of those neighbors.

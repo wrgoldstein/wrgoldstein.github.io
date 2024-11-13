@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Hog Dice"
+title: 'Hog Dice'
 date: 2016-07-24
 ---
 

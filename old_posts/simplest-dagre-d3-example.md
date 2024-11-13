@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  tiny dagre-d3 example
-date:   2021-02-11
+title: tiny dagre-d3 example
+date: 2021-02-11
 ---
 
 It took me a little bit of digging to make a minimal example of how to use dagre-d3 (dagre.js + d3 renderer), so I wanted to record it here for future reference.
@@ -17,40 +17,40 @@ npm install dagre-d3 --save
 And here's the (svelte) js part:
 
 ```js
-  import { onMount } from "svelte"
-  import dagreD3 from "dagre-d3"
-  import * as d3 from "d3"
+import { onMount } from 'svelte';
+import dagreD3 from 'dagre-d3';
+import * as d3 from 'd3';
 
-  var g = new dagreD3.graphlib.Graph().setGraph({});
-  g.setNode("A", {})
-  g.setNode("B", {})
-  g.setEdge("A", "B", {})
+var g = new dagreD3.graphlib.Graph().setGraph({});
+g.setNode('A', {});
+g.setNode('B', {});
+g.setEdge('A', 'B', {});
 
-  let render = new dagreD3.render()
+let render = new dagreD3.render();
 
-  onMount( () => {
-    let svg = d3.select("svg")
-    let inner = svg.append("g")
-    render(inner, g);
-  })
+onMount(() => {
+	let svg = d3.select('svg');
+	let inner = svg.append('g');
+	render(inner, g);
+});
 ```
 
 The css:
 
 ```css
 .node rect {
-  stroke: #333;
-  fill: #fff;
+	stroke: #333;
+	fill: #fff;
 }
 
 .edgePath path {
-  stroke: #333;
-  fill: #333;
-  stroke-width: 1.5px;
+	stroke: #333;
+	fill: #333;
+	stroke-width: 1.5px;
 }
 
 .node text {
-  pointer-events: none;
+	pointer-events: none;
 }
 ```
 
@@ -58,11 +58,9 @@ and finally some html:
 
 ```html
 <div class="App">
-  <div>
-    `dagre-d3` example
-  </div>
+	<div>`dagre-d3` example</div>
 
-  <svg width=960 height=600></svg>
+	<svg width="960" height="600"></svg>
 </div>
 ```
 

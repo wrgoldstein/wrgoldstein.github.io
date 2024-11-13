@@ -19,7 +19,7 @@ date: 2024-09-27
   <path d="M0 50 L 250 50" stroke="#2C5943" stroke-dasharray="0 1 0"></path>
   <path d="M300 50 L 600 50" stroke="#2C5943" stroke-dasharray="0 1 0"></path>
 
-  <Line
+<Line
     x0={0}
     x2={100}
     y0={50}
@@ -31,8 +31,8 @@ date: 2024-09-27
     duration={250}
   />
 
-  <rect x="100" y="0" width="100" height="100" rx="15" fill="#2C5943"></rect>
-  <Circle
+<rect x="100" y="0" width="100" height="100" rx="15" fill="#2C5943"></rect>
+<Circle
     cx={150}
     cy={50}
     r={25}
@@ -42,7 +42,7 @@ date: 2024-09-27
     hold="500"
     draw="reversed"
   />
-  <Circle
+<Circle
     cx={150}
     cy={50}
     r={35}
@@ -51,7 +51,7 @@ date: 2024-09-27
     duration="500"
     strokeDasharray="4 4"
   />
-  <Circle
+<Circle
     cx={150}
     cy={50}
     r={45}
@@ -60,7 +60,7 @@ date: 2024-09-27
     duration="500"
     strokeDasharray="0 4"
   />
-  <Circle
+<Circle
     cx={150}
     cy={50}
     r={25}
@@ -70,7 +70,7 @@ date: 2024-09-27
     hold="400"
   />
 
-  <Line
+<Line
     x0={200}
     x2={250}
     y0={50}
@@ -82,10 +82,10 @@ date: 2024-09-27
     duration={250}
   />
 
-  <rect x="250" y="0" width="100" height="100" rx="15" fill="#2C5943"></rect>
-  <path d="M300 0 L 300 100" stroke="white" stroke-dasharray="0 1 0"></path>
-  <path d="M250 50 L 350 50" stroke="white" stroke-dasharray="0 1 0"></path>
-  <Circle
+<rect x="250" y="0" width="100" height="100" rx="15" fill="#2C5943"></rect>
+<path d="M300 0 L 300 100" stroke="white" stroke-dasharray="0 1 0"></path>
+<path d="M250 50 L 350 50" stroke="white" stroke-dasharray="0 1 0"></path>
+<Circle
     cx={300}
     cy={50}
     r={25}
@@ -97,7 +97,7 @@ date: 2024-09-27
     hold="500"
     draw="none"
   />
-  <Circle
+<Circle
     cx={300}
     cy={50}
     r={25}
@@ -107,8 +107,8 @@ date: 2024-09-27
     hold="500"
     draw="none"
   />
-  <Circle cx={300} cy={50} r={35} time={timer.time} delay="3000" duration="500" />
-  <Circle
+<Circle cx={300} cy={50} r={35} time={timer.time} delay="3000" duration="500" />
+<Circle
     cx={300}
     cy={50}
     r={45}
@@ -118,7 +118,7 @@ date: 2024-09-27
     strokeDasharray="0 4"
   />
 
-  <Line
+<Line
     x0={350}
     x2={450}
     y0={50}
@@ -130,8 +130,8 @@ date: 2024-09-27
     duration={250}
   />
 
-  <rect x="400" y="0" width="100" height="100" rx="15" fill="#2C5943"></rect>
-  <Circle
+<rect x="400" y="0" width="100" height="100" rx="15" fill="#2C5943"></rect>
+<Circle
     cx={450}
     cy={50}
     r={25}
@@ -141,7 +141,7 @@ date: 2024-09-27
     hold="500"
     draw="none"
   />
-  <Circle
+<Circle
     cx={450}
     cy={50}
     r={28}
@@ -151,7 +151,7 @@ date: 2024-09-27
     hold="500"
     strokeWidth={10}
   />
-  <Circle
+<Circle
     cx={450}
     cy={50}
     r={45}
@@ -161,7 +161,7 @@ date: 2024-09-27
     strokeDasharray="0 4"
   />
 
-  <Line
+<Line
     x0={500}
     x2={600}
     y0={50}
@@ -182,36 +182,36 @@ The animations were really cool, but the exported gifs weren't always as smooth 
 
 <svg viewbox="0 0 500 100" class="my-12 mx-auto">rect>
 {#each [100, 200, 300, 400] as x}
-  {#each Array(5).fill().map((_, i) => i*10) as i}
-  <Circle
-    cx={x}
-    cy={50}
-    r={0.5*i}
-    time={timer.time}
-    stroke="#2C5943"
-    strokeWidth={1}
-    delay={5*x + 5*i}
-    duration={500}
-    hold="500"
-    draw="none"
-  />
-  {/each}
+{#each Array(5).fill().map((_, i) => i*10) as i}
+<Circle
+cx={x}
+cy={50}
+r={0.5*i}
+time={timer.time}
+stroke="#2C5943"
+strokeWidth={1}
+delay={5*x + 5*i}
+duration={500}
+hold="500"
+draw="none"
+/>
+{/each}
 {/each}
 {#each [100, 200, 300, 400] as x}
-  {#each Array(5).fill().map((_, i) => i*10) as i}
-  <Circle
-    cx={x}
-    cy={50}
-    r={0.5*i}
-    time={timer.time}
-    stroke="#2C5943"
-    strokeWidth={1}
-    delay={2000 + 5*x + 5*i}
-    duration={500}
-    hold="500"
-    draw="none"
-  />
-  {/each}
+{#each Array(5).fill().map((_, i) => i*10) as i}
+<Circle
+cx={x}
+cy={50}
+r={0.5*i}
+time={timer.time}
+stroke="#2C5943"
+strokeWidth={1}
+delay={2000 + 5*x + 5*i}
+duration={500}
+hold="500"
+draw="none"
+/>
+{/each}
 {/each}
 </svg>
 
@@ -221,30 +221,30 @@ Here's everything I ended up needed for the animation timing (cribbed from [here
 
 ```svelte
 <script>
-  import { onMount } from 'svelte';
+	import { onMount } from 'svelte';
 
-  let zero
-  let time = $state();
-  const loop_time = 5_500;
+	let zero;
+	let time = $state();
+	const loop_time = 5_500;
 
-  function firstFrame(timestamp) {
-    zero = timestamp;
-    animate(timestamp);
-  }
+	function firstFrame(timestamp) {
+		zero = timestamp;
+		animate(timestamp);
+	}
 
-  function animate(timestamp) {
-    time = timestamp - zero;
-    if (time < loop_time) {
-      requestAnimationFrame((t) => animate(t));
-    } else {
-      time = 0;
-      setTimeout(() => requestAnimationFrame(firstFrame), 100);
-    }
-  }
+	function animate(timestamp) {
+		time = timestamp - zero;
+		if (time < loop_time) {
+			requestAnimationFrame((t) => animate(t));
+		} else {
+			time = 0;
+			setTimeout(() => requestAnimationFrame(firstFrame), 100);
+		}
+	}
 
-  onMount(() => {
-    requestAnimationFrame(firstFrame);
-  });
+	onMount(() => {
+		requestAnimationFrame(firstFrame);
+	});
 </script>
 ```
 
@@ -273,51 +273,41 @@ Once you have the timing, Svelte makes the rest really easy.
   />
 </svg>
 
-The main thing is to compute what fraction of the way through the animation we are based on the timing, delay, and duration. 
+The main thing is to compute what fraction of the way through the animation we are based on the timing, delay, and duration.
 
 ```js
-let fraction = $derived((time - delay) / duration)
+let fraction = $derived((time - delay) / duration);
 ```
 
 We don't want the fraction to be less than 0 or greater than 1, so we clamp the value to that interval. It would be nice if `clamp` were [part of Math](https://stackoverflow.com/questions/11409895/whats-the-most-elegant-way-to-cap-a-number-to-a-segment#comment137766458_39477954), but since it's not, we'll borrow a suggested implementation:
 
 ```js
 function clamp(num, min, max) {
-    return num <= min 
-      ? min 
-      : num >= max 
-        ? max 
-        : num
-  }
+	return num <= min ? min : num >= max ? max : num;
+}
 ```
-and then we just construct an svg element that uses the fraction to interpolate where it should be 
+
+and then we just construct an svg element that uses the fraction to interpolate where it should be
 
 ```svelte
 <script>
-  const {
-    x1,
-    y1,
-    xto,
-    yto,
-    delay,
-    duration,
-    time,
-    stroke,
-    strokeWidth,
-    strokeDasharray
-  } = $props();
+	const { x1, y1, xto, yto, delay, duration, time, stroke, strokeWidth, strokeDasharray } =
+		$props();
 
-  let fraction = $derived(clamp((time - delay) / duration, 0, 1))
-  let x2 = $derived(x1 + (xto - x1) * fraction)
-  let y2 = $derived(y1 + (yto - y1) * fraction)
+	let fraction = $derived(clamp((time - delay) / duration, 0, 1));
+	let x2 = $derived(x1 + (xto - x1) * fraction);
+	let y2 = $derived(y1 + (yto - y1) * fraction);
 </script>
 
 <line
-  {x1} {y1} {x2} {y2}
-  {stroke}
-  stroke-dasharray={strokeDasharray}
-  stroke-linecap="square"
-  stroke-width={strokeWidth}
+	{x1}
+	{y1}
+	{x2}
+	{y2}
+	{stroke}
+	stroke-dasharray={strokeDasharray}
+	stroke-linecap="square"
+	stroke-width={strokeWidth}
 >
 </line>
 ```
@@ -326,18 +316,42 @@ The colorful lines above are just
 
 ```svelte
 <svg viewbox="0 0 600 100" class="w-full mx-auto">
-  <Line 
-    x1={0} xto={600} y1={40} yto={10} stroke="DodgerBlue" 
-    strokeWidth={10} strokeDashArray="0 25 50 0 25 50 25" delay=3000 duration=500 time={timer.time}
-  />
-  <Line 
-    x1={0} xto={600} y1={50} yto={50} stroke="Tomato" 
-    strokeWidth={20} strokeDashArray="0 25 0 25 0 25" delay=0 duration=3000 time={timer.time}
-  />
-  <Line 
-    x1={0} xto={600} y1={20} yto={30} stroke="MediumSeaGreen" 
-    strokeWidth={20} strokeDashArray="0 0 50 0 25 50 25" delay=0 duration=4000 time={timer.time}
-  />
+	<Line
+		x1={0}
+		xto={600}
+		y1={40}
+		yto={10}
+		stroke="DodgerBlue"
+		strokeWidth={10}
+		strokeDashArray="0 25 50 0 25 50 25"
+		delay="3000"
+		duration="500"
+		time={timer.time}
+	/>
+	<Line
+		x1={0}
+		xto={600}
+		y1={50}
+		yto={50}
+		stroke="Tomato"
+		strokeWidth={20}
+		strokeDashArray="0 25 0 25 0 25"
+		delay="0"
+		duration="3000"
+		time={timer.time}
+	/>
+	<Line
+		x1={0}
+		xto={600}
+		y1={20}
+		yto={30}
+		stroke="MediumSeaGreen"
+		strokeWidth={20}
+		strokeDashArray="0 0 50 0 25 50 25"
+		delay="0"
+		duration="4000"
+		time={timer.time}
+	/>
 </svg>
 ```
 

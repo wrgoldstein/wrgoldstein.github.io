@@ -1,14 +1,14 @@
 ---
 layout: post
-title:  "Phoenix and RabbitMQ"
-date:   2017-02-20
+title: 'Phoenix and RabbitMQ'
+date: 2017-02-20
 ---
 
-Last post I talked about building a high throughput, highly available analytics backend.  I'm not going to do a thorough tutorial here, just identify some steps in getting set up and a few things I learned.  
+Last post I talked about building a high throughput, highly available analytics backend. I'm not going to do a thorough tutorial here, just identify some steps in getting set up and a few things I learned.
 
 ## Getting set up
 
-I installed RabbitMQ through `brew`, and Phoenix / Elixir from the Phoenix homepage.  Starting the RabbitMQ server was as simple as 
+I installed RabbitMQ through `brew`, and Phoenix / Elixir from the Phoenix homepage. Starting the RabbitMQ server was as simple as
 
 ```
 /usr/local/sbin/rabbitmq
@@ -40,7 +40,7 @@ The `mix.exs` file defines the application's dependencies as follows (also add t
 
 ## Receiving calls and publishing messages
 
-Under `web/router.ex` we add a single `POST` route: 
+Under `web/router.ex` we add a single `POST` route:
 
 ```elixir
   scope "/api", Frequency do
@@ -65,7 +65,7 @@ defmodule Frequency.TracksController do
 end
 ```
 
-And you'll see that in turn defers to a `Frequency.Worker` that we'll have to make.  In `lib` we'll make `worker.ex` which looks like
+And you'll see that in turn defers to a `Frequency.Worker` that we'll have to make. In `lib` we'll make `worker.ex` which looks like
 
 ```elixir
 defmodule Frequency.Worker do
@@ -102,7 +102,7 @@ defmodule Frequency.Worker do
 end
 ```
 
-This worker publishes all messages to a RabbitMQ channel:  It defines a single GenServer with the name `publisher` which we'll set up to start under the same [supervisor](https://hexdocs.pm/elixir/Supervisor.html) as our Frequency application (we'll do this in a minute).  The GenServer exposes a single method, `:publish`, which drops the message into a channel defined by the `:init` method.  Finally, in `lib/frequency.ex`, update the children of our process to include our new worker.
+This worker publishes all messages to a RabbitMQ channel: It defines a single GenServer with the name `publisher` which we'll set up to start under the same [supervisor](https://hexdocs.pm/elixir/Supervisor.html) as our Frequency application (we'll do this in a minute). The GenServer exposes a single method, `:publish`, which drops the message into a channel defined by the `:init` method. Finally, in `lib/frequency.ex`, update the children of our process to include our new worker.
 
 ```
 children = [
@@ -121,7 +121,7 @@ Under `lib`, we'll create a `receiver.ex` which reads messages off the RabbitMQ 
 ```elixir
 alias ExAws.S3
 
-defmodule Receiver do 
+defmodule Receiver do
   def wait_for_messages do
     channel_name = "tracks"
     {:ok, connection} = AMQP.Connection.open
@@ -177,7 +177,7 @@ defmodule Receiver do
 end
 ```
 
-Finally, we can string it all together with `mix phoenix.server` in one terminal window, and `iex -S mix` in another, and in the `iex` pane run 
+Finally, we can string it all together with `mix phoenix.server` in one terminal window, and `iex -S mix` in another, and in the `iex` pane run
 
 ```elixir
 Receiver.wait_for_messages
@@ -189,7 +189,7 @@ And all that's left is hammering our API with `POST` requests, which I elected t
 require 'net/http'
 uri = URI('127.0.0.1:4000/api/t')
 30.times do
-  1000.times do 
+  1000.times do
     Thread.new {Net::HTTP.post_form(uri, 'event' => 'sent_a_message', 'user_id' => 'xyz') }
   end
   sleep(.5) # ruby can only spawn so many threads
@@ -197,4 +197,3 @@ end
 ```
 
 Sit back and watch your API soak up thousands of concurrent requests without a sweat.
-

@@ -1,9 +1,10 @@
 ---
 layout: post
-title:  "Being more organized with notes"
-date:   2015-12-27
+title: 'Being more organized with notes'
+date: 2015-12-27
 ---
-I've been taking notes for a little while now using Sublime and a tiny Thor command line tool.  The code for it is:
+
+I've been taking notes for a little while now using Sublime and a tiny Thor command line tool. The code for it is:
 
 ```ruby
 #!/usr/bin/ruby
@@ -44,10 +45,11 @@ end
 Note.start
 ```
 
-To use it, save the file somewhere.  Let's say you save it in `~/Code/note.thor`:
+To use it, save the file somewhere. Let's say you save it in `~/Code/note.thor`:
 
-1. Get `thor`:  `gem install thor`
-2. Change `FOLDERS` if need be and create the needed directories.  For me, that looks like
+1. Get `thor`: `gem install thor`
+2. Change `FOLDERS` if need be and create the needed directories. For me, that looks like
+
 ```
 /Users/williamgoldstein/notes
 ├── blog
@@ -58,8 +60,9 @@ To use it, save the file somewhere.  Let's say you save it in `~/Code/note.thor`
 
 You can make these with e.g. `mkdir -p ~/Notes/work`
 
-3. Create a handy alias.  In my bash profile I have `alias notes='~/Code/notes.thor`.
-4. Run it:  `notes`
+3. Create a handy alias. In my bash profile I have `alias notes='~/Code/notes.thor`.
+4. Run it: `notes`
+
 ```
 $  notes
 Commands:

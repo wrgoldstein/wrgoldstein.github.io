@@ -6,13 +6,13 @@ The Diablo II skill tree fascinated me. It was so powerfully motivating to level
 
 To take this from nostalgic to corporate-- when I grew up and got a job and started managing people I began to feel that video games were a window into how to make boring jobs fun. It's not an original PoV, but it was reinforced by memories of boring ass Mephisto runs, and that month I spent trying World of Warcraft in college and literally running errands for NPCs in order to advance.
 
-I've seen a few decent engineering ladders, and there've been attempts here and there at corresponding development rubriks for data and other (tech startup) disciplines. But they're so... linear. They don't (for me) spark the joy of discovery, of unlock, of progress, of all the diverse ways you can be successful. They're often just tools to justify non-advancement to the eager, and in the right hands tools of discussion of corporate progress, but it feels like there could be more there. 
+I've seen a few decent engineering ladders, and there've been attempts here and there at corresponding development rubriks for data and other (tech startup) disciplines. But they're so... linear. They don't (for me) spark the joy of discovery, of unlock, of progress, of all the diverse ways you can be successful. They're often just tools to justify non-advancement to the eager, and in the right hands tools of discussion of corporate progress, but it feels like there could be more there.
 
 There's [a few folks](https://www.reddit.com/r/cscareerquestions/comments/74sg2x/if_there_was_a_skills_tree_to_programming_what/) who have [tried adjacent ideas](https://github.com/kamranahmedse/developer-roadmap). Most of these are learning maps that progress like a tree, but I think a career ladder version of it could be a valuable tool for folks in the workplace if it were executed correctly. Learning maps have always struck me as a gimmick.
 
 Good career ladders focus on demonstrated results-- you've achieved [Level 2 Error Handling](https://sijinjoseph.com/programmer-competency-matrix/) when your manager and you agree your recent work
 
->Ensures that error/exceptions leave program in good state, resources, connections and memory is all cleaned up properly
+> Ensures that error/exceptions leave program in good state, resources, connections and memory is all cleaned up properly
 
 so that should also be the standard by which you check a skill off on your career progression tree.
 
@@ -25,4 +25,3 @@ thought: I'm not sure a tree is actually the format of career progress? It seems
 thought: You'd have to avoid things like "solid quarter" or whatever that would depend on level.. each badge would have to be self contained.
 
 thought: you'd use AI to generate the icons i guess.
-

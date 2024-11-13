@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "Farkle"
-date:   2019-07-29
+title: 'Farkle'
+date: 2019-07-29
 ---
 
 <style>
@@ -50,16 +50,16 @@ I played a game recently called [Farkle](https://en.wikipedia.org/wiki/Farkle).
 
 The rules are that you roll six dice and earn a score for certain combinations:
 
-| hand | points |
-| ---- | -----  |
-| 6 of a kind | 3,000 points |
-| 5 of a kind | 2,000 points |
-| 1-6 straight | 1,500 points |
-| three pairs | 1,500 points |
-| 4 of a kind | 1,000 points |
-| 3 of kind | 100 * pip (so three fives is 500) |
-| a single 1 | 100 |
-| a single 5 | 50 |
+| hand         | points                             |
+| ------------ | ---------------------------------- |
+| 6 of a kind  | 3,000 points                       |
+| 5 of a kind  | 2,000 points                       |
+| 1-6 straight | 1,500 points                       |
+| three pairs  | 1,500 points                       |
+| 4 of a kind  | 1,000 points                       |
+| 3 of kind    | 100 \* pip (so three fives is 500) |
+| a single 1   | 100                                |
+| a single 5   | 50                                 |
 
 <br>
 But you must follow these additional rules:
@@ -75,7 +75,7 @@ But you must follow these additional rules:
 
     You may take 600 points for the three sixes, and two hundred for the two ones. Since you have reached 500 points you may stop rolling, or you may continue with all six dice.
 
-    If the next roll is 
+    If the next roll is
 
     <div class='dice'>⚄ ⚁ ⚂ ⚃ ⚃ ⚁</div>
 
@@ -99,11 +99,11 @@ Consider three strategies for choosing between the following:
 2. Take only the one for 100 points and reroll five dice.
 3. Take three threes for 300 points and reroll three dice.
 
-This boils down to: If you have a choice between taking extra points and rolling extra dice, what should you do? 
+This boils down to: If you have a choice between taking extra points and rolling extra dice, what should you do?
 
-Choice (1) is what I call the greedy approach where you take as many points as are available. 
+Choice (1) is what I call the greedy approach where you take as many points as are available.
 
-Choice (2) is the gambler approach, where you always try to roll as many dice as possible. 
+Choice (2) is the gambler approach, where you always try to roll as many dice as possible.
 
 Choice (3) is what I call the balanced approach, where you try to take a larger point total where it won't force you to roll too few dice.
 

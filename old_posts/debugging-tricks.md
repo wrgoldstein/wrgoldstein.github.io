@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  Debugging tricks
-date:   2021-03-19
+title: Debugging tricks
+date: 2021-03-19
 ---
 
 I'm working through understanding some complicated code (https://github.com/fishtown-analytics/dbt) and it has a ton of indirection, and sometimes I can't tell what code calls what! Here are some neat tricks for making progress:

@@ -1,12 +1,12 @@
 ---
 layout: post
-title:  ergodicity-economics
-date:   2020-04-13
+title: ergodicity-economics
+date: 2020-04-13
 ---
 
 A friend sent me [this interesting article](https://jasoncollins.blog/2020/02/18/risk-and-loss-aversion-in-ergodicity-economics/) which led me to [this explanation](https://jasoncollins.blog/2020/01/22/ergodicity-economics-a-primer/). In both, the following experiment is proposed:
 
->Suppose you have $100 and are offered a gamble involving a series of coin flips. For each flip, heads will increase your wealth by 50%. Tails will decrease it by 40%. Flip 100 times.
+> Suppose you have $100 and are offered a gamble involving a series of coin flips. For each flip, heads will increase your wealth by 50%. Tails will decrease it by 40%. Flip 100 times.
 
 Should you take it? The author points out that the average person will lose money in repeated playings of this bet, despite the fact that it has positive expected value. The average result is a 5% decline in wealth each period.
 
@@ -47,4 +47,3 @@ plt.yticks(range(10), ["{0:.0f}%".format(100*(1-x)) for x in downrange])
 plt.title("Log wealth given values for the coin flip")
 plt.show()
 ```
-

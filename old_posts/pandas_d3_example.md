@@ -1,10 +1,10 @@
 ---
 layout: post
-title:  "Pandas/D3 example"
-date:   2016-06-20
+title: 'Pandas/D3 example'
+date: 2016-06-20
 ---
 
-Someone asked me today about integrating D3 and iPython (Jupyter?) notebooks and Pandas.  I threw together this quick example notebook to show one way to do this.
+Someone asked me today about integrating D3 and iPython (Jupyter?) notebooks and Pandas. I threw together this quick example notebook to show one way to do this.
 
 <div style='border-radius: 5px; padding: 1em; background-color: antiquewhite; border: 2px solid bisque; margin-bottom: 2em;'>
 Update March 24, 2020: This no longer works, since Github now requires iframe content to be served over HTTPS.
