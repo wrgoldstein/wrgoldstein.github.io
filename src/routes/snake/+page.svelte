@@ -8,7 +8,7 @@
   let collisionDetected = $state(false);
   let collisionGrace = 1;
   let score = $state(0);
-  let topScores = $state([1,4,6,2,3])
+  let topScores = $state([])
   let sortedScores = $derived([...topScores].sort((a,b) => b - a))
   let fill = $derived(collisionDetected ? "red" : "PaleVioletRed");
 
@@ -41,19 +41,30 @@
       newCircle.setFollowing(circles[circles.length - 1], 10);
       newCircle.tick();
       circles.push(newCircle);
+      head.radius += 0.15
       circles.forEach((c, i) => {
-        if (i > circles.length / 2) {
+        if (i == 0){
+          circles[i].radius += 0.25
+        }
+        else if (i < circles.length / 2) {
+          c.radius *= 1.02;
+          c.setFollowAt(c.radius * 0.9)
+        } else {
           c.radius += 1;
           c.setFollowAt(c.radius * 0.9);
         }
-        // if (Math.random() > .95){
-        //   circles.splice(i, 1)
-        //   console.log(c.target)
-        //   circles[i-1].setFollowing(c.target, c.target.radius + 2)
-        // }
+        
       });
 
       head.radius += 0.05;
+
+      if (Math.random() > .75){
+          const l = circles.length - 2
+          circles.splice(l, 1)
+          const c = circles[l] 
+          circles[l].setFollowing(circles[l-1], circles[l-1].radius)
+          circles[l].radius *= 2
+        }
     }
     requestAnimationFrame(step);
   }
@@ -79,14 +90,14 @@
   function resetCircles(){
     
     let body = [
-      new Circle(head.x, head.y, 10),
-      new Circle(head.x, head.y, 11),
-      new Circle(head.x, head.y, 13),
-      new Circle(head.x, head.y, 15),
-      new Circle(head.x, head.y, 13),
-      new Circle(head.x, head.y, 15),
       new Circle(head.x, head.y, 14),
-      new Circle(head.x, head.y, 13),
+      new Circle(head.x, head.y, 16),
+      new Circle(head.x, head.y, 17),
+      new Circle(head.x, head.y, 18),
+      new Circle(head.x, head.y, 19),
+      new Circle(head.x, head.y, 18),
+      new Circle(head.x, head.y, 17),
+      new Circle(head.x, head.y, 14),
       new Circle(head.x, head.y, 12),
       new Circle(head.x, head.y, 9),
       new Circle(head.x, head.y, 7),
@@ -108,7 +119,7 @@
     return circlesToHull(circles);
   });
 
-  let food = $state(generateRandomPoints(10, 0, 1200, 0, 600));
+  let food = $state(generateRandomPoints(10, 400, 1200, 100, 600));
 
   setInterval(() => {
     if (collisionDetected && score > 0){
@@ -118,7 +129,7 @@
       resetCircles()
     }
     if (food.length < 20) {
-      const [f] = generateRandomPoints(1, 0, 1200, 0, 600);
+      const [f] = generateRandomPoints(1, 400, 1200, 100, 600);
       food.push(f);
     }
   }, 200);
@@ -134,9 +145,12 @@
   <div class="fixed right-[30rem] top-10">
     <span class="text-7xl">{score}</span>
     <div>
-      {#each sortedScores as s, i}
-        <div style="opacity: {(10 - i) / 10}">{s}</div>
-      {/each}
+      {#if sortedScores.length > 0 }
+        Previous best:  
+        {#each sortedScores as s, i}
+          <div style="opacity: {(10 - i) / 10}">{s}</div>
+        {/each}
+      {/if}
     </div>  
   </div>
   
@@ -155,17 +169,20 @@
         ></circle>
         <path d={hull} {fill} fill-opacity="0.1"></path>
       {/if}
-      <circle
+      <!-- <circle
         cx={circle.x}
         cy={circle.y}
         r={circle.radius}
         fill="none"
         stroke="black"
-      ></circle>
+      ></circle> -->
     {/each}
 
     {#each food as f}
       <rect x={f.x} y={f.y} width="10" height="10"></rect>
     {/each}
   </svg>
+  <div style="z-index: 999;" class="relative">
+    <a href="/">back</a>
+  </div>
 </div>
