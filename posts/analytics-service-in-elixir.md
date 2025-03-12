@@ -8,7 +8,7 @@ Ever since I learned about [Elixir](http://elixir-lang.org/) I've been curious a
 
 There are a few challenges that a proposed new service would have to solve, alongside the core job of receiving POST requests, writing the passed events to S3, and copying them regularly to Redshift (where they can be analyzed or built upon).
 
-⭐️ **Throughput:** Analytics on a site like [Artsy](artsy.net) aren't anything like Twitter or Facebook, but we have enough concurrent users on the site-- and enough instrumentation -- that a proposed API would have to be able to handle a thousands of concurrent events per second without breaking a sweat.
+⭐️ **Throughput:** Analytics on a site like [Artsy](https://www.artsy.net) aren't anything like Twitter or Facebook, but we have enough concurrent users on the site-- and enough instrumentation -- that a proposed API would have to be able to handle a thousands of concurrent events per second without breaking a sweat.
 
 ⭐️ **Dynamic Schemas:** Analytics events can have different properties that can be difficult to represent in a fixed columnar schema. Snowplow solved this problem by sticking to a very strict [Subject-Verb-Object](http://snowplowanalytics.com/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar/) schema.
 
