@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Svelte animations
+summary: Exploring simple animation on the web
 date: 2024-09-27
 ---
 

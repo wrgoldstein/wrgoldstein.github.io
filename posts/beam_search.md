@@ -1,6 +1,7 @@
 ---
 layout: 'post'
 title: 'Beam search nearest neighbors'
+summary: A visualization of my favorite algorithm
 date: 2015-12-28
 updated: 2025-03-12
 ---

@@ -1,5 +1,6 @@
 ---
 title: An Analytics Service in Elixir
+summary: Where I get misty eyed about building my own analytics stack
 date: 2017-02-15
 ---
 

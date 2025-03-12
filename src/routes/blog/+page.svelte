@@ -31,7 +31,7 @@
 						{new Date(post.date).toLocaleDateString('en-US', dateOptions)}
 					</div>
 				</a>
-				<p class="text-gray-700">{post.excerpt}</p>
+				<p class="text-gray-700">{post.summary}</p>
 				<a href="/blog/{post.slug}" class="inline-block mt-2">Read more →</a>
 			</article>
 		{/each}
