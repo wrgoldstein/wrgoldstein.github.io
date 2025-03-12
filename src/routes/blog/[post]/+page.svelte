@@ -20,6 +20,7 @@
 		coverHeight,
 		categories
 	} = data.meta;
+
 	const { PostContent } = data;
 </script>
 
