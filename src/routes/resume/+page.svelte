@@ -1,4 +1,5 @@
 <script>
+	import ColorfulBorder from "$lib/components/ColorfulBorder.svelte";
 	const projects = [
 		{
 			company: 'artsy',
@@ -38,12 +39,19 @@
 	];
 </script>
 
-<div class="mt-12 space-y-8">
-	<a class="underline hover:font-bold" href="/">back</a>
-	<div>data engineering</div>
-	<div>front end development</div>
-	<div>backend/systems engineering</div>
-	<div>team lead / manager</div>
-	<div>design</div>
-	<div>cartoons / illustration</div>
-</div>
+<ColorfulBorder>
+	<div class="flex">
+		<div class="space-y-8">
+			<a class="underline hover:font-bold" href="/">back</a>
+			<div>data engineering</div>
+			<div>front end development</div>
+			<div>backend/systems engineering</div>
+			<div>team lead / manager</div>
+			<div>design</div>
+			<div>cartoons / illustration</div>
+		</div>
+		<svg class='flex w-full h-full flex-grow' height="100%">
+			<path d="M100,300 L100,0" stroke="brown" stroke-width="70"></path>
+		</svg>
+	</div>
+</ColorfulBorder>

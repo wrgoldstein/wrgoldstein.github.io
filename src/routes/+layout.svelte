@@ -1,8 +1,9 @@
 <script>
 	import '../app.css';
+
+	const { children } = $props()
 </script>
 
 <!-- <Back/> -->
-<div class="m-auto border-box max-w-[800px]">
-	<slot />
-</div>
+
+{@render children?.()}
