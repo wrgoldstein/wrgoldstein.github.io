@@ -359,4 +359,8 @@ The circles are the same deal, mostly. We use trigonometry to get some points on
 
 I'm not sure what's next. It seems like it would be pretty easy to add [easing](https://svelte.dev/docs/svelte-easing), but I'd also like to explore [procedural animation](https://www.youtube.com/watch?v=qlfh_rv6khY), or maybe incorporating [physics](https://brm.io/matter-js/). Stay tuned.
 
+
+**Update**: Svelte 5 introduces a new tweening option that significantly simplifies this process. The approach described below still works, but the new API reduces verbosity and makes animation easier to implement. Check the [svelte-motion documentation](https://svelte.dev/docs/svelte/svelte-motion) for details on the new tweening syntax.
+
 <div class="flex place-content-center">🔲</div>
+
