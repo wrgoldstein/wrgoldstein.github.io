@@ -363,4 +363,3 @@ I'm not sure what's next. It seems like it would be pretty easy to add [easing](
 **Update**: Svelte 5 introduces a new tweening option that significantly simplifies this process. The approach described below still works, but the new API reduces verbosity and makes animation easier to implement. Check the [svelte-motion documentation](https://svelte.dev/docs/svelte/svelte-motion) for details on the new tweening syntax.
 
 <div class="flex place-content-center">🔲</div>
-
