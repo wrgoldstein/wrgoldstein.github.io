@@ -39,5 +39,17 @@
 <style>
 	a {
 		text-decoration: underline;
+		text-underline-offset: 0.2em;
+		text-decoration-color: #000;
+		text-decoration-thickness: 0.01em;
+		text-decoration-skip-ink: none;
+		transition: all 0.3s ease;
+		cursor: pointer;
+		font-weight: 500;
+	}
+	a:hover {
+		text-decoration-color: #000;
+		text-decoration-thickness: 0.1em;
+		text-decoration-skip-ink: none;
 	}
 </style>
