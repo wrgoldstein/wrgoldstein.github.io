@@ -46,7 +46,7 @@
 		},
 		{
 			name: 'Cottonwood Ranch',
-			roles: [{ period: '2011-2012', title: 'Ranch Han & Cowboy', focus: "ranching" }],
+			roles: [{ period: '2011-2012', title: 'Ranch Hand & Cowboy', focus: "ranching" }],
 		},
 		{
 			degree: 'BA, Mathematics',
