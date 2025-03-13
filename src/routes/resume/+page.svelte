@@ -5,51 +5,63 @@
 	const companies = [
 		{
 			name: 'self-employed',
-			roles: [{ period: '2024-Present', title: 'Consultant' }],
+			roles: [{ period: '2024-Present', title: 'Consultant', focus: "data" }],
 		},
 		{
 			name: 'twirldata.com',
-			roles: [{ period: '2023-2024', title: 'Growth Lead' }],
+			roles: [{ period: '2023-2024', title: 'Growth Lead', focus: "growth" }],
 		},
 		{
 			name: 'fairing.co',
-			roles: [{ period: '2022-2023', title: 'Senior Software Engineer' }],
+			roles: [{ period: '2022-2023', title: 'Senior Software Engineer', focus: "software" }],
 		},
 		{
 			name: 'better.com',
 			roles: [
-				{ period: '2020-2021', title: 'Senior Software Engineer' },
-				{ period: '2021-2022', title: 'Team Lead, Data Platform' }
+				{ period: '2020-2021', title: 'Senior Software Engineer', focus: "data" },
+				{ period: '2021-2022', title: 'Team Lead, Data Platform', focus: "data" }
 			],
 		},
 		{
 			degree: 'MBA',
 			institution: 'Yale School of Management',
-			roles: [{ period: '2018-2020', title: 'Student' }],
+			roles: [{ period: '2018-2020', title: 'Student', focus: "school" }],
 		},
 		{
 			name: 'artsy.net',
 			roles: [
-				{ period: '2014-2015', title: 'Data Analyst' },
-				{ period: '2015-2016', title: 'Software Engineer' },
-				{ period: '2016-2018', title: 'Analytics Lead' }
+				{ period: '2014-2015', title: 'Data Analyst', focus: "data" },
+				{ period: '2015-2016', title: 'Software Engineer', focus: "software" },
+				{ period: '2016-2018', title: 'Analytics Lead', focus: "data" }
 			],
 		},
 		{
 			name: 'howaboutwe.com',
-			roles: [{ period: '2013-2014', title: 'Data Scientist' }],
+			roles: [{ period: '2013-2014', title: 'Data Scientist', focus: "data" }],
 		},
 		{
 			degree: 'MS, Data Science',
 			institution: 'University of San Francisco',
-			roles: [{ period: '2011-2013', title: 'Student' }],
+			roles: [{ period: '2012-2013', title: 'Student', focus: "school" }],
+		},
+		{
+			name: 'Cottonwood Ranch',
+			roles: [{ period: '2011-2012', title: 'Ranch Han & Cowboy', focus: "ranching" }],
 		},
 		{
 			degree: 'BA, Mathematics',
 			institution: 'Macalester College',
-			roles: [{ period: '2007-2011', title: 'Student' }],
+			roles: [{ period: '2007-2011', title: 'Student', focus: "school" }],
 		}
-	];
+	]
+
+	const focusColors = {
+		school: 'bg-purple-300',
+		data: 'bg-orange-300',
+		ranching: 'bg-red-300',
+		software: 'bg-blue-300',
+		growth: 'bg-green-300'
+	}
 
 	const education = [];
 
@@ -81,7 +93,20 @@
 	)
 
 	let hovered = $state(null);
-	let clicked = $state(null);
+	let clicked = $state(false);
+
+	function customStringify(obj) {
+		if (!obj) return '';
+		
+		const json = JSON.stringify(obj, null, 2);
+		
+		// Replace specific values with styled spans
+		return json
+		.replace(/"focus":\s*"([^"]+)"/g, function(match, capturedValue) {
+			const color = focusColors[capturedValue].replace('300', '200')
+			return `"focus": <span class="${color}">"${capturedValue}"</span>`;
+		});
+	}
 </script>
 
 
@@ -120,26 +145,36 @@
 							onmouseleave={() => (hovered = null)}
 							onclick={() => (clicked = company.name || company.institution)}
 							style="width: {widthMultiplier * (yearEnd - yearStart)}rem;"
-							class="hover:cursor-pointer transition-all duration-300 bg-gray-300 {j === 0 ? 'rounded-l' : ''} {j === company.roles.length - 1 ? 'rounded-r' : ''} h-6 text-xs"
+							class="hover:cursor-pointer transition-all duration-300 {focusColors[role.focus]} {j === 0 ? 'rounded-l' : ''} {j === company.roles.length - 1 ? 'rounded-r' : ''} h-6 text-xs"
 						>
 						</div>
 					{/each}
 				</div>
 			{/each}
+
+			<div class="legend ml-8 mt-[-5rem]">
+				{#each Object.entries(focusColors) as [focus, color]}
+					<div class="flex items-center">
+						<div class="w-4 h-4 {color}"></div>
+						<span class="ml-2">{focus}</span>
+					</div>
+				{/each}
+			</div>
 			
-			{#snippet content(hovered)}
-				{@const content = JSON.stringify(companies.find(c => c.name === hovered || c.institution === hovered), null, 2)}
-				<pre style="font-size: 0.75rem;">{content}</pre>
-			{/snippet}
+			<div class="json-container ml-8 mt-8">
+				{#snippet content(hovered)}
+					{@const content = customStringify(companies.find(c => c.name === hovered || c.institution === hovered), null, 2)}
+					<pre style="font-size: 0.75rem;">{@html content}</pre>
+				{/snippet}
 
-			{#if clicked || hovered}
-				{@const c = hovered || clicked}
-				<div class="w-96 ml-4">
-					<pre>{c}</pre>
-					{@render content(c)}
-				</div>
-			{/if}
-
+				{#if clicked || hovered}
+					{@const c = hovered || clicked}
+					<div class="w-96 ml-4">
+						<pre>{c}</pre>
+						{@render content(c)}
+					</div>
+				{/if}
+			</div>
 		</section>
 	</div>
 </section>
