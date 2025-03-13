@@ -17,7 +17,7 @@
 <div class="container mx-auto px-4 py-8">
 	<header class="mb-8">
 		<nav class="mb-6">
-			<a href="/" class="text-gray-500 hover:text-gray-700">← Back to Home</a>
+			<a href="/" class="text-gray-500 hover:text-gray-700">← Back</a>
 		</nav>
 		<h1 class="text-4xl font-bold">Posts</h1>
 	</header>
