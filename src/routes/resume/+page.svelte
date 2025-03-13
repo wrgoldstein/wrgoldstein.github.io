@@ -1,5 +1,6 @@
 <script>
 	import ColorfulBorder from '$lib/components/ColorfulBorder.svelte';
+	import { innerWidth, innerHeight } from 'svelte/reactivity/window';
 
 	const companies = [
 		{
@@ -65,10 +66,22 @@
 		{ category: 'Leadership', skills: ['Team Management', 'Growth Strategy', 'Marketing'] }
 	];
 
+	const years = $derived(
+		Array.from({ length: new Date().getFullYear() - 2006 }, (_, i) => 2007 + i)
+	)
 
-	const widthMultiplier = 1.5;
+	const widthMultiplier = $derived(
+		innerWidth.current / 400
+	)
+
+	const yearsWithLabels = $derived(
+		innerWidth.current > 1000 ? years
+		: innerWidth.current > 800 ? years.filter(year => year % 2 === 0)
+		: years.filter(year => year % 5 === 0)
+	)
 
 	let hovered = $state(null);
+	let clicked = $state(null);
 </script>
 
 
@@ -80,10 +93,19 @@
 		</nav>
 		<h1 class="">Resume</h1>
 	</header>
-	<div class="max-w-5xl mx-auto font-sans">
+	<div class="mx-auto font-sans mt-12">
 		<!-- Experience Gantt Chart -->
 		<section class="mb-12">
 			<!-- <svg class="w-full h-72 border-black border-2"> -->
+			 <div style="margin-left: {widthMultiplier}rem;" class="flex w-fit">
+					{#each years as year}
+						<div class="year" style="width: {widthMultiplier}rem;">
+							{#if yearsWithLabels.includes(year)}
+								<div data-label={year}></div>
+							{/if}
+						</div>
+					{/each}
+			</div>
 			{#each companies.reverse() as company, i}
 				{@const lastYearOfPreviousCompany =
 					companies[i - 1]?.roles[companies[i - 1].roles.length - 1].period.split('-')[1] || '2007'}
@@ -96,25 +118,54 @@
 						<div
 							onmouseenter={() => (hovered = company.name || company.institution)}
 							onmouseleave={() => (hovered = null)}
+							onclick={() => (clicked = company.name || company.institution)}
 							style="width: {widthMultiplier * (yearEnd - yearStart)}rem;"
-							class="transition-all duration-300 bg-gray-300 {j === 0 ? 'rounded-l' : ''} {j === company.roles.length - 1 ? 'rounded-r' : ''} h-6 text-xs"
+							class="hover:cursor-pointer transition-all duration-300 bg-gray-300 {j === 0 ? 'rounded-l' : ''} {j === company.roles.length - 1 ? 'rounded-r' : ''} h-6 text-xs"
 						>
 						</div>
 					{/each}
 				</div>
 			{/each}
 			
-			{#if hovered}
-				<div class="">
-					<pre>
-						{hovered}
-					</pre>
-					<pre style="font-size: 0.75rem;">
-						{JSON.stringify(companies.find(c => c.name === hovered || c.institution === hovered), null, 2)}
-					</pre>
+			{#snippet content(hovered)}
+				{@const content = JSON.stringify(companies.find(c => c.name === hovered || c.institution === hovered), null, 2)}
+				<pre style="font-size: 0.75rem;">{content}</pre>
+			{/snippet}
+
+			{#if clicked || hovered}
+				{@const c = hovered || clicked}
+				<div class="w-96 ml-4">
+					<pre>{c}</pre>
+					{@render content(c)}
 				</div>
 			{/if}
 
 		</section>
 	</div>
 </section>
+
+<style>
+	.year > div {
+		position: relative
+	}
+
+	.year > div::before {
+		content: attr(data-label);
+		position: absolute;
+		top: -40px;
+		left: 0;
+		font-size: 0.75rem;
+		white-space: nowrap;
+		transform: translateX(-50%);
+	}
+	[data-label]::after {
+		content: "";
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 1px;
+		height: 10px;
+		background-color: #000;
+		transform: translateY(-150%);
+	}
+</style>
