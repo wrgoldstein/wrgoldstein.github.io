@@ -1,35 +1,4 @@
-<!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" href="../favicon.png" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		
-		<link href="../_app/immutable/assets/0.PorPnrqB.css" rel="stylesheet">
-		<link href="../_app/immutable/assets/5.rAKUehJT.css" rel="stylesheet">
-		<link href="../_app/immutable/assets/farkle.BopMSokE.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.DI9HPy18.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/entry.Bjd_A6Sb.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/runtime.DnGnsA3j.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/control.CYgJF_JY.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.zXTHfOma.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/preload-helper.C1FmrZbK.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/render.BTpR-0LY.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/misc.B9QI8j-U.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/disclose-version.dX1e3oqb.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/if.BvS6RTi_.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/proxy.C4QZwyNE.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/this.FL3C-VLN.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/props.WvYqMuwh.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/store.MGr0f-dk.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/0.njf9833n.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/snippet.DHkMeRFK.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/2.CcA_SCFT.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/5.tNTjr_xq.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/attributes.DFiExn9Q.js"><!--[--><meta data-key="description" name="description"> <meta property="og:type" content="article"> <meta property="og:title" content="Being more organized with notes"> <meta name="twitter:title" content="Being more organized with notes"> <meta property="og:description"> <meta name="twitter:description"> <meta property="og:image:width"> <meta property="og:image:height"><!--]--><title>Being more organized with notes</title>
-	</head>
-	<body data-sveltekit-preload-data="hover">
-		<div style="display: contents"><!--[--><!--[--><!----><!--[--><!----><!----><article class="tracking-wide prose mx-auto mt-16 prose-a:text-twirl prose-pre:border prose-pre:border-neutral-700 prose-img:rounded-xl prose-figcaption:lg:-ml-[5ch] prose-figcaption:lg:max-w-[75ch] prose-img:lg:-ml-[5ch] prose-img:lg:max-w-[90ch] px-8 lg:max-w-[85ch] mb-16 svelte-mpovti"><a href="/blog" class="text-gray-500 hover:text-gray-700">← Back</a> <img class="cover-image" alt="" style="aspect-ratio:  / ;"> <div class="flex gap-2 text-sm">December 27, 2015</div> <h1 class="text-5xl font-[400] text-purple mt-6 mb-12">Being more organized with notes</h1> <p>I’ve been taking notes for a little while now using Sublime and a tiny Thor command line tool. The code for it is:</p> <!----><pre class="shiki nord" style="background-color:#2e3440ff;color:#d8dee9ff" tabindex="0"><code><span class="line"><span style="color:#616E88">#!/usr/bin/ruby</span></span>
+import{a as t,t as c}from"./disclose-version.dX1e3oqb.js";import"./legacy.B9kJBAmk.js";import{s,j as r,n as E}from"./runtime.DnGnsA3j.js";import{h as a}from"./html.DG7Ge5f8.js";const A={layout:"post",title:"Being more organized with notes",date:"2015-12-27T00:00:00.000Z"};var y=c(`<p>I’ve been taking notes for a little while now using Sublime and a tiny Thor command line tool. The code for it is:</p> <!> <p>To use it, save the file somewhere. Let’s say you save it in <code>~/Code/note.thor</code>:</p> <ol><li>Get <code>thor</code>: <code>gem install thor</code></li> <li>Change <code>FOLDERS</code> if need be and create the needed directories. For me, that looks like</li></ol> <!> <p>You can make these with e.g. <code>mkdir -p ~/Notes/work</code></p> <ol start="3"><li>Create a handy alias. In my bash profile I have <code>alias notes='~/Code/notes.thor</code>.</li> <li>Run it: <code>notes</code></li></ol> <!> <ul><li><code>notes edit</code> is a quick way to iterate on the tool itself</li> <li><code>notes work hello</code> will open a new timestamped file like <code>20160308-hello.md</code> in Sublime.</li></ul>`,1);function D(o){var n=y(),l=s(r(n),2);a(l,()=>`<pre class="shiki nord" style="background-color:#2e3440ff;color:#d8dee9ff" tabindex="0"><code><span class="line"><span style="color:#616E88">#!/usr/bin/ruby</span></span>
 <span class="line"></span>
 <span class="line"><span style="color:#81A1C1">require</span><span style="color:#ECEFF4"> '</span><span style="color:#A3BE8C">thor</span><span style="color:#ECEFF4">'</span></span>
 <span class="line"><span style="color:#81A1C1">require</span><span style="color:#ECEFF4"> '</span><span style="color:#A3BE8C">date</span><span style="color:#ECEFF4">'</span></span>
@@ -64,42 +33,15 @@
 <span class="line"><span style="color:#81A1C1">  end</span></span>
 <span class="line"><span style="color:#81A1C1">end</span></span>
 <span class="line"></span>
-<span class="line"><span style="color:#8FBCBB">Note</span><span style="color:#ECEFF4">.</span><span style="color:#D8DEE9FF">start</span></span></code></pre><!----> <p>To use it, save the file somewhere. Let’s say you save it in <code>~/Code/note.thor</code>:</p> <ol><li>Get <code>thor</code>: <code>gem install thor</code></li> <li>Change <code>FOLDERS</code> if need be and create the needed directories. For me, that looks like</li></ol> <!----><pre class="shiki nord" style="background-color:#2e3440ff;color:#d8dee9ff" tabindex="0"><code><span class="line"><span>/Users/williamgoldstein/notes</span></span>
+<span class="line"><span style="color:#8FBCBB">Note</span><span style="color:#ECEFF4">.</span><span style="color:#D8DEE9FF">start</span></span></code></pre>`);var p=s(l,6);a(p,()=>`<pre class="shiki nord" style="background-color:#2e3440ff;color:#d8dee9ff" tabindex="0"><code><span class="line"><span>/Users/williamgoldstein/notes</span></span>
 <span class="line"><span>├── blog</span></span>
 <span class="line"><span>├── scratch</span></span>
 <span class="line"><span>├── thoughts</span></span>
-<span class="line"><span>└── work</span></span></code></pre><!----> <p>You can make these with e.g. <code>mkdir -p ~/Notes/work</code></p> <ol start="3"><li>Create a handy alias. In my bash profile I have <code>alias notes='~/Code/notes.thor</code>.</li> <li>Run it: <code>notes</code></li></ol> <!----><pre class="shiki nord" style="background-color:#2e3440ff;color:#d8dee9ff" tabindex="0"><code><span class="line"><span>$  notes</span></span>
+<span class="line"><span>└── work</span></span></code></pre>`);var e=s(p,6);a(e,()=>`<pre class="shiki nord" style="background-color:#2e3440ff;color:#d8dee9ff" tabindex="0"><code><span class="line"><span>$  notes</span></span>
 <span class="line"><span>Commands:</span></span>
 <span class="line"><span>  notes.thor edit             # Edit the notes CLT</span></span>
 <span class="line"><span>  notes.thor help [COMMAND]   # Describe available commands or one specific command</span></span>
 <span class="line"><span>  notes.thor open [TYPE]      # Open a specific notes directory</span></span>
 <span class="line"><span>  notes.thor scratch [NAME]   # create a new scratch note</span></span>
 <span class="line"><span>  notes.thor thoughts [NAME]  # create a new thoughts note</span></span>
-<span class="line"><span>  notes.thor work [NAME]      # create a new work note</span></span></code></pre><!----> <ul><li><code>notes edit</code> is a quick way to iterate on the tool itself</li> <li><code>notes work hello</code> will open a new timestamped file like <code>20160308-hello.md</code> in Sublime.</li></ul><!----> <div><a href="/blog" class="text-gray-500 hover:text-gray-700">← Back</a></div></article><!----><!----><!----><!--]--><!----><!----><!--]--> <!--[!--><!--]--><!--]-->
-			
-			<script>
-				{
-					__sveltekit_1w83uov = {
-						base: new URL("..", location).pathname.slice(0, -1)
-					};
-
-					const element = document.currentScript.parentElement;
-
-					const data = [null,null,null];
-
-					Promise.all([
-						import("../_app/immutable/entry/start.DI9HPy18.js"),
-						import("../_app/immutable/entry/app.zXTHfOma.js")
-					]).then(([kit, app]) => {
-						kit.start(app, element, {
-							node_ids: [0, 2, 5],
-							data,
-							form: null,
-							error: null
-						});
-					});
-				}
-			</script>
-		</div>
-	</body>
-</html>
+<span class="line"><span>  notes.thor work [NAME]      # create a new work note</span></span></code></pre>`),E(2),t(o,n)}export{D as default,A as metadata};

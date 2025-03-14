@@ -1,0 +1,1 @@
+import{k as o,E as f,l as i,m as p,o as c,h,v as d}from"./runtime.DnGnsA3j.js";function v(e,n,...t){var s=e,r=p,a;o(()=>{r!==(r=n())&&(a&&(c(a),a=null),a=i(()=>r(s,...t)))},f),h&&(s=d)}export{v as s};

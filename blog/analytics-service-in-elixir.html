@@ -5,35 +5,35 @@
 		<link rel="icon" href="../favicon.png" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		
-		<link href="../_app/immutable/assets/0.C0wJ92_3.css" rel="stylesheet">
+		<link href="../_app/immutable/assets/0.PorPnrqB.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/5.rAKUehJT.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/farkle.BopMSokE.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.C3iwM1yK.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/entry.DrgBe3r9.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/runtime.R5fxAIps.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.DI9HPy18.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/entry.Bjd_A6Sb.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/runtime.DnGnsA3j.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/control.CYgJF_JY.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.BS8pwBLb.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.zXTHfOma.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/preload-helper.C1FmrZbK.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/render.qmXpnk9A.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/render.BTpR-0LY.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/misc.B9QI8j-U.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/disclose-version.MmzF91-3.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/if.Ct1Hr-8x.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/proxy.DEFagQfX.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/this.BBm9QjbJ.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/props.DN_QZzxb.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/store.B-QSlF57.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/0.Bq7J9JoS.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/snippet.C2M1gwpN.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/2.B84wgvfL.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/5.g_Ea2hOI.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/attributes.B3VIASOE.js"><!--[--><meta data-key="description" name="description"> <meta property="og:type" content="article"> <meta property="og:title" content="An Analytics Service in Elixir"> <meta name="twitter:title" content="An Analytics Service in Elixir"> <meta property="og:description"> <meta name="twitter:description"> <meta property="og:image:width"> <meta property="og:image:height"><!--]--><title>An Analytics Service in Elixir</title>
+		<link rel="modulepreload" href="../_app/immutable/chunks/disclose-version.dX1e3oqb.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/if.BvS6RTi_.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/proxy.C4QZwyNE.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/this.FL3C-VLN.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/props.WvYqMuwh.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/store.MGr0f-dk.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/0.njf9833n.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/snippet.DHkMeRFK.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/2.CcA_SCFT.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/5.tNTjr_xq.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/attributes.DFiExn9Q.js"><!--[--><meta data-key="description" name="description"> <meta property="og:type" content="article"> <meta property="og:title" content="An Analytics Service in Elixir"> <meta name="twitter:title" content="An Analytics Service in Elixir"> <meta property="og:description"> <meta name="twitter:description"> <meta property="og:image:width"> <meta property="og:image:height"><!--]--><title>An Analytics Service in Elixir</title>
 	</head>
 	<body data-sveltekit-preload-data="hover">
 		<div style="display: contents"><!--[--><!--[--><!----><!--[--><!----><!----><article class="tracking-wide prose mx-auto mt-16 prose-a:text-twirl prose-pre:border prose-pre:border-neutral-700 prose-img:rounded-xl prose-figcaption:lg:-ml-[5ch] prose-figcaption:lg:max-w-[75ch] prose-img:lg:-ml-[5ch] prose-img:lg:max-w-[90ch] px-8 lg:max-w-[85ch] mb-16 svelte-mpovti"><a href="/blog" class="text-gray-500 hover:text-gray-700">← Back</a> <img class="cover-image" alt="" style="aspect-ratio:  / ;"> <div class="flex gap-2 text-sm">February 15, 2017</div> <h1 class="text-5xl font-[400] text-purple mt-6 mb-12">An Analytics Service in Elixir</h1> <p>Ever since I learned about <a href="http://elixir-lang.org/" rel="nofollow">Elixir</a> I’ve been curious about whether it would be feasible to build a service in it for receiving analytics events and pushing them to Redshift like <a href="http://snowplowanalytics.com/" rel="nofollow">Snowplow</a> or <a href="https://segment.com/" rel="nofollow">Segment</a>.</p> <p>There are a few challenges that a proposed new service would have to solve, alongside the core job of receiving POST requests, writing the passed events to S3, and copying them regularly to Redshift (where they can be analyzed or built upon).</p> <p>⭐️ <strong>Throughput:</strong> Analytics on a site like <a href="https://www.artsy.net" rel="nofollow">Artsy</a> aren’t anything like Twitter or Facebook, but we have enough concurrent users on the site— and enough instrumentation — that a proposed API would have to be able to handle a thousands of concurrent events per second without breaking a sweat.</p> <p>⭐️ <strong>Dynamic Schemas:</strong> Analytics events can have different properties that can be difficult to represent in a fixed columnar schema. Snowplow solved this problem by sticking to a very strict <a href="http://snowplowanalytics.com/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar/" rel="nofollow">Subject-Verb-Object</a> schema.</p> <p>Segment handles it by splitting warehoused data into two parts: a singular, monolithic <code>tracks</code> table that has only the basic information, and separate <a href="https://segment.com/docs/warehouses/schema/#event-tables" rel="nofollow">event tables</a> that have a column for each property passed for that specific event. Developers at Artsy have found that the ability to pass arbitrary JSON payloads makes instrumentation much easier to implement. I’m on the fence about how much value this really adds, but it is a cool feature.</p> <p>⭐️ <strong>Availability:</strong> This is tied to throughput but it goes without saying any service would need to have high availability. Events can’t be dropped willy-nilly, or we’d have unreliable data with which to train our models and make our business decisions. Elixir/Erlang’s reputation for availability is a big part of my interest in it.</p> <p>⭐️ <strong>Easy to deploy:</strong> A gripe I have with Snowplow is that it is (or was) a series of five applications housed in a single git repository. It was hard to understand what code did what. Segment of course is the total opposite: you pay them to host it for you so it’s plug and play. This really is the best solution for any company where resources are scant, but I’m curious whether this is something we really need to pay for.</p> <p>⭐️ <strong>Literate code:</strong> Another Scala gripe, but I find it <em>impossible</em> to grok. I heard someone joke about how Scala has a philosophy of “write it once, read it never”. Since I started programming in Ruby I’ve come to strongly believe in simple control flows and obvious naming over code that is tightly optimized (for space or speed). Elixir has some promise of offering both.</p> <p>⭐️ <strong>Modularity:</strong> It is cool how Snowplow offers <a href="https://github.com/snowplow/snowplow/tree/master/3-enrich" rel="nofollow">Enrichment</a> as a step in their process. We have many processes in our own ETL flow that do this, for instance transforming referrer urls (for which we use <a href="https://github.com/snowplow/referer-parser" rel="nofollow">a Snowplow library</a>). I’d love to just be able to plug in a module as needed to get e.g. geo-ip enrichment, or user-agent parsing.</p> <h2>Next Steps</h2> <p>The requirements for this are pretty daunting, but I want to play with two ideas for processing events: using <a href="https://www.rabbitmq.com/getstarted.html" rel="nofollow">RabbitMQ</a> to queue the events, and using Elixir’s own <a href="https://github.com/elixir-lang/gen_stage" rel="nofollow">GenStage</a> (or <a href="https://github.com/elixir-lang/flow" rel="nofollow">Flow?</a>). In particular I’m curious how they compare in terms of scalability / throughput. In my next post I’ll describe a very simple RabbitMQ / <a href="http://www.phoenixframework.org/" rel="nofollow">Phoenix</a> setup.</p><!----> <div><a href="/blog" class="text-gray-500 hover:text-gray-700">← Back</a></div></article><!----><!----><!----><!--]--><!----><!----><!--]--> <!--[!--><!--]--><!--]-->
 			
 			<script>
 				{
-					__sveltekit_1yutp6h = {
+					__sveltekit_1w83uov = {
 						base: new URL("..", location).pathname.slice(0, -1)
 					};
 
@@ -42,8 +42,8 @@
 					const data = [null,null,null];
 
 					Promise.all([
-						import("../_app/immutable/entry/start.C3iwM1yK.js"),
-						import("../_app/immutable/entry/app.BS8pwBLb.js")
+						import("../_app/immutable/entry/start.DI9HPy18.js"),
+						import("../_app/immutable/entry/app.zXTHfOma.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 2, 5],
