@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" href="../favicon.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		
+		<link href="../_app/immutable/assets/0.C0wJ92_3.css" rel="stylesheet">
+		<link href="../_app/immutable/assets/5.rAKUehJT.css" rel="stylesheet">
+		<link href="../_app/immutable/assets/farkle.BopMSokE.css" rel="stylesheet">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.C3iwM1yK.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/entry.DrgBe3r9.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/runtime.R5fxAIps.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/control.CYgJF_JY.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.BS8pwBLb.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/preload-helper.C1FmrZbK.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/render.qmXpnk9A.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/misc.B9QI8j-U.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/disclose-version.MmzF91-3.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/if.Ct1Hr-8x.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/proxy.DEFagQfX.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/this.BBm9QjbJ.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/props.DN_QZzxb.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/store.B-QSlF57.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/0.Bq7J9JoS.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/snippet.C2M1gwpN.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/2.B84wgvfL.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/5.g_Ea2hOI.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/attributes.B3VIASOE.js"><!--[--><meta data-key="description" name="description"> <meta property="og:type" content="article"> <meta property="og:title" content="svelte-charts"> <meta name="twitter:title" content="svelte-charts"> <meta property="og:description"> <meta name="twitter:description"> <meta property="og:image:width"> <meta property="og:image:height"><!--]--><title>svelte-charts</title>
+	</head>
+	<body data-sveltekit-preload-data="hover">
+		<div style="display: contents"><!--[--><!--[--><!----><!--[--><!----><!----><article class="tracking-wide prose mx-auto mt-16 prose-a:text-twirl prose-pre:border prose-pre:border-neutral-700 prose-img:rounded-xl prose-figcaption:lg:-ml-[5ch] prose-figcaption:lg:max-w-[75ch] prose-img:lg:-ml-[5ch] prose-img:lg:max-w-[90ch] px-8 lg:max-w-[85ch] mb-16 svelte-mpovti"><a href="/blog" class="text-gray-500 hover:text-gray-700">← Back</a> <img class="cover-image" alt="" style="aspect-ratio:  / ;"> <div class="flex gap-2 text-sm">January 16, 2020</div> <h1 class="text-5xl font-[400] text-purple mt-6 mb-12">svelte-charts</h1> <p>In some of my recent projects I’ve been using the very good <a href="https://www.chartjs.org/" rel="nofollow">chart.js</a> library, but I’ve always wanted to have a little more control over my charts. I planned to implement them in d3.js eventually, but I recently read Paul Sweeney on <a href="https://medium.com/@PepsRyuu/why-i-no-longer-use-d3-js-b8288f306c9a" rel="nofollow">why he doesn’t use d3 anymore</a> and the <a href="https://medium.com/@mbostock/why-you-should-use-d3-ae63c276e958" rel="nofollow">counterpunch</a> from Mike Bostock and decided to do exactly as Mike suggests- use d3, but only for the fiddly bits I don’t want to calculate myself (like nice tick marks) and not for DOM selection and mutation.</p> <p>A goal is to create a charting element like Tableau or Looker that allows for quite a bit of easy configuring, for example easily toggling from a bar chart to a line chart.</p> <p>It’s still very early days, but it felt worth mentioning, especially as I haven’t really blogged about Svelte at all. Svelte is a delight to work with, I’m having a lot of fun with it.</p> <p>The code is <a href="https://github.com/wrgoldstein/svelte-charts/" rel="nofollow">here</a>.</p> <p><strong>Update:</strong> I didn’t end up pursuing this library further, but in 2025 I use d3 even less now. For example my <a href="/resume">resume</a> is a d3 free gant chart.</p><!----> <div><a href="/blog" class="text-gray-500 hover:text-gray-700">← Back</a></div></article><!----><!----><!----><!--]--><!----><!----><!--]--> <!--[!--><!--]--><!--]-->
+			
+			<script>
+				{
+					__sveltekit_1yutp6h = {
+						base: new URL("..", location).pathname.slice(0, -1)
+					};
+
+					const element = document.currentScript.parentElement;
+
+					const data = [null,null,null];
+
+					Promise.all([
+						import("../_app/immutable/entry/start.C3iwM1yK.js"),
+						import("../_app/immutable/entry/app.BS8pwBLb.js")
+					]).then(([kit, app]) => {
+						kit.start(app, element, {
+							node_ids: [0, 2, 5],
+							data,
+							form: null,
+							error: null
+						});
+					});
+				}
+			</script>
+		</div>
+	</body>
+</html>
