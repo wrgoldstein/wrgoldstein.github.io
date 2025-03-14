@@ -17,18 +17,18 @@ I have always found this mandate to be troubling because I find the returns calc
 
 In Meadows' article she outlines how complex systems are more responsive to some kinds of interventions than other kinds. She comes up with a list of 12 ways to intervene in reverse order of effectiveness:
 
-12. Constants, parameters, numbers (such as subsidies, taxes, standards).
-13. The sizes of buffers and other stabilizing stocks, relative to their flows.
-14. The structure of material stocks and flows (such as transport networks, population age structures).
-15. The lengths of delays, relative to the rate of system change.
-16. The strength of negative feedback loops, relative to the impacts they are trying to correct against.
-17. The gain around driving positive feedback loops.
-18. The structure of information flows (who does and does not have access to information).
-19. The rules of the system (such as incentives, punishments, constraints).
-20. The power to add, change, evolve, or self-organize system structure.
-21. The goals of the system.
-22. The mindset or paradigm out of which the system — its goals, structure, rules, delays, parameters — arises.
-23. The power to transcend paradigms.
+1. Constants, parameters, numbers (such as subsidies, taxes, standards).
+1. The sizes of buffers and other stabilizing stocks, relative to their flows.
+1. The structure of material stocks and flows (such as transport networks, population age structures).
+1. The lengths of delays, relative to the rate of system change.
+1. The strength of negative feedback loops, relative to the impacts they are trying to correct against.
+1. The gain around driving positive feedback loops.
+1. The structure of information flows (who does and does not have access to information).
+1. The rules of the system (such as incentives, punishments, constraints).
+1. The power to add, change, evolve, or self-organize system structure.
+1. The goals of the system.
+1. The mindset or paradigm out of which the system — its goals, structure, rules, delays, parameters — arises.
+1. The power to transcend paradigms.
 
 Meadows defines **leverage points** as "places within a complex system (a corporation, an economy, a living body, a city, an ecosystem) where a small shift in one thing can produce big changes in everything." Producing such a change in a desired direction is the objective of almost any kind of work, but I would argue especially in data science.
 

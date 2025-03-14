@@ -4,47 +4,9 @@ title: 'Farkle'
 date: 2019-07-29
 ---
 
-<style>
-table {
-  padding: 0; 
-  max-width: 50%;
-  margin: auto;
-}
-th {
-    text-align: center;
-}
-table tr {
-    border-top: 1px solid #cccccc;
-    background-color: white;
-    margin: 0;
-    padding: 0; 
-}
-table tr th {
-    font-weight: bold;
-    border: 1px solid #cccccc;
-    margin: 0;
-    padding: 6px 13px; 
-}
-table tr td {
-    border: 1px solid #cccccc;
-    text-align: right;
-    margin: 0;
-    padding: 6px 13px; 
-}
+**Note**: The images for this post are long gone. I might add the ability to play a game of Farkle here in the future.
 
-.dice {
-    font-size: 56px;
-    margin-bottom: 28px;
-    width: 65%;
-    margin-left: auto;
-}
-
-.example {
-    background-color: #eee;
-    border-radius: 15px;
-    padding: 15px;
-}
-</style>
+-------
 
 I played a game recently called [Farkle](https://en.wikipedia.org/wiki/Farkle).
 
@@ -63,6 +25,7 @@ The rules are that you roll six dice and earn a score for certain combinations:
 
 <br>
 But you must follow these additional rules:
+
 1. You remove any scored dice from what was rolled, adding the points earned to a running total for the turn.
 2. If you cannot score any dice, you earn 0 for the turn regardless of any previous points earned.
 3. If your total score is over 500 points you may stop, otherwise you must reroll the unscored dice.
@@ -87,7 +50,8 @@ But you must follow these additional rules:
 
 </div>
 <br>
-Clearly, just like in [Hog Dice](http://wrgoldstein.github.io/2016/07/24/hog-dice.html), this is a game about balancing more opportunities to score against the probability of getting a 0. It's also clearly also solveable.
+
+Clearly, just like in [Hog Dice](/blog/hog-dice), this is a game about balancing more opportunities to score against the probability of getting a 0. It's also clearly also solveable.
 
 I wrote a simulation of the game and examined the scoring outcomes of a few different strategies. Here's what I learned.
 
@@ -126,3 +90,47 @@ Which leaves only one more question: Is the long run soon enough for a game of f
 ![](/assets/farkle6.png)
 
 The gambler approach pays off in the long run, indicating the expected value of that approach is higher, but the risk of additional farkles means it isn't that much better than the greedy approach. Balanced runs a distant third unless you play a lot of games.
+
+<style>
+table {
+  padding: 0; 
+  max-width: 50%;
+  margin: auto;
+}
+th {
+    text-align: center;
+}
+table tr {
+    border-top: 1px solid #cccccc;
+    background-color: white;
+    margin: 0;
+    padding: 0; 
+}
+table tr th {
+    font-weight: bold;
+    border: 1px solid #cccccc;
+    margin: 0;
+    padding: 6px 13px; 
+}
+table tr td {
+    border: 1px solid #cccccc;
+    text-align: right;
+    margin: 0;
+    padding: 6px 13px; 
+}
+
+.dice {
+    font-size: 56px;
+    margin-bottom: 28px;
+    width: 65%;
+    margin: auto;
+    text-align: center;
+}
+
+.example {
+    margin-top: 2rem;
+    background-color: #eee;
+    border-radius: 15px;
+    padding: 0 15px 15px 15px;
+}
+</style>

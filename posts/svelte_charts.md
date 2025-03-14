@@ -10,6 +10,6 @@ A goal is to create a charting element like Tableau or Looker that allows for qu
 
 It's still very early days, but it felt worth mentioning, especially as I haven't really blogged about Svelte at all. Svelte is a delight to work with, I'm having a lot of fun with it.
 
-The code is [here](https://github.com/wrgoldstein/svelte-charts/), and below is a small demo of it in action. (I'm changing the kind of data between time series, categorical, and numerical as well as changing the type of plot between line, stacked bar, etc.):
+The code is [here](https://github.com/wrgoldstein/svelte-charts/).
 
-![](/assets/svelte-charts-demo.gif)
+**Update:** I didn't end up pursuing this library further, but in 2025 I use d3 even less now. For example my [resume](/resume) is a d3 free gant chart.

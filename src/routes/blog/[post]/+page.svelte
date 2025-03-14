@@ -42,7 +42,7 @@
 <article
 	class="tracking-wide prose mx-auto mt-16 prose-a:text-twirl prose-pre:border prose-pre:border-neutral-700 prose-img:rounded-xl prose-figcaption:lg:-ml-[5ch] prose-figcaption:lg:max-w-[75ch] prose-img:lg:-ml-[5ch] prose-img:lg:max-w-[90ch] px-8 lg:max-w-[85ch] mb-16"
 >
-<a href="/blog" class="text-gray-500 hover:text-gray-700">← Back</a>
+	<a href="/blog" class="text-gray-500 hover:text-gray-700">← Back</a>
 	<!-- You might want to add an alt frontmatter attribute. If not, leaving alt blank here works, too. -->
 	<img
 		class="cover-image"
@@ -57,6 +57,9 @@
 	</div>
 	<h1 class="text-5xl font-[400] text-purple mt-6 mb-12">{title}</h1>
 	<PostContent />
+	<div>
+		<a href="/blog" class="text-gray-500 hover:text-gray-700">← Back</a>
+	</div>
 </article>
 
 <style>
@@ -65,5 +68,6 @@
 		margin-left: auto;
 		margin-right: auto;
 		margin-top: 10rem;
+		margin-bottom: 14rem;
 	}
 </style>
