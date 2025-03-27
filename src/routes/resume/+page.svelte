@@ -104,7 +104,7 @@
 		return json
 		.replace(/"focus":\s*"([^"]+)"/g, function(match, capturedValue) {
 			const color = focusColors[capturedValue].replace('300', '200')
-			return `"focus": <span class="${color}">"${capturedValue}"</span>`;
+			return `<span class="${color}">"focus": "${capturedValue}"</span>`;
 		});
 	}
 </script>
@@ -112,6 +112,9 @@
 
 
 <section class="p-8">
+	<span class="bg-purple-200"></span>
+	<span class="bg-orange-200"></span>
+	<span class="bg-blue-200"></span>
 	<header class="mb-8">
 		<nav class="mb-6">
 			<a href="/" class="text-gray-500 hover:text-gray-700">← Back</a>
