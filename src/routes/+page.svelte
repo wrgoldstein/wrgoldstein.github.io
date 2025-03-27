@@ -1,5 +1,5 @@
 <script>
-	import opentype from 'opentype.js';
+	import {parse} from 'opentype.js';
 
 	let path;
 	let path2;
@@ -8,7 +8,7 @@
 
 	$effect.root(async () => {
 		const buffer = fetch('/sourgummy.ttf').then((res) => res.arrayBuffer());
-		const font = opentype.parse(await buffer);
+		const font = parse(await buffer);
 		path = font.getPath('hello world', 200, 100, 64, {});
 		path2 = font.getPath('', 200, 100, 64, {});
 

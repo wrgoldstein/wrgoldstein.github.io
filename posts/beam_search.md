@@ -10,7 +10,7 @@ updated: 2025-03-12
 let n = $state(50) // nodes
 let k = $state(3) // edges
 let iter = $state(75) // iterations
-let particles = $state(new Array(n))
+let particles = $state()
 const width = 1000
 const height = 300
 let running = $state(false)

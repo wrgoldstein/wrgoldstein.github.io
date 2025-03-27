@@ -14,47 +14,39 @@ date: 2016-07-24
     return Math.pow(5/6, n) * n * 4.0
   }
 
-  function roll(){
-    return Math.ceil(Math.random() * 6)
-  }
+  // function roll(){
+  //   return Math.ceil(Math.random() * 6)
+  // }
 
-  function rollMany(n){
-    let results = [];
-    for (let i = 0; i < n; i++) {
-      results.push(roll());
-    }
-    if (results.includes(1)) return 0;
-    console.log("here")
-    return results.reduce((acc, curr) => acc + curr, 0);
-  }
+  // function rollMany(n){
+  //   let results = [];
+  //   for (let i = 0; i < n; i++) {
+  //     results.push(roll());
+  //   }
+  //   if (results.includes(1)) return 0;
 
-  let step = $state(0)
+  //   return results.reduce((acc, curr) => acc + curr, 0);
+  // }
 
-  let results = $state(Array(n).fill(0))
+  // let step = $state(0)
 
-  function simulate(){
-    step++
-    for (let i = 0; i < n; i++) {
-      let rollResult = rollMany(i + 1);
-      console.log(rollResult)
-      results = results.map(r => 
-        (r == 0 && rollResult == 0) ? 0 : r * step + rollResult / (step + 1)
-      )
-    }
-    
-  }
+  // let results = $state(Array(n).fill(0))
 
-  simulate()
-  $inspect(results)
+  // function simulate(){
+  //   step++
+  //   for (let i = 0; i < n; i++) {
+  //     let rollResult = rollMany(i + 1);
 
-  // $effect.root(() => {
-  //   $inspect(results)
-  //   simulate()
-  //   $inspect(results)
-  // })
+  //     results = results.map(r => 
+  //       (r == 0 && rollResult == 0) ? 0 : r * step + rollResult / (step + 1)
+  //     )
+  //   }
+  // }
+
+  // simulate()
 
 </script>
-{step}
+
 I'm giving a presentation at [Artsy's offsite](http://observer.com/2015/08/artsys-wet-hot-american-summer/) on Analytics at Artsy, and I wanted an accessible and relevant ice breaker. I decided to go with the [HOG Dice Game](http://www.amstat.org/publications/jse/v11n2/feldman.html) to try to get at how data analytics can be useful for solving real world problems. The game is simple:
 
 1. Players take turns rolling dice. Each player may choose any number of dice from one up to the total number of dice available. (We recommend that at least ten dice be available for each player or team.)
@@ -69,47 +61,7 @@ Here's the expected value for each number of dice a player can choose:
 
 <div class="flex gap-1 items-end my-8">
   {#each d3.range(n) as i}
-    <div style="height: {realAnswer(i)}rem; width: 1rem;" class="relative bg-gray-500 bg-opacity-20"/>
-  {/each}
-  {#each d3.range(n) as i}
-    <div style="height: {realAnswer(i)}rem; width: 1rem;" class="relative bg-gray-500 bg-opacity-20"/>
+    <div style="height: {realAnswer(i)}rem; width: 1rem;" class="relative bg-gray-500 bg-opacity-20"></div>
   {/each}
 </div>
 
-<style>
-
-.bar {
-  fill: #EA168C;
-  fill-opacity: .5;
-}
-
-.bar:hover {
-  fill: #1B8A6B;
-}
-
-.bar2 {
-  fill: #F69231;
-  fill-opacity: .8;
-}
-
-.axis {
-  font: 10px sans-serif;
-}
-
-.axis path,
-.axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
-}
-
-.x.axis path {
-  display: none;
-}
-
-svg {
-    display: block;
-    margin: 0 auto;
-}
-
-</style>

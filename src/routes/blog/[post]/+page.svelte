@@ -57,7 +57,7 @@
 	</div>
 	<h1 class="text-5xl font-[400] text-purple mt-6 mb-12">{title}</h1>
 	<PostContent />
-	<div>
+	<div class="mt-16">
 		<a href="/blog" class="text-gray-500 hover:text-gray-700">← Back</a>
 	</div>
 </article>
@@ -67,7 +67,7 @@
 		/* width: clamp(400px, 70vw, 1000px); */
 		margin-left: auto;
 		margin-right: auto;
-		margin-top: 10rem;
+		/* margin-top: 10rem; */
 		margin-bottom: 14rem;
 	}
 </style>

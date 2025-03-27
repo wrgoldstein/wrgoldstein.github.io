@@ -73,21 +73,21 @@ Choice (3) is what I call the balanced approach, where you try to take a larger 
 
 Obviously on any given role, the greedy approach (take all available points) will dominate. On average, this approach is safest and leads to the fewest farkles:
 
-![](/assets/farkle3.png)
+--
 
 That pattern is also visible here, where we break out the distribution of scores for each strategy given the roll from above:
 
-![](/assets/farkle4.png)
+--
 
 However, you can also see that the other strategies are more likely to score a higher point total in a given turn.
 
 Does the higher point total balance out the risk you take by rolling more often? It turns out, yes, it comes quite close to catching up to the greedy approach in the long run (this is a game of 100 rolls):
 
-![](/assets/farkle5.png)
+--
 
 Which leaves only one more question: Is the long run soon enough for a game of farkle to 10,000 points? The answer appears to be yes, but that finish line is actually fairly close to the crossover point. There's also a lot of luck in this game. Here's the % of games won by the greedy strategy for various thresholds for victory.
 
-![](/assets/farkle6.png)
+--
 
 The gambler approach pays off in the long run, indicating the expected value of that approach is higher, but the risk of additional farkles means it isn't that much better than the greedy approach. Balanced runs a distant third unless you play a lot of games.
 

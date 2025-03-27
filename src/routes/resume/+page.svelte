@@ -140,6 +140,7 @@
 						{@const yearStart = +role.period.split('-')[0]}
 						{@const yearEndDirty = role.period.split('-')[1]}
 						{@const yearEnd = yearEndDirty === 'Present' ? new Date().getFullYear() : +yearEndDirty}
+						<!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_static_element_interactions (because of reasons) -->
 						<div
 							onmouseenter={() => (hovered = company.name || company.institution)}
 							onmouseleave={() => (hovered = null)}
