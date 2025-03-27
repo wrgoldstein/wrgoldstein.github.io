@@ -60,6 +60,13 @@ date: 2025-03-27
     return { x: markerX, y: markerY };
   }
 
+  function setColor(i){
+    return () => {
+        primaryColor.target = i * (360 / segments)
+        inputColor = i * (360 / segments)
+    }
+  }
+
   let inputColor = $state(238)
   let primaryColor = $state(new Spring(238))
   const colorCombos = $derived.by(() => {
@@ -76,16 +83,18 @@ Here's a color combination I like:
     <div style="background-color: hsl({primaryColor.current - 190 - 30}, 100%, 50%)" class="w-72 h-6"></div>
 </div>
 
-What do I like about it? Well, its the primary colors, but just a bit off in a satisfying way. 
+What do I like about it? Well, its the primary colors, but just a bit off in a satisfying way. The colors are ketchuppy and tactile.
 
 A natural question is what's a fourth color that would look good with these? First, take a look at where they are on a color wheel.
 
 <div class="flex justify-center h-96">
     <svg viewBox="0 40 200 120">
         {#each Array(segments) as _, i}
-            <path 
+            <path
+            class="cursor-pointer"
             d={createDonutSegmentPath(i)} 
-            fill={getSegmentColor(i)} 
+            fill={getSegmentColor(i)}
+            onclick={setColor(i)}
             stroke="white" 
             stroke-width="0.1"
             />
@@ -163,9 +172,12 @@ Of course we can go the other direction with -90 degrees for a fifth color:
 <div class="flex justify-center h-96 mt-4">
     <svg viewBox="0 40 200 120">
         {#each Array(segments) as _, i}
-            <path 
+            <path
+            data-i={i}
+            class="cursor-pointer"
             d={createDonutSegmentPath(i)} 
             fill={getSegmentColor(i)} 
+            onclick={setColor(i)}
             stroke="white" 
             stroke-width="0.1"
             />
@@ -187,4 +199,4 @@ Of course we can go the other direction with -90 degrees for a fifth color:
 
 This starts to look garish, but it can be necessary when plotting a chart and maximum contrast is desired between different categories. See the [D3.js categorical schemes](https://d3js.org/d3-scale-chromatic/categorical) for examples.
 
-Perceptually red, blue and green tend to take up a little bit more than their fair share of space. The result is you can usually distinguish between two oranges better than you can between two reds of the same brightness. This is why depending the same relative arrangement of colors around the color wheel don't look perceptually even.
+Perceptually red, blue and green tend to take up a little bit more than their fair share of space. The result is you can usually distinguish between two oranges better than you can between two reds of the same brightness. This is why the same relative arrangement of colors around the color wheel don't look perceptually even, and some of the above generated palettes look better than others.
