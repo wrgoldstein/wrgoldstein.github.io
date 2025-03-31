@@ -7,3 +7,22 @@ html {
     overflow-x: hidden;
     max-width: 100vw;
 }
+
+.shiki {
+    width: 100%; /* Full width of parent */
+    max-width: 100%; /* Ensure it doesn't overflow */
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  
+  /* If Shiki uses pre tags */
+  .shiki pre {
+    width: 100%;
+  }
+  
+  /* If there's a code element inside */
+  .shiki code {
+    width: 100%;
+    display: block;
+    
+  }
