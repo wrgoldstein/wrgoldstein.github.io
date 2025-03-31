@@ -5,6 +5,7 @@ date: 2025-03-29
 ---
 
 <script>
+    import { onMount } from "svelte"
     import { Tween, Spring } from "svelte/motion"
     import { center, left, right } from "$lib/components/rocket.js"
     import { cubicOut } from 'svelte/easing';
@@ -56,7 +57,7 @@ date: 2025-03-29
         player.sprites.right.src = 'data:image/png;base64,' + right;
 
         global.canvas = document.getElementById('gameCanvas');
-        global.ctx = global.canvas.getContext('2d');
+        global.ctx = global.canvas.getContext('2d', { willReadFrequently: true });
         global.canvas.width = 600;
         global.canvas.height = 400;
         global.ctx.drawImage(player.sprites.center, player.x.current, player.y.current, player.width, player.height);
@@ -114,7 +115,7 @@ date: 2025-03-29
         requestAnimationFrame(update);
     }
 
-    $effect.root(() => {
+    onMount(() => {
         setup()
         requestAnimationFrame(update)
     })

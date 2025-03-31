@@ -5,12 +5,13 @@ date: 2025-03-31
 ---
 
 <script>
+    import { onMount } from "svelte"
 
     let pixelSize = $state(4)
     let currentTool = $state("pencil")
     let toggleSymmetry = $state(false)
 
-    $effect.root(() => {
+    onMount(() => {
         const canvas = document.getElementById('pixelCanvas');
         const ctx = canvas.getContext('2d');
         const colorPicker = document.getElementById('colorPicker');
