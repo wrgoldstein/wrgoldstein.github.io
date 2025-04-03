@@ -242,7 +242,7 @@ const centerNodesBasedOnChildren = (node) => {
             },
             3: () => {
                 story.current++
-                story.text = story.finished ? "Not doing arrows this time." : "Add some arrows and voila, we have a reasonable simple layout."
+                story.text = story.finished ? "Drawing arrows is hard too." : "Add some arrows and voila, we have a reasonable simple layout."
                 story.code = `
 function getTreeConnections(node) {
     let connections = [];
@@ -414,7 +414,7 @@ Let's walk through the steps:
             <text x={node.x.current} y={node.y.current}>{node.value}</text>
         {/each}
 
-        {#if ([4,5].includes(story.current)) && !story.finished}
+        {#if ([4,5].includes(story.current))}
             <defs>
                 <marker id="arrowhead2" markerWidth="4" markerHeight="5" 
                     refX="3" refY="2.5" orient="auto">
@@ -424,10 +424,10 @@ Let's walk through the steps:
 
             {#each getTreeConnections(root) as connection}
                 <line 
-                    x1="{connection.from.x}" 
-                    y1="{connection.from.y}" 
-                    x2="{connection.to.x}" 
-                    y2="{connection.to.y}" 
+                    x1="{connection.from.x + 7.5}" 
+                    y1="{connection.from.y + 2.5}" 
+                    x2="{connection.to.x + 7.5}" 
+                    y2="{connection.to.y - 15}" 
                     stroke="black" 
                     stroke-width=".75" 
                     marker-end="url(#arrowhead2)" 
@@ -445,20 +445,23 @@ Let's walk through the steps:
     </div>
 </div>
 
-<div transition:fade class="hidden md:flex w-full bg-[#2e3440ff] min-h-[20rem] rounded">
-    {#await codeHtml}
-        beep boop
-    {:then code}
-        {@html code}
-    {/await}
-</div>
+{#if story.code}
+    <div transition:fade class="hidden md:flex w-full bg-[#2e3440ff] min-h-[20rem] rounded">
+        {#await codeHtml}
+            beep boop
+        {:then code}
+            {@html code}
+        {/await}
+    </div>
+{/if}
+
 
 {#if !story.finished}
-
-and that's pretty much sufficient for a really simple tree like this one!
 
 If you click to try it again, we'll redo the same example but with 6 extra items and 10 additional edges. You'll see that because of items having parents at multiple depths, it can be tricky to get a pleasing layout.
 
 {/if}
 
-In another post (or maybe just extending this one in the future) we'll look at the solution: resolving conflicts with modifiers and normalizing coordinates, and maybe arrows.
+You'll notice the arrows aren't great-- here I'm skipping the conflict resolution part of the algorithm-- and also RT is known to not be great at optimally clear layouts (that's why the state of the art is Sugiyama).
+
+In another post (or maybe just extending this one in the future) we'll look at the solution: resolving conflicts with modifiers and normalizing coordinates.
