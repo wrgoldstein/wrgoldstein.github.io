@@ -125,7 +125,13 @@ Often, being wrong isn't that expensive, but being certain is. Consider the dist
 - "Is this true?"
 - "Should I act as if this is true?"
 
-In my career, mostly at startups, I've often been in situations where collecting data is expensive and the payoffs are asymmetric. In those contexts, the goal isn't to avoid being wrong. It's to experiment fast, learn cheaply, and explore a highly uncertain problem space. Being wrong 30% of the time is fine if you can run five experiments in the time it would take to be certain about one. Especially if one of those experiments ends up being the pivot you build your next round of funding on.
+In genuinely uncertain problem spaces, most experiments yield nothing. The base rate of "this doesn't work" is high. Under those conditions, the cost of rigorously evaluating a dud is pure waste—you get high confidence in a null result you could have reached with a shrug.
+
+This suggests a two-stage approach: filter loosely, validate tightly. Use cheap, noisy signals to kill things fast. Save the rigorous evaluation for whatever survives initial contact. The goal in the early phase isn't to be right—it's to be wrong efficiently, to clear the dead ends quickly so you can find the thing worth taking seriously.
+
+Being wrong 30% of the time is fine if you can run five experiments in the time it would take to be certain about one.
+
+In my career, mostly at startups, I've often been in situations where collecting data is expensive and the payoffs are asymmetric. In those contexts, the goal isn't to avoid being wrong. It's to experiment fast, learn cheaply, and explore a highly uncertain problem space. 
 
 "Enough data to make a good decision" is a completely different framing from Bernoulli's courtroom setting. It's about expected value under uncertainty, not about certainty itself. An essential insight of all professional gamblers is that you can rationally act on a 55% belief if the payoff structure is right.
 
