@@ -231,17 +231,17 @@ date: 2025-03-31
 </script>
 
 
-For a project of mine I need to create some pixel art.
+For a project of mine I needed to create some pixel art.
 
 I downloaded a couple of apps and visited a website or two and all of the options have ads and pretty unfriendly interfaces.
 
-But as a coder in 2025 you're not really at the mercy of anyone else's tool design. In two chat messages I can have the basic grid for my own pixel art generator, and add whatever features I want.
+But in 2025 it's so easy to build tools for yourself exactly the way you want.
 
-This basic pixel art drawer that took 15 minutes to make and supports the advanced features I need: 
+This is a basic pixel art drawing program that took 15 minutes to make (with AI support) and supports the advanced features I need: 
 
 * Symmetry drawing
 * Copying the image to clipboard
-* Resizing
+* Brush size slider
 * Fill tool
 
 <input type="color" id="colorPicker" value="#000000">
@@ -256,7 +256,7 @@ This basic pixel art drawer that took 15 minutes to make and supports the advanc
     <canvas id="pixelCanvas" class="bg-white place-self-center" width="448" height="448"></canvas>
 </div>
 
-My favorite feature is the symmetry drawing toggle, which makes it easy to do what I set out to do: little pixel spaceships:
+My favorite feature is the symmetry drawing toggle, which makes it easy to do what I set out to do: little pixel spaceships.
 
 <div class="flex justify-around">
     <img src="data:image/png;base64,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">

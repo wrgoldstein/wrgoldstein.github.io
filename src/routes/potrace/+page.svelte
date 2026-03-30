@@ -394,24 +394,42 @@
           {#if isSelected && snap}
             <div class="grid grid-cols-1 sm:grid-cols-[1fr_180px] gap-0 divide-y sm:divide-y-0 sm:divide-x divide-gray-100">
 
-              <!-- Detail canvas -->
-              <div class="p-3 bg-gray-50 flex justify-center items-start overflow-auto">
-                <canvas
-                  bind:this={detailCanvas}
-                  style="image-rendering:pixelated; max-width:100%"
-                ></canvas>
+              <!-- Left panel: SVG stage gets a real render; others get canvas overlay -->
+              <div class="bg-white flex justify-center items-start overflow-auto p-3">
+                {#if stage.id === 'svg' && snap.svg}
+                  <div class="w-full" style="max-width:{snap.bitmap.width}px">
+                    {@html snap.svg.replace(/width="\d+" height="\d+"/, 'width="100%" height="auto"')}
+                  </div>
+                {:else}
+                  <canvas
+                    bind:this={detailCanvas}
+                    style="image-rendering:pixelated; max-width:100%"
+                  ></canvas>
+                {/if}
               </div>
 
-              <!-- Item list -->
-              {#if selectedItems.length > 0}
+              <!-- Right panel: item list, or SVG source+download -->
+              {#if stage.id === 'svg' && snap.svg}
+                <div class="p-3 space-y-2 flex flex-col max-h-80 overflow-auto">
+                  <button
+                    onclick={() => {
+                      const blob = new Blob([snap.svg], { type:'image/svg+xml' });
+                      const a = document.createElement('a');
+                      a.href = URL.createObjectURL(blob);
+                      a.download = 'traced.svg';
+                      a.click();
+                    }}
+                    class="w-full px-2 py-1.5 border rounded text-xs hover:bg-gray-50 shrink-0"
+                  >↓ download SVG</button>
+                  <pre class="text-xs leading-relaxed overflow-auto whitespace-pre-wrap break-all text-gray-500">{snap.svg}</pre>
+                </div>
+              {:else if selectedItems.length > 0}
                 <div class="overflow-y-auto max-h-80">
-                  <!-- "All" row -->
                   <button
                     class="w-full text-left px-3 py-1.5 text-xs border-b border-gray-100 transition-colors
                            {selectedIdx === -1 ? 'bg-black text-white' : 'hover:bg-gray-50'}"
                     onclick={() => selectedIdx = -1}
                   >all ({selectedItems.length})</button>
-
                   {#each selectedItems as item, i}
                     <button
                       class="w-full text-left px-3 py-1.5 text-xs border-b border-gray-100
@@ -423,21 +441,6 @@
                       {i+1}. {selectedStageMeta.itemLabel(item, i)}
                     </button>
                   {/each}
-                </div>
-              {:else if stage.id === 'svg' && snap?.svg}
-                <!-- SVG stage: show source + download -->
-                <div class="p-3 space-y-2 overflow-auto max-h-80">
-                  <button
-                    onclick={() => {
-                      const blob = new Blob([snap.svg], { type:'image/svg+xml' });
-                      const a = document.createElement('a');
-                      a.href = URL.createObjectURL(blob);
-                      a.download = 'traced.svg';
-                      a.click();
-                    }}
-                    class="w-full px-2 py-1 border rounded text-xs hover:bg-gray-50"
-                  >↓ download SVG</button>
-                  <pre class="text-xs leading-relaxed overflow-auto whitespace-pre-wrap break-all">{snap.svg}</pre>
                 </div>
               {/if}
 
