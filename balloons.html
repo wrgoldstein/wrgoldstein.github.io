@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Balloon Pop!</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: linear-gradient(180deg, #87CEEB 0%, #c9e8f7 60%, #d4f5c4 100%);
+      overflow: hidden;
+      font-family: 'Segoe UI', sans-serif;
+      height: 100vh;
+      width: 100vw;
+      user-select: none;
+    }
+
+    #hud {
+      position: fixed;
+      top: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 32px;
+      align-items: center;
+      background: rgba(255,255,255,0.35);
+      backdrop-filter: blur(6px);
+      border-radius: 999px;
+      padding: 8px 28px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #333;
+      z-index: 100;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+    }
+
+    #hud span { font-size: 0.85rem; font-weight: 500; color: #555; }
+
+    #miss-flash {
+      position: fixed;
+      inset: 0;
+      background: rgba(255,60,60,0.18);
+      pointer-events: none;
+      opacity: 0;
+      z-index: 50;
+      transition: opacity 0.1s;
+    }
+
+    #game-over {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 20px;
+      color: white;
+    }
+    #game-over h1 { font-size: 3.5rem; text-shadow: 0 3px 12px rgba(0,0,0,0.5); }
+    #game-over p  { font-size: 1.4rem; opacity: 0.9; }
+    #game-over button {
+      margin-top: 8px;
+      padding: 14px 36px;
+      border: none;
+      border-radius: 999px;
+      background: #fff;
+      color: #333;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+      transition: transform 0.1s;
+    }
+    #game-over button:hover { transform: scale(1.05); }
+
+    /* ── Balloon SVG wrapper ── */
+    .balloon-wrap {
+      position: absolute;
+      bottom: -130px;
+      transform: translateX(-50%);
+      cursor: pointer;
+      animation: float-up linear forwards;
+      will-change: transform, opacity;
+    }
+
+    @keyframes float-up {
+      0%   { bottom: -130px; opacity: 1; }
+      90%  { opacity: 1; }
+      100% { bottom: 105vh; opacity: 0.2; }
+    }
+
+    /* gentle sway */
+    .balloon-wrap svg {
+      animation: sway 2.6s ease-in-out infinite alternate;
+      transform-origin: bottom center;
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.18));
+    }
+    @keyframes sway {
+      from { transform: rotate(-5deg); }
+      to   { transform: rotate(5deg); }
+    }
+
+    .balloon-letter {
+      font-size: 22px;
+      font-weight: 900;
+      dominant-baseline: central;
+      text-anchor: middle;
+      pointer-events: none;
+    }
+
+    /* pop burst */
+    .pop-burst {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      animation: burst 0.45s ease-out forwards;
+    }
+    @keyframes burst {
+      0%   { transform: translate(-50%,-50%) scale(0); opacity: 1; }
+      100% { transform: translate(-50%,-50%) scale(3.5); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="hud">
+  <div>🎈 <span>SCORE</span> <strong id="score">0</strong></div>
+  <div>💥 <span>COMBO</span> <strong id="combo">x1</strong></div>
+  <div>❤️ <span>LIVES</span> <strong id="lives">5</strong></div>
+</div>
+
+<div id="miss-flash"></div>
+
+<div id="game-over">
+  <h1>Game Over 🎈</h1>
+  <p id="final-score"></p>
+  <button onclick="restartGame()">Play Again</button>
+</div>
+
+<script>
+// ── Palette ──────────────────────────────────────────────────
+const COLORS = [
+  { fill: '#FF6B6B', shine: '#FF9E9E', dark: '#C0392B', text: '#fff' },
+  { fill: '#FFD93D', shine: '#FFE87A', dark: '#F0A500', text: '#333' },
+  { fill: '#6BCB77', shine: '#9EEAA7', dark: '#27AE60', text: '#fff' },
+  { fill: '#4D96FF', shine: '#82BBFF', dark: '#1A5FBB', text: '#fff' },
+  { fill: '#FF922B', shine: '#FFB566', dark: '#D35400', text: '#fff' },
+  { fill: '#CC5DE8', shine: '#E29AF7', dark: '#8E24AA', text: '#fff' },
+  { fill: '#F06595', shine: '#F7A0BC', dark: '#AD1457', text: '#fff' },
+  { fill: '#20C997', shine: '#6EEAC4', dark: '#0A8C60', text: '#fff' },
+];
+
+const LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+
+let score = 0;
+let combo = 1;
+let lives = 5;
+let running = false;
+let spawnTimer = null;
+let speedTimer = null;
+let baseDuration = 9;   // seconds for balloon to traverse
+let minDuration  = 4;
+let spawnInterval = 1400; // ms between spawns
+let minInterval   = 500;
+let activeBalloons = {}; // key => element
+
+// ── DOM helpers ───────────────────────────────────────────────
+const scoreEl = document.getElementById('score');
+const comboEl  = document.getElementById('combo');
+const livesEl  = document.getElementById('lives');
+const flash    = document.getElementById('miss-flash');
+const gameOver = document.getElementById('game-over');
+
+function updateHUD() {
+  scoreEl.textContent = score;
+  comboEl.textContent = `x${combo}`;
+  livesEl.textContent = lives;
+  comboEl.parentElement.style.color = combo >= 5 ? '#e63946' : combo >= 3 ? '#f77f00' : '#333';
+}
+
+// ── Build balloon SVG ─────────────────────────────────────────
+function makeBalloonSVG(letter, color) {
+  const ns = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(ns, 'svg');
+  svg.setAttribute('width', '70');
+  svg.setAttribute('height', '115');
+  svg.setAttribute('viewBox', '0 0 70 115');
+
+  // body
+  const ellipse = document.createElementNS(ns, 'ellipse');
+  ellipse.setAttribute('cx', '35'); ellipse.setAttribute('cy', '40');
+  ellipse.setAttribute('rx', '30'); ellipse.setAttribute('ry', '35');
+  ellipse.setAttribute('fill', color.fill);
+  svg.appendChild(ellipse);
+
+  // shine
+  const shine = document.createElementNS(ns, 'ellipse');
+  shine.setAttribute('cx', '24'); shine.setAttribute('cy', '25');
+  shine.setAttribute('rx', '9');  shine.setAttribute('ry', '11');
+  shine.setAttribute('fill', color.shine);
+  shine.setAttribute('opacity', '0.55');
+  svg.appendChild(shine);
+
+  // knot
+  const knot = document.createElementNS(ns, 'path');
+  knot.setAttribute('d', 'M32 74 Q35 80 38 74');
+  knot.setAttribute('stroke', color.dark);
+  knot.setAttribute('stroke-width', '3');
+  knot.setAttribute('fill', 'none');
+  knot.setAttribute('stroke-linecap', 'round');
+  svg.appendChild(knot);
+
+  // string
+  const string = document.createElementNS(ns, 'path');
+  string.setAttribute('d', 'M35 78 Q28 95 35 112');
+  string.setAttribute('stroke', '#aaa');
+  string.setAttribute('stroke-width', '1.5');
+  string.setAttribute('fill', 'none');
+  svg.appendChild(string);
+
+  // letter
+  const text = document.createElementNS(ns, 'text');
+  text.setAttribute('x', '35'); text.setAttribute('y', '43');
+  text.setAttribute('class', 'balloon-letter');
+  text.setAttribute('fill', color.text);
+  text.textContent = letter;
+  svg.appendChild(text);
+
+  return svg;
+}
+
+// ── Spawn a balloon ───────────────────────────────────────────
+function spawnBalloon() {
+  if (!running) return;
+
+  // pick a letter not already on screen (fallback: any)
+  const available = LETTERS.filter(l => !activeBalloons[l]);
+  if (available.length === 0) return;
+  const letter = available[Math.floor(Math.random() * available.length)];
+
+  const color   = COLORS[Math.floor(Math.random() * COLORS.length)];
+  const xPos    = 60 + Math.random() * (window.innerWidth - 120);
+  const dur     = baseDuration - Math.random() * 1.5; // slight variance
+
+  const wrap = document.createElement('div');
+  wrap.className = 'balloon-wrap';
+  wrap.style.left = xPos + 'px';
+  wrap.style.animationDuration = dur + 's';
+  wrap.appendChild(makeBalloonSVG(letter, color));
+  document.body.appendChild(wrap);
+
+  activeBalloons[letter] = { el: wrap, color };
+
+  // when balloon drifts off screen → lose a life
+  wrap.addEventListener('animationend', () => {
+    if (activeBalloons[letter]?.el === wrap) {
+      delete activeBalloons[letter];
+      wrap.remove();
+      loseLife();
+    }
+  });
+}
+
+// ── Pop ───────────────────────────────────────────────────────
+function popBalloon(letter) {
+  const entry = activeBalloons[letter];
+  if (!entry) return false;
+
+  const { el, color } = entry;
+  delete activeBalloons[letter];
+
+  // position burst at balloon centre
+  const rect = el.getBoundingClientRect();
+  const cx = rect.left + rect.width  / 2;
+  const cy = rect.top  + rect.height * 0.38; // balloon body centre
+
+  const burst = document.createElement('div');
+  burst.className = 'pop-burst';
+  burst.style.cssText = `
+    left: ${cx}px; top: ${cy}px;
+    width: 80px; height: 80px;
+    background: radial-gradient(circle, ${color.shine} 0%, ${color.fill} 50%, transparent 70%);
+  `;
+  document.body.appendChild(burst);
+  burst.addEventListener('animationend', () => burst.remove());
+
+  // spawn 6 confetti dots
+  for (let i = 0; i < 6; i++) spawnConfetti(cx, cy, color);
+
+  el.remove();
+
+  combo++;
+  score += 10 * combo;
+  updateHUD();
+  return true;
+}
+
+function spawnConfetti(cx, cy, color) {
+  const c = document.createElement('div');
+  const angle = Math.random() * 360;
+  const dist  = 40 + Math.random() * 60;
+  const tx = Math.cos(angle * Math.PI/180) * dist;
+  const ty = Math.sin(angle * Math.PI/180) * dist;
+  c.style.cssText = `
+    position: fixed;
+    left: ${cx}px; top: ${cy}px;
+    width: ${6 + Math.random()*6}px;
+    height: ${6 + Math.random()*6}px;
+    border-radius: ${Math.random() > 0.5 ? '50%' : '2px'};
+    background: ${[color.fill, color.shine, color.dark][Math.floor(Math.random()*3)]};
+    pointer-events: none;
+    z-index: 60;
+    animation: confetti-fly 0.6s ease-out forwards;
+  `;
+  const keyframes = `
+    @keyframes confetti-fly {
+      0%   { transform: translate(0,0) rotate(0deg); opacity: 1; }
+      100% { transform: translate(${tx}px, ${ty}px) rotate(${Math.random()*360}deg); opacity: 0; }
+    }
+  `;
+  // inject unique keyframe
+  const style = document.createElement('style');
+  style.textContent = keyframes;
+  document.head.appendChild(style);
+  document.body.appendChild(c);
+  c.addEventListener('animationend', () => { c.remove(); style.remove(); });
+}
+
+// ── Miss / lives ──────────────────────────────────────────────
+function loseLife() {
+  lives--;
+  combo = 1;
+  updateHUD();
+  flashRed();
+  if (lives <= 0) endGame();
+}
+
+function flashRed() {
+  flash.style.opacity = '1';
+  setTimeout(() => { flash.style.opacity = '0'; }, 200);
+}
+
+// ── Wrong key ─────────────────────────────────────────────────
+function wrongKey() {
+  combo = 1;
+  updateHUD();
+}
+
+// ── Game lifecycle ────────────────────────────────────────────
+function startGame() {
+  score = 0; combo = 1; lives = 5;
+  baseDuration = 9; spawnInterval = 1400;
+  activeBalloons = {};
+  running = true;
+  gameOver.style.display = 'none';
+  updateHUD();
+  scheduleSpawn();
+  scheduleSpeedup();
+}
+
+function scheduleSpawn() {
+  spawnBalloon();
+  spawnTimer = setTimeout(scheduleSpawn, spawnInterval);
+}
+
+function scheduleSpeedup() {
+  speedTimer = setTimeout(() => {
+    if (!running) return;
+    baseDuration   = Math.max(minDuration,   baseDuration   - 0.4);
+    spawnInterval  = Math.max(minInterval,   spawnInterval  - 80);
+    scheduleSpeedup();
+  }, 8000);
+}
+
+function endGame() {
+  running = false;
+  clearTimeout(spawnTimer);
+  clearTimeout(speedTimer);
+  // remove all balloons
+  Object.values(activeBalloons).forEach(({ el }) => el.remove());
+  activeBalloons = {};
+  document.getElementById('final-score').textContent = `Final score: ${score}`;
+  gameOver.style.display = 'flex';
+}
+
+function restartGame() {
+  startGame();
+}
+
+// ── Keyboard ──────────────────────────────────────────────────
+document.addEventListener('keydown', e => {
+  if (!running) return;
+  const key = e.key.toUpperCase();
+  if (LETTERS.includes(key)) {
+    const hit = popBalloon(key);
+    if (!hit) wrongKey();
+  }
+});
+
+// ── Start ─────────────────────────────────────────────────────
+startGame();
+</script>
+</body>
+</html>

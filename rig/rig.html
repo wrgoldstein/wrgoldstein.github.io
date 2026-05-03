@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Moses Rig</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #1a1a2e; color: #eee; font-family: system-ui; overflow: hidden; }
+
+#toolbar {
+  position: fixed; top: 0; left: 0; right: 0; height: 48px;
+  background: #16213e; display: flex; align-items: center; gap: 12px;
+  padding: 0 16px; z-index: 100; border-bottom: 1px solid #333;
+}
+#toolbar button {
+  padding: 6px 14px; border: 1px solid #555; border-radius: 4px;
+  background: #1a1a2e; color: #eee; cursor: pointer; font-size: 13px;
+}
+#toolbar button.active { background: #e94560; border-color: #e94560; }
+#toolbar button:hover { border-color: #e94560; }
+#toolbar .sep { width: 1px; height: 24px; background: #444; }
+#toolbar span { font-size: 12px; color: #888; }
+#toolbar #status { margin-left: auto; font-size: 12px; color: #888; }
+
+#canvas-wrap {
+  position: fixed; top: 48px; left: 0; right: 260px; bottom: 80px;
+  overflow: hidden; cursor: crosshair;
+  background-image:
+    linear-gradient(45deg, #ccc 25%, transparent 25%),
+    linear-gradient(-45deg, #ccc 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #ccc 75%),
+    linear-gradient(-45deg, transparent 75%, #ccc 75%);
+  background-size: 20px 20px;
+  background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+  background-color: #eee;
+}
+#canvas-wrap svg { position: absolute; top: 0; left: 0; }
+
+#sidebar {
+  position: fixed; top: 48px; right: 0; width: 260px; bottom: 0;
+  background: #16213e; border-left: 1px solid #333; overflow-y: auto;
+  padding: 12px; font-size: 12px;
+}
+#sidebar h3 { color: #e94560; margin: 12px 0 6px; font-size: 13px; }
+#sidebar h3:first-child { margin-top: 0; }
+.part-item {
+  padding: 4px 8px; border-radius: 3px; cursor: pointer; margin: 2px 0;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.part-item:hover { background: #1a1a2e; }
+.part-item.selected { background: #e94560; }
+.pivot-dot {
+  width: 8px; height: 8px; border-radius: 50%; background: #0fbcf9;
+  display: inline-block; margin-right: 6px;
+}
+
+#anim-bar {
+  position: fixed; bottom: 0; left: 0; right: 260px; height: 80px;
+  background: #16213e; border-top: 1px solid #333; display: flex;
+  align-items: center; padding: 0 16px; gap: 12px;
+}
+#anim-bar button { padding: 6px 12px; border: 1px solid #555; border-radius: 4px; background: #1a1a2e; color: #eee; cursor: pointer; }
+#anim-bar button:hover { border-color: #e94560; }
+#timeline { flex: 1; height: 40px; background: #1a1a2e; border-radius: 4px; position: relative; }
+#playhead { position: absolute; top: 0; bottom: 0; width: 2px; background: #e94560; left: 0; }
+.keyframe-marker { position: absolute; top: 50%; width: 8px; height: 8px; background: #0fbcf9; border-radius: 50%; transform: translate(-50%, -50%); cursor: pointer; }
+
+/* ─── Modal ─── */
+#modal-overlay {
+  display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+  z-index: 200; justify-content: center; align-items: center;
+}
+#modal-overlay.open { display: flex; }
+#modal {
+  background: #16213e; border: 1px solid #444; border-radius: 12px;
+  padding: 20px; min-width: 280px; max-width: 340px; width: 90%;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+}
+#modal h3 { color: #e94560; margin: 0 0 4px; font-size: 16px; }
+#modal .modal-subtitle { color: #888; font-size: 12px; margin-bottom: 16px; }
+#modal .modal-section { margin-bottom: 12px; }
+#modal .modal-section-label { color: #aaa; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
+#modal .modal-btn {
+  display: block; width: 100%; padding: 12px 16px; margin: 4px 0;
+  border: 1px solid #444; border-radius: 8px; background: #1a1a2e;
+  color: #eee; font-size: 14px; text-align: left; cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+#modal .modal-btn:hover, #modal .modal-btn:active { background: #2a2a4e; border-color: #e94560; }
+#modal .modal-btn.active-parent { border-color: #0fbcf9; background: #1a2a3e; }
+#modal .modal-btn.danger { color: #e94560; }
+#modal .modal-btn .btn-dot {
+  display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 8px; vertical-align: middle;
+}
+#modal .modal-cancel {
+  display: block; width: 100%; padding: 12px; margin-top: 12px;
+  border: none; border-radius: 8px; background: #333;
+  color: #aaa; font-size: 14px; text-align: center; cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+#modal .modal-cancel:active { background: #444; }
+#modal .rename-row { display: flex; gap: 8px; margin-top: 8px; }
+#modal .rename-row input {
+  flex: 1; padding: 10px 12px; border: 1px solid #444; border-radius: 8px;
+  background: #1a1a2e; color: #eee; font-size: 14px; outline: none;
+}
+#modal .rename-row input:focus { border-color: #e94560; }
+#modal .rename-row button {
+  padding: 10px 16px; border: 1px solid #e94560; border-radius: 8px;
+  background: #e94560; color: #fff; font-size: 14px; cursor: pointer;
+}
+</style>
+</head>
+<body>
+
+<div id="toolbar">
+  <button id="btn-cut" class="active" title="Draw red lines to cut parts">✂️ Cut</button>
+  <button id="btn-pivot" title="Click to place pivots (blue dots)">🔵 Pivot</button>
+  <button id="btn-pose" title="Rotate parts around pivot">🦴 Rotate</button>
+  <button id="btn-drag" title="Drag parts to translate">✋ Drag</button>
+  <div class="sep"></div>
+  <button id="btn-undo">↩ Undo</button>
+  <button id="btn-clear-cuts">Clear Cuts</button>
+  <button id="btn-clear-pivots">Clear Pivots</button>
+  <div class="sep"></div>
+  <button id="btn-walk">Walk Cycle</button>
+  <div class="sep"></div>
+  <button id="btn-preview">👁 Preview</button>
+  <span id="status">Load SVG to begin</span>
+</div>
+
+<div id="canvas-wrap"></div>
+
+<div id="sidebar">
+  <h3>Parts</h3>
+  <div id="parts-list"><em style="color:#666">No parts yet — draw cuts first</em></div>
+  <h3>Skeleton</h3>
+  <div id="skeleton-tree"><em style="color:#666">Place pivots to build skeleton</em></div>
+  <h3>Current Pose</h3>
+  <div id="pose-info"><em style="color:#666">Switch to Pose mode</em></div>
+</div>
+
+<div id="anim-bar">
+  <button id="btn-play">▶</button>
+  <button id="btn-stop">⏹</button>
+  <button id="btn-key">◆ Key</button>
+  <div id="timeline">
+    <div id="playhead"></div>
+  </div>
+  <span id="frame-num" style="color:#888; font-size:12px;">0 / 24</span>
+</div>
+
+<div id="modal-overlay">
+  <div id="modal"></div>
+</div>
+
+<script>
+// ─── Modal ───
+function showPartModal(part) {
+  const overlay = document.getElementById('modal-overlay');
+  const modal = document.getElementById('modal');
+  const parentPart = state.parts.find(p => p.id === part.parentId);
+  const parentName = part.parentId === -1 ? 'none (root)' : (parentPart ? parentPart.name : '?');
+
+  const otherParts = state.parts.filter(p => p.id !== part.id);
+
+  let html = `
+    <h3>${part.name}</h3>
+    <div class="modal-subtitle">Parent: ${parentName}</div>
+
+    <div class="modal-section">
+      <div class="modal-section-label">Rename</div>
+      <div class="rename-row">
+        <input type="text" id="modal-rename" value="${part.name}" />
+        <button id="modal-rename-btn">Save</button>
+      </div>
+    </div>
+
+    <div class="modal-section">
+      <div class="modal-section-label">Set Parent</div>
+      <button class="modal-btn ${part.parentId === -1 ? 'active-parent' : ''}" data-action="root">
+        ○ No parent (root)
+      </button>`;
+
+  otherParts.forEach(p => {
+    const isCurrent = part.parentId === p.id;
+    html += `
+      <button class="modal-btn ${isCurrent ? 'active-parent' : ''}" data-action="parent" data-parent-id="${p.id}">
+        <span class="btn-dot" style="background:${p.color}"></span>${p.name}
+      </button>`;
+  });
+
+  html += `
+    </div>
+    <button class="modal-cancel" data-action="cancel">Cancel</button>`;
+
+  modal.innerHTML = html;
+  overlay.classList.add('open');
+
+  // Wire up rename
+  modal.querySelector('#modal-rename-btn').addEventListener('click', () => {
+    const input = modal.querySelector('#modal-rename');
+    if (input.value.trim()) part.name = input.value.trim();
+    closeModal();
+  });
+  // Enter key in rename input
+  modal.querySelector('#modal-rename').addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+      const input = modal.querySelector('#modal-rename');
+      if (input.value.trim()) part.name = input.value.trim();
+      closeModal();
+    }
+  });
+
+  // Wire up all buttons
+  modal.querySelectorAll('.modal-btn, .modal-cancel').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const action = btn.dataset.action;
+      if (action === 'root') {
+        part.parentId = -1;
+        closeModal();
+      } else if (action === 'parent') {
+        part.parentId = parseInt(btn.dataset.parentId);
+        closeModal();
+      } else if (action === 'cancel') {
+        overlay.classList.remove('open');
+      }
+    });
+  });
+
+  // Tap overlay to dismiss
+  overlay.addEventListener('click', e => {
+    if (e.target === overlay) overlay.classList.remove('open');
+  }, { once: true });
+}
+
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('open');
+  updatePartsList();
+  updateSkeletonTree();
+  applyPose();
+  autoSave();
+}
+
+// ─── State ───
+const state = {
+  mode: 'cut',        // cut | pivot | pose
+  svgData: null,      // parsed SVG
+  strokes: [],        // [{el, pts, color, width, partId}]
+  cuts: [],           // [{pts: [[x,y]...]}] — red lines drawn by user
+  parts: [],          // [{id, strokeIndices, color, pivotX, pivotY, parentId, angle}]
+  nextPartId: 0,
+  pivots: [],         // [{x, y, partId}]
+  keyframes: [],      // [{frame, pose: {partId: angle}}]
+  currentFrame: 0,
+  totalFrames: 24,
+  playing: false,
+  animId: null,
+
+  // interaction
+  drawing: false,
+  currentCut: [],
+  draggingPart: null,
+  dragStart: null,
+};
+
+// ─── SVG Loading ───
+async function loadSVG(url) {
+  const resp = await fetch(url);
+  const text = await resp.text();
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(text, 'image/svg+xml');
+  const svg = doc.querySelector('svg');
+
+  const vb = svg.getAttribute('viewBox').split(/\s+/).map(Number);
+  state.svgData = { vb, width: parseFloat(svg.getAttribute('width')), height: parseFloat(svg.getAttribute('height')) };
+
+  // Create display SVG
+  const wrap = document.getElementById('canvas-wrap');
+  const wrapRect = wrap.getBoundingClientRect();
+  const scale = Math.min((wrapRect.width - 40) / state.svgData.width, (wrapRect.height - 120) / state.svgData.height);
+
+  const displaySvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  displaySvg.setAttribute('viewBox', svg.getAttribute('viewBox'));
+  displaySvg.setAttribute('width', state.svgData.width * scale);
+  displaySvg.setAttribute('height', state.svgData.height * scale);
+  displaySvg.style.margin = '20px';
+  displaySvg.id = 'main-svg';
+  wrap.innerHTML = '';
+  wrap.appendChild(displaySvg);
+
+  // Groups
+  const strokesG = nsEl('g', {id: 'strokes-layer'});
+  const cutsG = nsEl('g', {id: 'cuts-layer'});
+  const pivotsG = nsEl('g', {id: 'pivots-layer'});
+  const partsG = nsEl('g', {id: 'parts-layer'}); // colored overlays
+  displaySvg.appendChild(strokesG);
+  displaySvg.appendChild(partsG);
+  displaySvg.appendChild(cutsG);
+  displaySvg.appendChild(pivotsG);
+
+  // Parse strokes
+  state.strokes = [];
+  svg.querySelectorAll('polyline').forEach((pl, i) => {
+    const pts = pl.getAttribute('points').trim().split(/\s+/).map(p => {
+      const [x, y] = p.split(',').map(Number);
+      return [x, y];
+    });
+    const color = pl.getAttribute('stroke') || '#000';
+    const width = parseFloat(pl.getAttribute('stroke-width') || '1');
+
+    const clone = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
+    clone.setAttribute('points', pl.getAttribute('points'));
+    clone.setAttribute('stroke', color);
+    clone.setAttribute('stroke-width', width);
+    clone.setAttribute('fill', 'none');
+    clone.setAttribute('stroke-linecap', 'round');
+    clone.setAttribute('stroke-linejoin', 'round');
+    clone.dataset.idx = i;
+    strokesG.appendChild(clone);
+
+    state.strokes.push({ el: clone, pts, color, width, partId: -1 });
+  });
+
+  setStatus(`Loaded ${state.strokes.length} strokes`);
+  setupInteraction(displaySvg);
+}
+
+function nsEl(tag, attrs = {}) {
+  const el = document.createElementNS('http://www.w3.org/2000/svg', tag);
+  for (const [k, v] of Object.entries(attrs)) el.setAttribute(k, v);
+  return el;
+}
+
+// ─── Coordinate helpers ───
+function svgPoint(svg, clientX, clientY) {
+  const pt = svg.createSVGPoint();
+  pt.x = clientX; pt.y = clientY;
+  const ctm = svg.getScreenCTM().inverse();
+  const svgPt = pt.matrixTransform(ctm);
+  return [svgPt.x, svgPt.y];
+}
+
+// ─── Interaction ───
+function setupInteraction(svg) {
+  // Prevent default touch behaviors (scroll, zoom) so stylus/finger input works
+  svg.style.touchAction = 'none';
+  document.getElementById('canvas-wrap').style.touchAction = 'none';
+
+  svg.addEventListener('pointerdown', e => {
+    e.preventDefault();
+    svg.setPointerCapture(e.pointerId);
+    const [x, y] = svgPoint(svg, e.clientX, e.clientY);
+
+    if (state.mode === 'cut') {
+      state.drawing = true;
+      state.currentCut = [[x, y]];
+      const line = nsEl('polyline', {
+        stroke: '#ff0000', 'stroke-width': '3', fill: 'none',
+        'stroke-linecap': 'round', 'stroke-linejoin': 'round',
+        class: 'cut-line'
+      });
+      line.setAttribute('points', `${x},${y}`);
+      svg.querySelector('#cuts-layer').appendChild(line);
+      state._activeCutEl = line;
+    }
+    else if (state.mode === 'pivot') {
+      placePivot(svg, x, y);
+    }
+    else if (state.mode === 'pose') {
+      const part = findPartAt(x, y);
+      if (part) {
+        state.draggingPart = part;
+        state.dragStart = [x, y];
+        state.dragStartAngle = part.angle || 0;
+      }
+    }
+    else if (state.mode === 'drag') {
+      const part = findPartAt(x, y);
+      if (part) {
+        state.draggingPart = part;
+        state.dragStart = [x, y];
+        state.dragStartOffset = [part.offsetX || 0, part.offsetY || 0];
+      }
+    }
+  });
+
+  svg.addEventListener('pointermove', e => {
+    e.preventDefault();
+    const [x, y] = svgPoint(svg, e.clientX, e.clientY);
+
+    if (state.mode === 'cut' && state.drawing) {
+      state.currentCut.push([x, y]);
+      state._activeCutEl.setAttribute('points',
+        state.currentCut.map(p => p.join(',')).join(' '));
+    }
+    else if (state.mode === 'pose' && state.draggingPart) {
+      const part = state.draggingPart;
+      const px = part.pivotX, py = part.pivotY;
+      const startAngle = Math.atan2(state.dragStart[1] - py, state.dragStart[0] - px);
+      const curAngle = Math.atan2(y - py, x - px);
+      part.angle = state.dragStartAngle + (curAngle - startAngle) * 180 / Math.PI;
+      applyPose();
+      updatePoseInfo();
+    }
+    else if (state.mode === 'drag' && state.draggingPart) {
+      const part = state.draggingPart;
+      part.offsetX = state.dragStartOffset[0] + (x - state.dragStart[0]);
+      part.offsetY = state.dragStartOffset[1] + (y - state.dragStart[1]);
+      applyPose();
+      updatePoseInfo();
+    }
+  });
+
+  svg.addEventListener('pointerup', e => {
+    e.preventDefault();
+    if (state.mode === 'cut' && state.drawing) {
+      state.drawing = false;
+      if (state.currentCut.length > 1) {
+        state.cuts.push({ pts: state.currentCut, el: state._activeCutEl });
+        repartition();
+      }
+      state.currentCut = [];
+      state._activeCutEl = null;
+    }
+    else if (state.mode === 'pose' || state.mode === 'drag') {
+      state.draggingPart = null;
+    }
+  });
+}
+
+// ─── Red line partitioning (reuse our algorithm!) ───
+function cross(ax, ay, bx, by, px, py) {
+  return (bx - ax) * (py - ay) - (by - ay) * (px - ax);
+}
+
+function elbowIndex(pts) {
+  if (pts.length < 3) return null;
+  const [p0x, p0y] = pts[0];
+  const [pnx, pny] = pts[pts.length - 1];
+  const chord = Math.hypot(pnx - p0x, pny - p0y);
+  if (chord === 0) return null;
+  let bestI = null, bestDev = 0;
+  for (let i = 1; i < pts.length - 1; i++) {
+    const dev = Math.abs(cross(p0x, p0y, pnx, pny, pts[i][0], pts[i][1])) / chord;
+    if (dev > bestDev) { bestDev = dev; bestI = i; }
+  }
+  return bestDev >= chord * 0.10 ? bestI : null;
+}
+
+function segmentsFromCut(pts) {
+  const i = elbowIndex(pts);
+  if (i === null) return [[pts[0], pts[pts.length - 1]]];
+  const a = pts[0], b = pts[i], c = pts[pts.length - 1];
+  const bend = (b[0]-a[0])*(c[1]-b[1]) - (b[1]-a[1])*(c[0]-b[0]);
+  if (bend >= 0) return [[a, b], [b, c]];
+  return [[b, a], [c, b]];
+}
+
+function isInterior(cx, cy, segments) {
+  return segments.every(([a, b]) => cross(a[0], a[1], b[0], b[1], cx, cy) >= 0);
+}
+
+function repartition() {
+  // Build segments from all cuts
+  const allSegments = state.cuts.flatMap(c => segmentsFromCut(c.pts));
+
+  // For each unique combination of interior/exterior across all individual cuts,
+  // we get a region. But since our algorithm gives 2 regions per fence,
+  // and multiple fences give 2^n regions, we use a bitmask approach here
+  // since we're in the interactive tool.
+
+  // Actually — each cut is an independent fence. Assign region by bitmask.
+  const regionMap = {};
+  state.strokes.forEach((s, si) => {
+    const cx = s.pts.reduce((a, p) => a + p[0], 0) / s.pts.length;
+    const cy = s.pts.reduce((a, p) => a + p[1], 0) / s.pts.length;
+
+    let key = 0;
+    state.cuts.forEach((cut, ci) => {
+      const segs = segmentsFromCut(cut.pts);
+      if (isInterior(cx, cy, segs)) key |= (1 << ci);
+    });
+
+    if (!regionMap[key]) regionMap[key] = [];
+    regionMap[key].push(si);
+    s.partId = key;
+  });
+
+  // Create parts from regions
+  const colors = ['#e94560','#0fbcf9','#53d769','#ffd93d','#c56cf0','#ff9f43','#ee5a24','#6ab04c','#7ed6df','#e056fd'];
+  state.parts = [];
+  const keys = Object.keys(regionMap).sort((a,b) => {
+    // Sort by centroid Y then X
+    const centA = regionCentroid(regionMap[a]);
+    const centB = regionCentroid(regionMap[b]);
+    return centA[1] - centB[1] || centA[0] - centB[0];
+  });
+
+  keys.forEach((key, i) => {
+    const indices = regionMap[key];
+    state.parts.push({
+      id: i,
+      regionKey: parseInt(key),
+      strokeIndices: indices,
+      color: colors[i % colors.length],
+      pivotX: 0, pivotY: 0,
+      parentId: -1,
+      angle: 0,
+      offsetX: 0, offsetY: 0,
+      name: `Part ${i + 1}`
+    });
+  });
+
+  colorParts();
+  updatePartsList();
+  setStatus(`${state.cuts.length} cut(s) → ${state.parts.length} parts`);
+}
+
+function regionCentroid(indices) {
+  let sx = 0, sy = 0, n = 0;
+  indices.forEach(si => {
+    state.strokes[si].pts.forEach(([x, y]) => { sx += x; sy += y; n++; });
+  });
+  return [sx/n, sy/n];
+}
+
+function colorParts() {
+  // Reset all to original color
+  state.strokes.forEach(s => s.el.setAttribute('stroke', s.color));
+
+  // Overlay part colors at 50% opacity
+  const layer = document.getElementById('parts-layer');
+  layer.innerHTML = '';
+  state.parts.forEach(part => {
+    part.strokeIndices.forEach(si => {
+      const s = state.strokes[si];
+      const overlay = nsEl('polyline', {
+        points: s.pts.map(p => p.join(',')).join(' '),
+        stroke: part.color,
+        'stroke-width': Math.max(s.width * 2, 3),
+        fill: 'none',
+        opacity: '0.35',
+        'stroke-linecap': 'round',
+        'stroke-linejoin': 'round',
+        'pointer-events': 'none',
+        'data-stroke-idx': si
+      });
+      layer.appendChild(overlay);
+    });
+  });
+}
+
+// ─── Pivots ───
+function placePivot(svg, x, y) {
+  // Find closest part
+  let bestPart = null, bestDist = Infinity;
+  state.parts.forEach(part => {
+    part.strokeIndices.forEach(si => {
+      state.strokes[si].pts.forEach(([px, py]) => {
+        const d = Math.hypot(px - x, py - y);
+        if (d < bestDist) { bestDist = d; bestPart = part; }
+      });
+    });
+  });
+
+  if (!bestPart) return;
+  bestPart.pivotX = x;
+  bestPart.pivotY = y;
+
+  // Draw pivot dot
+  const layer = svg.querySelector('#pivots-layer');
+  const circle = nsEl('circle', {
+    cx: x, cy: y, r: '6', fill: '#0fbcf9', stroke: '#fff', 'stroke-width': '1.5',
+    class: 'pivot-marker'
+  });
+  layer.appendChild(circle);
+
+  // Auto-assign parent: closest other part's pivot
+  let bestParent = null, bestParentDist = Infinity;
+  state.parts.forEach(p => {
+    if (p === bestPart || !p.pivotX) return;
+    const d = Math.hypot(p.pivotX - x, p.pivotY - y);
+    if (d < bestParentDist) { bestParentDist = d; bestParent = p; }
+  });
+  if (bestParent) bestPart.parentId = bestParent.id;
+
+  updatePartsList();
+  updateSkeletonTree();
+  setStatus(`Pivot placed on ${bestPart.name} at (${x.toFixed(0)}, ${y.toFixed(0)})`);
+}
+
+// ─── Posing ───
+function findPartAt(x, y) {
+  let best = null, bestDist = Infinity;
+  state.parts.forEach(part => {
+    part.strokeIndices.forEach(si => {
+      state.strokes[si].pts.forEach(([px, py]) => {
+        const d = Math.hypot(px - x, py - y);
+        if (d < bestDist) { bestDist = d; best = part; }
+      });
+    });
+  });
+  return bestDist < 30 ? best : null;
+}
+
+function applyPose() {
+  // Compute cumulative angle + pivot for each part
+  const resolved = new Map(); // partId -> {angle, px, py}
+
+  function resolve(part) {
+    if (resolved.has(part.id)) return resolved.get(part.id);
+    const parent = state.parts.find(p => p.id === part.parentId);
+    const parentR = parent ? resolve(parent) : { angle: 0 };
+    const totalAngle = (part.angle || 0) + parentR.angle;
+    const r = { angle: totalAngle, px: part.pivotX, py: part.pivotY };
+    resolved.set(part.id, r);
+    return r;
+  }
+
+  state.parts.forEach(p => resolve(p));
+
+  // Build a single combined transform string per part
+  // For each stroke, build the chain: rotate at own pivot, then rotate at parent's pivot, etc.
+  function buildTransform(part) {
+    const chain = [];
+    let cur = part;
+    while (cur) {
+      const hasRotate = cur.pivotX || cur.pivotY;
+      const hasTranslate = cur.offsetX || cur.offsetY;
+      if (hasRotate || hasTranslate) {
+        chain.unshift({
+          angle: Number(cur.angle) || 0,
+          px: cur.pivotX, py: cur.pivotY,
+          dx: Number(cur.offsetX) || 0, dy: Number(cur.offsetY) || 0
+        });
+      }
+      cur = state.parts.find(p => p.id === cur.parentId);
+    }
+    // SVG transforms apply right-to-left, so we list outermost first
+    return chain.map(c => {
+      let t = '';
+      if (c.dx || c.dy) t += `translate(${c.dx} ${c.dy}) `;
+      if (c.angle) t += `rotate(${c.angle} ${c.px} ${c.py})`;
+      return t.trim();
+    }).join(' ');
+  }
+
+  // Apply to original strokes
+  state.parts.forEach(part => {
+    const xform = buildTransform(part);
+    part.strokeIndices.forEach(si => {
+      state.strokes[si].el.setAttribute('transform', xform);
+    });
+  });
+
+  // Also apply to overlay layer
+  const overlayEls = document.querySelectorAll('#parts-layer polyline');
+  overlayEls.forEach(el => {
+    const si = parseInt(el.getAttribute('data-stroke-idx'));
+    if (isNaN(si)) return;
+    const part = state.parts.find(p => p.strokeIndices.includes(si));
+    if (part) el.setAttribute('transform', buildTransform(part));
+  });
+
+  // Move pivot dots too
+  state.parts.forEach(part => {
+    if (!part.pivotX) return;
+    // Find the parent transform to move the pivot marker
+    const parent = state.parts.find(p => p.id === part.parentId);
+    if (parent) {
+      const xform = buildTransform(parent);
+      // Find the circle for this part's pivot
+      document.querySelectorAll('#pivots-layer circle').forEach(c => {
+        const cx = parseFloat(c.getAttribute('cx'));
+        const cy = parseFloat(c.getAttribute('cy'));
+        if (Math.abs(cx - part.pivotX) < 1 && Math.abs(cy - part.pivotY) < 1) {
+          c.setAttribute('transform', xform);
+        }
+      });
+    }
+  });
+}
+
+// ─── Animation ───
+function addKeyframe() {
+  const pose = {};
+  state.parts.forEach(p => { pose[p.id] = { angle: p.angle || 0, dx: p.offsetX || 0, dy: p.offsetY || 0 }; });
+  // Remove existing keyframe at this frame
+  state.keyframes = state.keyframes.filter(k => k.frame !== state.currentFrame);
+  state.keyframes.push({ frame: state.currentFrame, pose });
+  state.keyframes.sort((a, b) => a.frame - b.frame);
+  renderTimeline();
+  setStatus(`Keyframe added at frame ${state.currentFrame}`);
+}
+
+// Normalize a pose value — could be a plain number (old format) or {angle, dx, dy}
+function poseVal(v) {
+  if (v && typeof v === 'object') return { angle: Number(v.angle)||0, dx: Number(v.dx)||0, dy: Number(v.dy)||0 };
+  return { angle: Number(v)||0, dx: 0, dy: 0 };
+}
+
+function interpolatePose(frame) {
+  if (state.keyframes.length === 0) return;
+  if (state.keyframes.length === 1) {
+    const pose = state.keyframes[0].pose;
+    state.parts.forEach(p => {
+      const v = poseVal(pose[p.id]);
+      p.angle = v.angle; p.offsetX = v.dx; p.offsetY = v.dy;
+    });
+    return;
+  }
+
+  // Find surrounding keyframes
+  let prev = state.keyframes[0], next = state.keyframes[state.keyframes.length - 1];
+  for (let i = 0; i < state.keyframes.length - 1; i++) {
+    if (state.keyframes[i].frame <= frame && state.keyframes[i+1].frame >= frame) {
+      prev = state.keyframes[i];
+      next = state.keyframes[i+1];
+      break;
+    }
+  }
+
+  const range = next.frame - prev.frame || 1;
+  const t = (frame - prev.frame) / range;
+
+  state.parts.forEach(p => {
+    const a = poseVal(prev.pose[p.id]), b = poseVal(next.pose[p.id]);
+    p.angle = a.angle + (b.angle - a.angle) * t;
+    p.offsetX = a.dx + (b.dx - a.dx) * t;
+    p.offsetY = a.dy + (b.dy - a.dy) * t;
+  });
+}
+
+let lastFrameTime = 0;
+const FPS = 12;
+function animLoop(timestamp) {
+  if (!state.playing) return;
+  if (timestamp - lastFrameTime > 1000 / FPS) {
+    lastFrameTime = timestamp;
+    state.currentFrame = (state.currentFrame + 1) % state.totalFrames;
+    interpolatePose(state.currentFrame);
+    applyPose();
+    updatePlayhead();
+  }
+  state.animId = requestAnimationFrame(animLoop);
+}
+
+function play() {
+  if (state.keyframes.length < 2) { setStatus('Need at least 2 keyframes'); return; }
+  state.playing = true;
+  lastFrameTime = 0;
+  state.animId = requestAnimationFrame(animLoop);
+}
+
+function stop() {
+  state.playing = false;
+  if (state.animId) cancelAnimationFrame(state.animId);
+}
+
+// ─── UI Updates ───
+function updatePartsList() {
+  const list = document.getElementById('parts-list');
+  if (!state.parts.length) { list.innerHTML = '<em style="color:#666">No parts yet — draw cuts first</em>'; return; }
+  list.innerHTML = state.parts.map(p => `
+    <div class="part-item" data-id="${p.id}">
+      <span><span class="pivot-dot" style="background:${p.color}"></span>${p.name} (${p.strokeIndices.length})</span>
+      <span style="color:#666">${p.pivotX ? '🔵' : '—'}</span>
+    </div>
+  `).join('');
+
+  list.querySelectorAll('.part-item').forEach(el => {
+    el.addEventListener('click', () => {
+      const id = parseInt(el.dataset.id);
+      const part = state.parts.find(p => p.id === id);
+      if (!part) return;
+      showPartModal(part);
+    });
+  });
+}
+
+function updateSkeletonTree() {
+  const tree = document.getElementById('skeleton-tree');
+  const roots = state.parts.filter(p => p.parentId === -1);
+  if (!roots.length) { tree.innerHTML = '<em style="color:#666">Place pivots to build skeleton</em>'; return; }
+
+  function renderNode(part, depth = 0) {
+    const children = state.parts.filter(p => p.parentId === part.id);
+    const indent = '  '.repeat(depth);
+    let html = `<div style="padding-left:${depth*16}px; color:${part.color}">${indent}${part.pivotX ? '🔵' : '○'} ${part.name}</div>`;
+    children.forEach(c => { html += renderNode(c, depth + 1); });
+    return html;
+  }
+  tree.innerHTML = roots.map(r => renderNode(r)).join('');
+}
+
+function updatePoseInfo() {
+  const info = document.getElementById('pose-info');
+  if (state.mode !== 'pose') { info.innerHTML = '<em style="color:#666">Switch to Pose mode</em>'; return; }
+  info.innerHTML = state.parts.filter(p => p.pivotX || p.offsetX || p.offsetY).map(p =>
+    `<div style="color:${p.color}">${p.name}: ${(Number(p.angle)||0).toFixed(1)}° ↔${(Number(p.offsetX)||0).toFixed(0)} ↕${(Number(p.offsetY)||0).toFixed(0)}</div>`
+  ).join('');
+}
+
+function renderTimeline() {
+  const tl = document.getElementById('timeline');
+  tl.querySelectorAll('.keyframe-marker').forEach(el => el.remove());
+  state.keyframes.forEach(k => {
+    const pct = (k.frame / state.totalFrames) * 100;
+    const marker = document.createElement('div');
+    marker.className = 'keyframe-marker';
+    marker.style.left = pct + '%';
+    marker.title = `Frame ${k.frame}`;
+    tl.appendChild(marker);
+  });
+  updatePlayhead();
+}
+
+function updatePlayhead() {
+  const ph = document.getElementById('playhead');
+  ph.style.left = (state.currentFrame / state.totalFrames * 100) + '%';
+  document.getElementById('frame-num').textContent = `${state.currentFrame} / ${state.totalFrames}`;
+}
+
+function setStatus(msg) { document.getElementById('status').textContent = msg; }
+
+// ─── Walk Cycle Preset ───
+function generateWalkCycle() {
+  if (state.parts.length < 2) { setStatus('Need parts first!'); return; }
+  const partsWithPivots = state.parts.filter(p => p.pivotX);
+  if (!partsWithPivots.length) { setStatus('Place pivots first!'); return; }
+
+  state.totalFrames = 24;
+  state.keyframes = [];
+
+  // Shuffle & bob: gentle sway side-to-side, slight bob via rotation
+  // Each part gets a small angle based on its role
+  // Convention: parts sorted top-to-bottom, so part 0 is likely head/body
+  const n = partsWithPivots.length;
+
+  function makePose(angles) {
+    const pose = {};
+    partsWithPivots.forEach((p, i) => { pose[p.id] = angles[i] || 0; });
+    // Fill any missing parts
+    state.parts.forEach(p => { if (!(p.id in pose)) pose[p.id] = 0; });
+    return pose;
+  }
+
+  // 4-keyframe shuffle: neutral → lean right → neutral → lean left
+  // Head/upper body: ±2° tilt (bob)
+  // Arms/staff: ±5° swing
+  // Robe/lower: ±1.5° counter-sway
+  const swings = partsWithPivots.map((p, i) => {
+    // Guess role from vertical position
+    const cy = p.strokeIndices.reduce((sum, si) => {
+      return sum + state.strokes[si].pts.reduce((s, pt) => s + pt[1], 0) / state.strokes[si].pts.length;
+    }, 0) / p.strokeIndices.length;
+    const allCys = partsWithPivots.map((pp, ii) => {
+      return pp.strokeIndices.reduce((sum, si) => {
+        return sum + state.strokes[si].pts.reduce((s, pt) => s + pt[1], 0) / state.strokes[si].pts.length;
+      }, 0) / pp.strokeIndices.length;
+    });
+    const minCy = Math.min(...allCys), maxCy = Math.max(...allCys);
+    const t = maxCy > minCy ? (cy - minCy) / (maxCy - minCy) : 0.5;
+
+    if (t < 0.33) return 2;    // upper body: subtle bob
+    if (t < 0.66) return 5;    // arms/mid: bigger swing
+    return 1.5;                 // lower: gentle counter-sway
+  });
+
+  state.keyframes.push({ frame: 0,  pose: makePose(swings.map(() => 0)) });
+  state.keyframes.push({ frame: 6,  pose: makePose(swings.map((s, i) => (i % 2 === 0 ? s : -s))) });
+  state.keyframes.push({ frame: 12, pose: makePose(swings.map(() => 0)) });
+  state.keyframes.push({ frame: 18, pose: makePose(swings.map((s, i) => (i % 2 === 0 ? -s : s))) });
+
+  renderTimeline();
+  setStatus('Shuffle & bob cycle generated — press ▶');
+}
+
+// ─── Timeline scrubbing ───
+document.getElementById('timeline').addEventListener('click', e => {
+  const rect = e.currentTarget.getBoundingClientRect();
+  const pct = (e.clientX - rect.left) / rect.width;
+  state.currentFrame = Math.round(pct * state.totalFrames) % state.totalFrames;
+  interpolatePose(state.currentFrame);
+  applyPose();
+  updatePlayhead();
+  updatePoseInfo();
+});
+
+// ─── Button wiring ───
+document.getElementById('btn-cut').addEventListener('click', () => {
+  state.mode = 'cut';
+  document.querySelectorAll('#toolbar button').forEach(b => b.classList.remove('active'));
+  document.getElementById('btn-cut').classList.add('active');
+  document.getElementById('canvas-wrap').style.cursor = 'crosshair';
+});
+document.getElementById('btn-pivot').addEventListener('click', () => {
+  state.mode = 'pivot';
+  document.querySelectorAll('#toolbar button').forEach(b => b.classList.remove('active'));
+  document.getElementById('btn-pivot').classList.add('active');
+  document.getElementById('canvas-wrap').style.cursor = 'pointer';
+});
+document.getElementById('btn-pose').addEventListener('click', () => {
+  state.mode = 'pose';
+  document.querySelectorAll('#toolbar button').forEach(b => b.classList.remove('active'));
+  document.getElementById('btn-pose').classList.add('active');
+  document.getElementById('canvas-wrap').style.cursor = 'grab';
+  updatePoseInfo();
+});
+document.getElementById('btn-drag').addEventListener('click', () => {
+  state.mode = 'drag';
+  document.querySelectorAll('#toolbar button').forEach(b => b.classList.remove('active'));
+  document.getElementById('btn-drag').classList.add('active');
+  document.getElementById('canvas-wrap').style.cursor = 'move';
+  updatePoseInfo();
+});
+document.getElementById('btn-undo').addEventListener('click', () => {
+  if (state.mode === 'pivot') {
+    // Undo last pivot
+    const partsWithPivots = state.parts.filter(p => p.pivotX || p.pivotY);
+    if (partsWithPivots.length) {
+      const last = partsWithPivots[partsWithPivots.length - 1];
+      last.pivotX = 0; last.pivotY = 0; last.parentId = -1;
+      last.angle = 0; last.offsetX = 0; last.offsetY = 0;
+      // Remove last pivot marker
+      const markers = document.querySelectorAll('#pivots-layer circle');
+      if (markers.length) markers[markers.length - 1].remove();
+      // Clear transforms on that part's strokes
+      last.strokeIndices.forEach(si => state.strokes[si].el.removeAttribute('transform'));
+      applyPose();
+      updatePartsList();
+      updateSkeletonTree();
+      autoSave();
+      setStatus(`Removed pivot from ${last.name}`);
+    }
+  } else {
+    // Undo last cut
+    if (state.cuts.length) {
+      const cut = state.cuts.pop();
+      cut.el.remove();
+      repartition();
+    }
+  }
+});
+document.getElementById('btn-clear-pivots').addEventListener('click', () => {
+  state.parts.forEach(p => {
+    p.pivotX = 0; p.pivotY = 0; p.parentId = -1;
+    p.angle = 0; p.offsetX = 0; p.offsetY = 0;
+  });
+  document.getElementById('pivots-layer').innerHTML = '';
+  state.strokes.forEach(s => s.el.removeAttribute('transform'));
+  applyPose();
+  colorParts();
+  updatePartsList();
+  updateSkeletonTree();
+  updatePoseInfo();
+  autoSave();
+  setStatus('Pivots cleared');
+});
+document.getElementById('btn-clear-cuts').addEventListener('click', () => {
+  state.cuts = [];
+  state.keyframes = [];
+  document.querySelectorAll('.cut-line').forEach(el => el.remove());
+  document.getElementById('parts-layer').innerHTML = '';
+  document.getElementById('pivots-layer').innerHTML = '';
+  state.parts = [];
+  state.strokes.forEach(s => { s.partId = -1; s.el.removeAttribute('transform'); });
+  updatePartsList();
+  updateSkeletonTree();
+  renderTimeline();
+  localStorage.removeItem(STORAGE_KEY);
+  setStatus('Cuts cleared');
+});
+let previewMode = false;
+document.getElementById('btn-preview').addEventListener('click', () => {
+  previewMode = !previewMode;
+  const btn = document.getElementById('btn-preview');
+  btn.classList.toggle('active', previewMode);
+
+  // Toggle overlay, cuts, pivots visibility
+  document.getElementById('parts-layer').style.display = previewMode ? 'none' : '';
+  document.getElementById('cuts-layer').style.display = previewMode ? 'none' : '';
+  document.getElementById('pivots-layer').style.display = previewMode ? 'none' : '';
+
+  // Force all strokes to black
+  state.strokes.forEach(s => {
+    s.el.setAttribute('stroke', previewMode ? '#000000' : s.color);
+  });
+
+  // Hide sidebar in preview
+  document.getElementById('sidebar').style.display = previewMode ? 'none' : '';
+  document.getElementById('canvas-wrap').style.right = previewMode ? '0' : '260px';
+
+  // White background
+  document.getElementById('canvas-wrap').style.background = previewMode ? '#fff' : '';
+});
+
+document.getElementById('btn-play').addEventListener('click', play);
+document.getElementById('btn-stop').addEventListener('click', stop);
+document.getElementById('btn-key').addEventListener('click', addKeyframe);
+document.getElementById('btn-walk').addEventListener('click', generateWalkCycle);
+
+// ─── Persistence (localStorage) ───
+const STORAGE_KEY = 'rig-moses';
+
+function saveState() {
+  const data = {
+    cuts: state.cuts.map(c => ({ pts: c.pts })),
+    parts: state.parts.map(p => ({
+      id: p.id, regionKey: p.regionKey, name: p.name,
+      pivotX: p.pivotX, pivotY: p.pivotY,
+      parentId: p.parentId, angle: p.angle || 0,
+      offsetX: p.offsetX || 0, offsetY: p.offsetY || 0,
+    })),
+    keyframes: state.keyframes,
+    totalFrames: state.totalFrames,
+    currentFrame: state.currentFrame,
+  };
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+}
+
+function restoreState() {
+  const raw = localStorage.getItem(STORAGE_KEY);
+  if (!raw) return false;
+  try {
+    const data = JSON.parse(raw);
+
+    // Replay cuts
+    const svg = document.getElementById('main-svg');
+    const cutsLayer = svg.querySelector('#cuts-layer');
+    data.cuts.forEach(c => {
+      const line = nsEl('polyline', {
+        stroke: '#ff0000', 'stroke-width': '3', fill: 'none',
+        'stroke-linecap': 'round', 'stroke-linejoin': 'round',
+        class: 'cut-line'
+      });
+      line.setAttribute('points', c.pts.map(p => p.join(',')).join(' '));
+      cutsLayer.appendChild(line);
+      state.cuts.push({ pts: c.pts, el: line });
+    });
+
+    // Repartition to assign strokes to regions
+    if (state.cuts.length) repartition();
+
+    // Restore part metadata (names, pivots, parents, poses)
+    data.parts.forEach(saved => {
+      const part = state.parts.find(p => p.regionKey === saved.regionKey);
+      if (!part) return;
+      part.name = saved.name;
+      part.pivotX = saved.pivotX;
+      part.pivotY = saved.pivotY;
+      part.parentId = saved.parentId;
+      part.angle = saved.angle;
+      part.offsetX = saved.offsetX;
+      part.offsetY = saved.offsetY;
+    });
+
+    // Redraw pivots
+    const pivotsLayer = svg.querySelector('#pivots-layer');
+    state.parts.forEach(p => {
+      if (!p.pivotX && !p.pivotY) return;
+      const circle = nsEl('circle', {
+        cx: p.pivotX, cy: p.pivotY, r: '6',
+        fill: '#0fbcf9', stroke: '#fff', 'stroke-width': '1.5',
+        class: 'pivot-marker'
+      });
+      pivotsLayer.appendChild(circle);
+    });
+
+    // Restore animation
+    state.keyframes = data.keyframes || [];
+    state.totalFrames = data.totalFrames || 24;
+    state.currentFrame = data.currentFrame || 0;
+
+    // Apply
+    applyPose();
+    colorParts();
+    updatePartsList();
+    updateSkeletonTree();
+    renderTimeline();
+    updatePlayhead();
+
+    setStatus(`Restored ${state.cuts.length} cuts, ${state.parts.length} parts, ${state.keyframes.length} keyframes`);
+    return true;
+  } catch (e) {
+    console.error('Failed to restore state:', e);
+    return false;
+  }
+}
+
+// Auto-save on every meaningful change
+function autoSave() { requestAnimationFrame(() => saveState()); }
+
+// Patch functions that change state to auto-save
+const _origRepartition = repartition;
+repartition = function() { _origRepartition(); autoSave(); };
+
+const _origPlacePivot = placePivot;
+placePivot = function(svg, x, y) { _origPlacePivot(svg, x, y); autoSave(); };
+
+const _origAddKeyframe = addKeyframe;
+addKeyframe = function() { _origAddKeyframe(); autoSave(); };
+
+// Save after pose/drag interactions
+document.addEventListener('pointerup', () => {
+  if (state.draggingPart) autoSave();
+});
+
+// Save after walk cycle generation
+const _origWalk = generateWalkCycle;
+generateWalkCycle = function() { _origWalk(); autoSave(); };
+
+// ─── Init ───
+async function init() {
+  await loadSVG('/haggadah/06-let-my-people-go.svg');
+  restoreState();
+}
+init();
+</script>
+</body>
+</html>

@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spell It!</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #fff9f0;
+      font-family: 'Fredoka One', 'Segoe UI', sans-serif;
+      overflow: hidden;
+      gap: 32px;
+    }
+
+    /* ── emoji ── */
+    #emoji-display {
+      font-size: 160px;
+      line-height: 1;
+      transition: transform 0.15s;
+      filter: drop-shadow(0 8px 18px rgba(0,0,0,0.12));
+      cursor: default;
+    }
+    #emoji-display.wiggle {
+      animation: wiggle 0.4s ease-in-out;
+    }
+    @keyframes wiggle {
+      0%,100% { transform: rotate(0deg) scale(1); }
+      25%      { transform: rotate(-12deg) scale(1.1); }
+      75%      { transform: rotate(12deg) scale(1.1); }
+    }
+
+    /* ── word hint boxes ── */
+    #letter-boxes {
+      display: flex;
+      gap: 18px;
+    }
+
+    .letter-box {
+      width: 80px;
+      height: 90px;
+      border-radius: 20px;
+      border: 6px solid #ddd;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 54px;
+      font-weight: 900;
+      color: #333;
+      text-transform: uppercase;
+      transition: border-color 0.2s, background 0.2s, transform 0.15s;
+      box-shadow: 0 4px 0 #ddd;
+    }
+    .letter-box.filled {
+      border-color: #4CAF50;
+      background: #e8f5e9;
+      box-shadow: 0 4px 0 #388e3c;
+      transform: translateY(-4px) scale(1.08);
+    }
+    .letter-box.wrong {
+      border-color: #f44336;
+      background: #ffebee;
+      animation: shake 0.35s ease-in-out;
+    }
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      25%      { transform: translateX(-10px); }
+      75%      { transform: translateX(10px); }
+    }
+
+    /* ── hint label ── */
+    #hint {
+      font-size: 1.6rem;
+      color: #aaa;
+      letter-spacing: 2px;
+      min-height: 2rem;
+    }
+
+    /* ── celebration overlay ── */
+    #celebrate {
+      display: none;
+      position: fixed;
+      inset: 0;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 24px;
+      z-index: 100;
+      pointer-events: none;
+    }
+    #celebrate.show {
+      display: flex;
+      pointer-events: all;
+    }
+
+    #celebrate-word {
+      font-size: clamp(60px, 15vw, 120px);
+      color: #fff;
+      text-shadow:
+        6px 6px 0 #e91e63,
+        -4px -4px 0 #ff9800,
+        8px -4px 0 #2196F3;
+      letter-spacing: 8px;
+      animation: stamp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+      transform: scale(0);
+    }
+    @keyframes stamp {
+      from { transform: scale(0) rotate(-8deg); }
+      to   { transform: scale(1) rotate(-3deg); }
+    }
+
+    #celebrate-emoji {
+      font-size: 100px;
+      animation: bounce-in 0.5s 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+      transform: scale(0);
+    }
+    @keyframes bounce-in {
+      from { transform: scale(0); }
+      to   { transform: scale(1); }
+    }
+
+    #next-btn {
+      pointer-events: all;
+      margin-top: 12px;
+      padding: 18px 48px;
+      font-family: 'Fredoka One', sans-serif;
+      font-size: 1.8rem;
+      border: none;
+      border-radius: 999px;
+      background: #4CAF50;
+      color: #fff;
+      cursor: pointer;
+      box-shadow: 0 6px 0 #388e3c;
+      transition: transform 0.1s, box-shadow 0.1s;
+      animation: bounce-in 0.4s 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+    }
+    #next-btn:active {
+      transform: translateY(4px);
+      box-shadow: 0 2px 0 #388e3c;
+    }
+
+    /* ── confetti canvas ── */
+    #confetti-canvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 99;
+    }
+
+    /* ── background overlay for celebrate ── */
+    #celebrate-bg {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      z-index: 98;
+    }
+    #celebrate-bg.show { display: block; }
+
+    /* ── wrong flash ── */
+    #wrong-flash {
+      position: fixed;
+      inset: 0;
+      background: rgba(255,50,50,0.25);
+      opacity: 0;
+      pointer-events: none;
+      z-index: 50;
+      transition: opacity 0.1s;
+    }
+  </style>
+</head>
+<body>
+
+<div id="emoji-display">🐷</div>
+<div id="letter-boxes"></div>
+<div id="hint"></div>
+
+<div id="wrong-flash"></div>
+<div id="celebrate-bg"></div>
+<canvas id="confetti-canvas"></canvas>
+
+<div id="celebrate">
+  <div id="celebrate-word"></div>
+  <div id="celebrate-emoji"></div>
+  <button id="next-btn" onclick="nextWord()">Next ➜</button>
+</div>
+
+<script>
+// ── Word list ────────────────────────────────────────────────
+const WORDS = shuffle([
+  { word: 'PIG',  emoji: '🐷' },
+  { word: 'CAT',  emoji: '🐱' },
+  { word: 'DOG',  emoji: '🐶' },
+  { word: 'COW',  emoji: '🐮' },
+  { word: 'HEN',  emoji: '🐔' },
+  { word: 'OWL',  emoji: '🦉' },
+  { word: 'BEE',  emoji: '🐝' },
+  { word: 'ANT',  emoji: '🐜' },
+  { word: 'FOX',  emoji: '🦊' },
+  { word: 'BUG',  emoji: '🐛' },
+  { word: 'SUN',  emoji: '☀️' },
+  { word: 'CAR',  emoji: '🚗' },
+  { word: 'BUS',  emoji: '🚌' },
+  { word: 'HAT',  emoji: '🎩' },
+  { word: 'CUP',  emoji: '🥤' },
+  { word: 'BAT',  emoji: '🦇' },
+  { word: 'MAP',  emoji: '🗺️' },
+  { word: 'LOG',  emoji: '🪵' },
+  { word: 'EGG',  emoji: '🥚' },
+  { word: 'JAM',  emoji: '🫙' },
+  { word: 'POT',  emoji: '🍯' },
+  { word: 'JET',  emoji: '✈️' },
+  { word: 'NET',  emoji: '🥅' },
+  { word: 'PEN',  emoji: '✏️' },
+  { word: 'BOX',  emoji: '📦' },
+  { word: 'BED',  emoji: '🛏️' },
+  { word: 'ICE',  emoji: '🧊' },
+  { word: 'PIE',  emoji: '🥧' },
+]);
+
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+// ── State ────────────────────────────────────────────────────
+let wordIndex   = 0;
+let typedSoFar  = '';
+let celebrating = false;
+
+const emojiEl    = document.getElementById('emoji-display');
+const boxesEl    = document.getElementById('letter-boxes');
+const hintEl     = document.getElementById('hint');
+const celebEl    = document.getElementById('celebrate');
+const celebBg    = document.getElementById('celebrate-bg');
+const celebWord  = document.getElementById('celebrate-word');
+const celebEmoji = document.getElementById('celebrate-emoji');
+const wrongFlash = document.getElementById('wrong-flash');
+
+// ── Audio via Web Audio API ──────────────────────────────────
+const AC = new (window.AudioContext || window.webkitAudioContext)();
+
+function playTone(freq, type = 'sine', dur = 0.18, vol = 0.4, delay = 0) {
+  const osc  = AC.createOscillator();
+  const gain = AC.createGain();
+  osc.connect(gain); gain.connect(AC.destination);
+  osc.type = type;
+  osc.frequency.setValueAtTime(freq, AC.currentTime + delay);
+  gain.gain.setValueAtTime(vol, AC.currentTime + delay);
+  gain.gain.exponentialRampToValueAtTime(0.001, AC.currentTime + delay + dur);
+  osc.start(AC.currentTime + delay);
+  osc.stop(AC.currentTime + delay + dur + 0.01);
+}
+
+function playGoodKey() {
+  // cheerful rising blip
+  playTone(520, 'triangle', 0.12, 0.35);
+  playTone(660, 'triangle', 0.12, 0.3, 0.08);
+}
+
+function playWrong() {
+  playTone(200, 'sawtooth', 0.18, 0.3);
+}
+
+function playWin() {
+  // little fanfare
+  const notes = [523, 659, 784, 1047];
+  notes.forEach((f, i) => playTone(f, 'triangle', 0.22, 0.45, i * 0.12));
+  // sparkle overtones
+  setTimeout(() => {
+    [1200, 1500, 1800].forEach((f, i) =>
+      playTone(f, 'sine', 0.15, 0.2, i * 0.06)
+    );
+  }, 350);
+}
+
+// ── Render current word ──────────────────────────────────────
+function renderWord() {
+  const { word, emoji } = WORDS[wordIndex % WORDS.length];
+  typedSoFar  = '';
+  celebrating = false;
+
+  emojiEl.textContent = emoji;
+  emojiEl.classList.remove('wiggle');
+
+  // hint: "Spell: _ _ _"
+  hintEl.textContent = `Spell: ${word.split('').join(' ')}`;
+
+  // build boxes
+  boxesEl.innerHTML = '';
+  word.split('').forEach(() => {
+    const div = document.createElement('div');
+    div.className = 'letter-box';
+    boxesEl.appendChild(div);
+  });
+
+  celebEl.classList.remove('show');
+  celebBg.classList.remove('show');
+}
+
+// ── Key handler ──────────────────────────────────────────────
+document.addEventListener('keydown', e => {
+  if (celebrating) return;
+  if (e.key.length !== 1) return;           // ignore arrows, shift, etc.
+  AC.resume();                               // unlock audio on first press
+
+  const key  = e.key.toUpperCase();
+  const { word } = WORDS[wordIndex % WORDS.length];
+  const expected = word[typedSoFar.length];
+
+  if (key === expected) {
+    typedSoFar += key;
+
+    // fill the box
+    const boxes = boxesEl.querySelectorAll('.letter-box');
+    const box   = boxes[typedSoFar.length - 1];
+    box.textContent = key;
+    box.classList.add('filled');
+
+    // wiggle emoji
+    emojiEl.classList.remove('wiggle');
+    void emojiEl.offsetWidth; // reflow
+    emojiEl.classList.add('wiggle');
+
+    playGoodKey();
+
+    if (typedSoFar === word) {
+      // 🎉 Done!
+      setTimeout(showCelebration, 300);
+    }
+  } else {
+    // wrong key – flash all unfilled boxes red briefly
+    playWrong();
+    wrongFlash.style.opacity = '1';
+    setTimeout(() => { wrongFlash.style.opacity = '0'; }, 180);
+
+    const boxes = boxesEl.querySelectorAll('.letter-box');
+    boxes[typedSoFar.length]?.classList.add('wrong');
+    setTimeout(() => boxes[typedSoFar.length]?.classList.remove('wrong'), 400);
+  }
+});
+
+// ── Celebration ──────────────────────────────────────────────
+function showCelebration() {
+  celebrating = true;
+  playWin();
+
+  const { word, emoji } = WORDS[wordIndex % WORDS.length];
+  celebWord.textContent  = word;
+  celebEmoji.textContent = emoji;
+
+  // reset animations by removing/re-adding
+  celebWord.style.animation  = 'none';
+  celebEmoji.style.animation = 'none';
+  void celebWord.offsetWidth;
+  celebWord.style.animation  = '';
+  celebEmoji.style.animation = '';
+
+  celebBg.classList.add('show');
+  celebEl.classList.add('show');
+  launchConfetti();
+}
+
+function nextWord() {
+  wordIndex++;
+  stopConfetti();
+  renderWord();
+}
+
+// ── Confetti ─────────────────────────────────────────────────
+const canvas = document.getElementById('confetti-canvas');
+const ctx    = canvas.getContext('2d');
+let confettiParticles = [];
+let confettiRAF = null;
+let confettiRunning = false;
+
+const CONFETTI_COLORS = ['#FF6B6B','#FFD93D','#6BCB77','#4D96FF','#FF922B','#CC5DE8','#F06595','#20C997'];
+
+function resizeCanvas() {
+  canvas.width  = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
+
+function launchConfetti() {
+  confettiParticles = [];
+  for (let i = 0; i < 140; i++) {
+    confettiParticles.push({
+      x:    Math.random() * canvas.width,
+      y:    -10 - Math.random() * 200,
+      w:    6  + Math.random() * 10,
+      h:    10 + Math.random() * 14,
+      color: CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)],
+      rot:  Math.random() * 360,
+      rotV: (Math.random() - 0.5) * 8,
+      vx:   (Math.random() - 0.5) * 3,
+      vy:   2.5 + Math.random() * 3.5,
+    });
+  }
+  confettiRunning = true;
+  animateConfetti();
+}
+
+function animateConfetti() {
+  if (!confettiRunning) return;
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  confettiParticles.forEach(p => {
+    p.x   += p.vx;
+    p.y   += p.vy;
+    p.rot += p.rotV;
+    ctx.save();
+    ctx.translate(p.x, p.y);
+    ctx.rotate(p.rot * Math.PI / 180);
+    ctx.fillStyle = p.color;
+    ctx.fillRect(-p.w/2, -p.h/2, p.w, p.h);
+    ctx.restore();
+  });
+  confettiParticles = confettiParticles.filter(p => p.y < canvas.height + 20);
+  if (confettiParticles.length > 0) {
+    confettiRAF = requestAnimationFrame(animateConfetti);
+  } else {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }
+}
+
+function stopConfetti() {
+  confettiRunning = false;
+  cancelAnimationFrame(confettiRAF);
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+// ── Go! ──────────────────────────────────────────────────────
+renderWord();
+</script>
+</body>
+</html>

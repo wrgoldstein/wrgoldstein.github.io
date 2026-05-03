@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" href="../favicon.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		
+		<link href="../_app/immutable/assets/0.D97B4Q7z.css" rel="stylesheet">
+		<link href="../_app/immutable/assets/5.BidhpuIP.css" rel="stylesheet">
+		<link href="../_app/immutable/assets/farkle.BopMSokE.css" rel="stylesheet">
+		<link href="../_app/immutable/assets/qigong.DlYCiY5B.css" rel="stylesheet">
+		<link href="../_app/immutable/assets/uncertainty.UeqRxTkb.css" rel="stylesheet">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.D2R3KoB3.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/entry.Cgw0K9Rr.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/runtime.D0xmrmwk.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/control.CYgJF_JY.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.D4GoMzny.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/preload-helper.C1FmrZbK.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/render.CCFOqMgC.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/misc.B9QI8j-U.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/svelte-head.BQ2N_XtV.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/disclose-version.Z0CCbWqE.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/if.B34CpML3.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/proxy.vwcK3GfF.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/this.CdxOKg8F.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/props.DdVC73U4.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/store.BESZJ4mG.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/index-client.CDuTJcmm.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/0.CGzwjbU5.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/snippet.BjMrsoef.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/2.D4qFGyIm.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/5.DtKtH01P.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/attributes.CqzbtpSd.js"><!--[--><meta data-key="description" name="description"> <meta property="og:type" content="article"> <meta property="og:title" content="Mug"> <meta name="twitter:title" content="Mug"> <meta property="og:description"> <meta name="twitter:description"> <meta property="og:image:width"> <meta property="og:image:height"><!--]--><title>Mug</title>
+	</head>
+	<body data-sveltekit-preload-data="hover">
+		<div style="display: contents"><!--[--><!--[--><!----><!--[--><!----><!----><article class="tracking-wide prose mx-auto mt-16 prose-a:text-twirl prose-pre:border prose-pre:border-neutral-700 prose-img:rounded-xl prose-figcaption:lg:-ml-[5ch] prose-figcaption:lg:max-w-[75ch] prose-img:lg:-ml-[5ch] prose-img:lg:max-w-[90ch] px-8 lg:max-w-[85ch] mb-16 svelte-186u6n8"><a href="/blog" class="text-gray-500 hover:text-gray-700">← Back</a> <img class="cover-image" alt="" style="aspect-ratio:  / ;"> <div class="flex gap-2 text-sm">March 26, 2026</div> <h1 class="text-5xl font-[400] text-purple mt-6 mb-12">Mug</h1> <p>I deleted vscode this week, and my only text editor now is one I vibe coded.</p> <p>It’s called <strong>Mug</strong>. It’s built with <a href="https://v2.tauri.app/" rel="nofollow">Tauri</a> (Rust) and <a href="https://svelte.dev/" rel="nofollow">SvelteKit</a> (TypeScript). It has syntax highlighting, a file tree, tabs, find and replace, and a steaming coffee mug on the welcome screen. It’s about 3,000 lines of code and a 15MB binary.</p> <p>I’m not trying to replace VS Code. I just wanted to see what it feels like to build something you use every day, from scratch, with tools you enjoy.</p> <h2>The stack</h2> <p>Tauri gives you a native app shell with a webview. Your frontend is HTML/CSS/JS — in my case, SvelteKit. The backend is Rust, which handles filesystem access, dialogs, and shell commands. The two talk through a simple invoke/command bridge.</p> <p>The editing surface is a <code>&lt;textarea></code> overlaid on a <a href="https://shiki.style/" rel="nofollow">Shiki</a> syntax-highlighted code layer. The textarea is transparent; you type into it but see the colored code underneath. It’s a hack, but a surprisingly effective one.</p> <h2>What I learned about building tools for yourself</h2> <p>The best feature prioritization framework is dogfooding. Once I deleted VS Code and started using Mug full-time, the missing features sorted themselves immediately:</p> <ol><li><strong>Multi-file tabs</strong> — I couldn’t open two files at once. This was first.</li> <li><strong>Cmd+D select next occurrence</strong> — I kept reaching for it and nothing happened.</li> <li><strong>Word wrap</strong> — some files were just unreadable.</li> <li><strong>Find and replace</strong> — obvious.</li> <li><strong>fzf file search</strong> — the JS fuzzy matcher I wrote was fine, but piping <code>fd</code> into <code>fzf --filter</code> on the Rust side was instant and matched what my muscle memory expected.</li></ol> <p>The zoxide integration for opening projects was a happy accident. Instead of a native file picker (slow, off-brand), Cmd+O opens a palette of your most-used directories ranked by frecency. You type a few characters and hit enter. It feels like <code>cd</code>-ing in your terminal.</p> <h2>Design</h2> <p>I wanted the editor to feel calm. Scandinavian minimalist: warm charcoal backgrounds, muted text, almost no borders. The only color is a copper accent (<code>#c8956c</code>) that shows up on the cursor, the active tab underline, dirty file indicators, and the git branch icon.</p> <p>The header toolbar is gone — no buttons, no dropdowns. If you know the shortcut, you don’t need the button. If you don’t, the welcome screen shows you.</p> <p>Speaking of which: the welcome screen has an SVG coffee mug that fills up with a Svelte <code>Tween</code>, then canvas particles drift off it as steam. It says “let’s get to work” in copper underneath. It’s completely unnecessary and I love it.</p> <h2>The small details</h2> <ul><li>The tab bar has a tiny SVG mug in the top right with animated steam wisps</li> <li>Git-modified files glow copper in the sidebar, new files are green</li> <li>The sidebar resize handle is invisible until you hover it, then it turns copper</li> <li>The file path in the footer uses <code>…</code> to collapse deep paths: <code>src/…/nested/File.svelte</code></li> <li>Closing all tabs brings you back to the welcome screen and the mug fills up again</li></ul> <h2>What’s missing</h2> <p>Plenty. There’s no multi-cursor (textareas don’t support it). No minimap. No extensions. No LSP. The architecture note in my TODO file says it plainly: a <code>&lt;textarea></code> will eventually fight you, and the real path forward is swapping in CodeMirror 6 as the editing core.</p> <p>But that’s a future problem. Right now it opens fast, the shortcuts work, and the steam rises from the mug while I think about what to type next.</p> <p><a href="https://github.com/wrgoldstein/mug" rel="nofollow">github.com/wrgoldstein/mug</a></p><!----> <div class="mt-16"><a href="/blog" class="text-gray-500 hover:text-gray-700">← Back</a></div></article><!----><!----><!----><!--]--><!----><!----><!--]--> <!--[!--><!--]--><!--]-->
+			
+			<script>
+				{
+					__sveltekit_m2kv78 = {
+						base: new URL("..", location).pathname.slice(0, -1)
+					};
+
+					const element = document.currentScript.parentElement;
+
+					const data = [null,null,null];
+
+					Promise.all([
+						import("../_app/immutable/entry/start.D2R3KoB3.js"),
+						import("../_app/immutable/entry/app.D4GoMzny.js")
+					]).then(([kit, app]) => {
+						kit.start(app, element, {
+							node_ids: [0, 2, 5],
+							data,
+							form: null,
+							error: null
+						});
+					});
+				}
+			</script>
+		</div>
+	</body>
+</html>
